@@ -31,6 +31,10 @@ class User(db.Model, UserMixin):
 
     playlist_following = db.relationship("Playlist", secondary="playlist_followers", back_populates="playlist_follower")
 
+    followers = db.relationship("User", secondary=user_followers, primaryjoin=(user_followers.c.user_followers == id), secondaryjoin=(user_followers.c.user_following == id), backref=db.backref('user_followers', lazy='dynamic'), lazy='dynamic')
+
+    
+
     @property
     def password(self):
         return self.hashed_password
