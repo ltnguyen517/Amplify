@@ -1,7 +1,17 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
 
+user_followers = db.Table(
+    "user_followers",
+    db.Model.metadata,
+    db.Column("user_followers", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id"))),
+    db.Column("user_following", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
+)
+
+if environment == 'production':
+    user_followers.schema = SCHEMA
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -13,6 +23,13 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    profile_picture = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    playlist_amplifyusers = db.relationship("Playlist", back_populates="playlist_ofperson")
+
+    playlist_following = db.relationship("Playlist", secondary="playlist_followers", back_populates="playlist_follower")
 
     @property
     def password(self):
