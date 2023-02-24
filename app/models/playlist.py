@@ -39,7 +39,7 @@ class Playlist(db.Model):
 
     playlist_follower = db.relationship("User", secondary=playlist_followers, back_populates="playlist_following")
 
-    playlist_song_inventory = db.relationship("Song", secondary=playlist_songs, back_populates="playlist_song")
+    playlist_song_inventory = db.relationship("Song", secondary=playlist_songs, back_populates="song_within_playlist")
 
     playlist_ofperson = db.relationship("User", back_populates="playlist_amplifyusers")
 
