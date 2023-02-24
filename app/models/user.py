@@ -1,7 +1,12 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from sqlalchemy.sql import func
 from datetime import datetime
+
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get('SCHEMA')
 
 user_followers = db.Table(
     "user_followers",
@@ -33,8 +38,6 @@ class User(db.Model, UserMixin):
 
     followers = db.relationship("User", secondary=user_followers, primaryjoin=(user_followers.c.user_followers == id), secondaryjoin=(user_followers.c.user_following == id), backref=db.backref('user_followers', lazy='dynamic'), lazy='dynamic')
 
-    
-
     @property
     def password(self):
         return self.hashed_password
@@ -50,5 +53,10 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'picture': self.profile_picture,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at,
+            'amplifyPlaylists': [playlist.to_dict() for playlist in self.playlist_amplifyusers],
+            'following': [followingplaylist.to_dict(user=True) for followingplaylist in self.playlist_following]
         }
