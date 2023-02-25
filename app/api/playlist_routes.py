@@ -2,6 +2,7 @@ from flask import Blueprint, request, session, render_template, jsonify
 from app.models import db, Playlist, User, Song
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
+from sqlalchemy.sql import func
 from ..forms import PlaylistForm
 import boto3
 import botocore
@@ -48,7 +49,7 @@ def get_playlists():
 
 # Get one specific playlist
 
-@playlist_routes.route("/<int:playlistId")
+@playlist_routes.route("/<int:playlistId>")
 def get_a_playlist(playlistId):
     playlist = Playlist.query.get(playlistId)
     if playlist:
@@ -97,6 +98,27 @@ def insertsong_to_playlist(playlistId, songId):
     else:
         return {"note": f"The playlist with the id of {playlistId} was not found"}
 
+# Edit a playlist
+
+@playlist_routes.route("/<int:playlistId>", methods=["PUT"])
+@login_required
+def edit_playlist(playlistId):
+    playlist = Playlist.query.get(playlistId)
+    if not playlist:
+        return {"errors": ["Playlist couldn't be found"]}, 404
+
+    form = PlaylistForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        playlist.title = request.get_json()["title"]
+        playlist.description = request.get_json()["description"]
+        playlist.playlist_picture = request.get_json()["playlist_picture"]
+        db.session.commit()
+        return playlist.to_dict(user=True)
+    if form.errors:
+        return form.errors
+
+
 # Delete a song from a playlist
 
 @playlist_routes.route("/<int:playlistId>/removesong/<int:songId>", methods=['DELETE'])
@@ -116,3 +138,19 @@ def deletesong_from_playlist(playlistId, songId):
             return {"note": f"The song with the id of {songId} was not found"}
     else:
         return {"note": f"The playlist with the id of {playlistId} was not found"}
+
+# Delete a playlist
+
+@playlist_routes.route("/<int:playlistId>", methods=["DELETE"])
+@login_required
+def delete_playlist(playlistId):
+    playlist = Playlist.query.get(playlistId)
+    if playlist:
+        if current_user.id == playlist.creator_id:
+            db.session.delete(playlist)
+            db.session.commit()
+            return {"note": "You have successfully deleted your playlist"}
+        else:
+            return {"note": "Not able to delete a playlist that is not owned by you"}
+    else:
+        return {"note": f"Playlist with the id of {playlistId} was not found"}
