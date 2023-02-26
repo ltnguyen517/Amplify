@@ -64,4 +64,38 @@ export default function PlaylistPage(){
         }
         await dispatch(actionthunksPlaylist.createPlaylist(brandNewPlaylist))
     }
+
+    return (
+        <>
+            {!!aPlaylist.User && (
+                <div className="playlistarea" style={{color:"white"}}>
+                    {sessionUser?.id !== aPlaylist?.User?.id && (
+                        <div className="plheader" style={{backgroundImage: `url(${playlist.playlist_picture})`, backgroundSize: "0.5px 0.5px", width: "109%", paddingBottom: "40px"}}>
+                            <div className="plpicarea" style={{paddingLeft: "30px"}}>
+                                <img className="plpic" src={playlist.playlist_picture} />
+                            </div>
+                            <div className="plinfoarea" style={{marginTop: "50px"}}>
+                                <div className="pltext" style={{fontSize: "12px"}}>
+                                    PLAYLIST
+                                </div>
+                                <div className="pltitle" style={{fontSize: "65px", fontWeight: "700", textDecoration: "none"}}>
+                                    {playlist.title}
+                                </div>
+                                <div className="pldescription">
+                                    {playlist.description}
+                                </div>
+                                <div>
+                                    <Link style={{textDecoration: "none", color: "white"}} to={`/user/${aPlaylist?.User?.id}`}>
+                                        {aPlaylist?.User?.username}
+                                    </Link>
+                                    <span style={{fontSize: "20px"}}>·</span>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            )}
+        </>
+    )
 }
