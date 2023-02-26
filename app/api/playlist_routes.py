@@ -44,7 +44,7 @@ def upload_picture():
 @playlist_routes.route("/")
 def get_playlists():
     get_playlists = Playlist.query.all()
-    playlistsdict = [play.to_dict(user=True) for play in get_playlists]
+    playlistsdict = [play.to_dict() for play in get_playlists]
     return {"Playlists": playlistsdict}
 
 # Get one specific playlist

@@ -13,12 +13,12 @@ class Song(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    album_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("albums.id")))
+    # album_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("albums.id")))
     song_url = db.Column(db.String)
 
     song_within_playlist = db.relationship("Playlist", secondary="playlist_songs", back_populates="playlist_song_inventory")
 
-    albums = db.relationship("Album", back_populates="songs")
+    # albums = db.relationship("Album", back_populates="songs")
 
     def to_dict(self):
         return {
@@ -26,5 +26,5 @@ class Song(db.Model):
             'name': self.name,
             'albumId': self.album_id,
             'songUrl': self.song_url,
-            'album': self.albums.to_dict()
+            # 'album': self.albums.to_dict()
         }

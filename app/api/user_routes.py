@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required
 from app.models import db, User, Playlist
+from app.models.user import user_followers
 
 user_routes = Blueprint('users', __name__)
 
@@ -29,7 +30,7 @@ def user(id):
 @user_routes.route("/<int:id>/playlists")
 def get_playlist_of_user(id):
     user = User.query.get(id)
-    return user.to_dict(playlist=True)
+    return user.to_dict(amplifyPlaylists=True)
 
 # User wants to follow a playlist
 
@@ -52,7 +53,7 @@ def playlist_follow(id, playlistId):
 
 @user_routes.route("/<int:id>/playlist-follow/<int:playlistId>", methods=["DELETE"])
 @login_required
-def playlist_follow(id, playlistId):
+def playlist_follow_delete(id, playlistId):
     user = User.query.get(id)
     playlist = Playlist.query.get(playlistId)
     if user:
