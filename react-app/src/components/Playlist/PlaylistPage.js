@@ -58,7 +58,7 @@ export default function PlaylistPage(){
         e.preventDefault()
         const brandNewPlaylist = {
             "creator_id": sessionUser.id,
-            "title": `Playlist Number ${lengthUserPlaylists}`,
+            "title": `My Playlist #${lengthUserPlaylists}`,
             "description": "Write a description for your new playlist here.",
             "playlist_picture": "https://community.spotify.com/t5/image/serverpage/image-id/55829iC2AD64ADB887E2A5/image-size/large?v=v2&px=999"
         }
@@ -89,7 +89,60 @@ export default function PlaylistPage(){
                                         {aPlaylist?.User?.username}
                                     </Link>
                                     <span style={{fontSize: "20px"}}>·</span>
-                                    
+                                    {aPlaylist?.Songs && (
+                                        <span>{aPlaylist?.Songs?.length} songs</span>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    <div className="plcontainer" style={{paddingLeft: "30px"}}>
+                        <div>
+                            {sessionUser && (
+                                <button className="pldeletebutton" hidden={sessionUser.id !== aPlaylist?.User?.id} onClick={(e) => {deletePlaylist(e); setEdit(!edit);}}>DELETE</button>
+                            )}
+                        </div>
+                    </div>
+                    <div className="songsheader" style={{paddingLeft: "30px", marginRight: "-95px"}}>
+                        <div className="number">
+                            <div>
+                                #
+                                &nbsp;
+                                Title
+                            </div>
+                        </div>
+                        <div>
+                            &nbsp;
+                            &nbsp;
+                            Album
+                        </div>
+                        <div style={{paddingRight: "20px"}}>
+                            <i class="fa-light fa-clock"></i>
+                        </div>
+                    </div>
+                    {aPlaylist.Songs && (
+                        <div>
+                            <div>
+                                <div>
+                                    <div></div>
+                                    <div>
+                                        <span></span>
+                                        <button style={{background: "none"}} className="dropdown-songs" onClick={(e) => activeMenu === song.id ? setActiveMenu(null) : setActiveMenu(song.id)}>...</button>
+                                        {activeMenu === song.id && (
+                                            <div>
+                                                <div>
+
+                                                </div>
+                                                <div>
+                                                    {showMenu && (
+                                                        <div>
+                                                            <button className="createplbutton" onClick={createPlaylist}>Create Playlist</button>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
