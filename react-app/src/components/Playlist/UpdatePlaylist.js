@@ -128,6 +128,42 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
         }
     }
     return (
-        
+        <div className='editplarea'>
+            <form className='editplform' onSubmit={handleSubmit}>
+                <h3>Editing information</h3>
+                <div>
+                    {errors.map((error) => {
+                        return <span>{error}</span>
+                    })}
+                </div>
+
+                <div className='editplinput'>
+
+                    <div style={{ width: "200px", height: "200px" }} className='editpicarea'>
+                        <label htmlFor='file-input'>
+                            <img style={{ width: "200px", height: "210px" }} src={playlistOfUser[0].playlist_picture} />
+                        </label>
+                        <input className="file-input" type='file' name='file' encType="multipart/form-data" />
+                    </div>
+
+                    <div className='titledescarea'>
+                        <label>Title</label>
+                        <input className="titlearea" name='title' type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
+
+                        <label>Description</label>
+                        <textarea placeholder='Add a description' className="descriptionwrite" name='description' type='text' value={description} onChange={(e) => setDescription(e.target.value)} />
+                    </div>
+                </div>
+
+                <div className="submiteditbutton">
+                    <button style={{ cursor: "pointer" }} className='editsubbutt' type='submit'>Save</button>
+                </div>
+            </form>
+
+            <div style={{ fontSize: "11.5px", marginTop: "10px", marginLeft: "10px" }}>
+                By proceeding, you agree to give Amplify access to the image you choose to upload. Please make sure you have the right to upload the image.
+            </div>
+        </div>
     )
 }
+export default UpdatePlaylist
