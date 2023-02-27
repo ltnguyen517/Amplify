@@ -67,7 +67,7 @@ export default function PlaylistPage(){
 
     return (
         <>
-            {!!aPlaylist.User && (
+            {aPlaylist.User && (
                 <div className="playlistarea" style={{color:"white"}}>
                     {sessionUser?.id !== aPlaylist?.User?.id && (
                         <div className="plheader" style={{backgroundImage: `url(${playlist.playlist_picture})`, backgroundSize: "0.5px 0.5px", width: "109%", paddingBottom: "40px"}}>
@@ -75,7 +75,7 @@ export default function PlaylistPage(){
                                 <img className="plpic" src={playlist.playlist_picture} />
                             </div>
                             <div className="plinfoarea" style={{marginTop: "50px"}}>
-                                <div className="pltext" style={{fontSize: "12px"}}>
+                                <div className="pltext" style={{fontSize: "13px"}}>
                                     PLAYLIST
                                 </div>
                                 <div className="pltitle" style={{fontSize: "65px", fontWeight: "700", textDecoration: "none"}}>
@@ -99,7 +99,7 @@ export default function PlaylistPage(){
                     <div className="plcontainer" style={{paddingLeft: "30px"}}>
                         <div>
                             {sessionUser && (
-                                <button className="pldeletebutton" hidden={sessionUser.id !== aPlaylist?.User?.id} onClick={(e) => {deletePlaylist(e); setEdit(!edit);}}>DELETE</button>
+                                <button className="pldeletebutton" hidden={sessionUser.id !== aPlaylist?.User?.id} onClick={(e) => {removePlaylist(e); setEdit(!edit);}}>DELETE</button>
                             )}
                         </div>
                     </div>
@@ -127,8 +127,8 @@ export default function PlaylistPage(){
                                     <div></div>
                                     <div>
                                         <span></span>
-                                        <button style={{background: "none"}} className="dropdown-songs" onClick={(e) => activeMenu === song.id ? setActiveMenu(null) : setActiveMenu(song.id)}>...</button>
-                                        {activeMenu === song.id && (
+                                        {/* <button style={{background: "none"}} className="dropdown-songs" onClick={(e) => activeMenu === song.id ? setActiveMenu(null) : setActiveMenu(song.id)}>...</button> */}
+                                        {/* {activeMenu === song.id && (
                                             <div>
                                                 <div>
 
@@ -141,7 +141,7 @@ export default function PlaylistPage(){
                                                     )}
                                                 </div>
                                             </div>
-                                        )}
+                                        )} */}
                                     </div>
                                 </div>
                             </div>

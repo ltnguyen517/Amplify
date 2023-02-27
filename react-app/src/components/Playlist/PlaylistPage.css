@@ -1,0 +1,41 @@
+.playlistarea{
+    padding-bottom: 80px;
+}
+.plheader{
+    display: flex;
+    flex-direction: row;
+    width: 103.12%;
+}
+.plpic {
+    box-shadow: 5px 5px 12px 5px black;
+    width: 230px;
+    height: 230px;
+    margin-top: 5.5px;
+}
+.plinfoarea{
+    padding-left: 50px;
+    padding-top: 50px;
+}
+.pldeletebutton{
+    background-color: #1ed760;
+    color: black;
+    font-weight: bold;
+    border-radius: 20px;
+    margin-top: 20px;
+    width: 100px;
+    height: 35px;
+    border: none;
+    cursor: pointer;
+    padding-top: 1px;
+}
+.songsheader{
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px #2c2c2c solid;
+    justify-content: space-between;
+    padding-right: 50px;
+}
+.number{
+    display: flex;
+    flex-direction: row;
+}
