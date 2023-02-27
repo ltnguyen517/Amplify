@@ -13,8 +13,9 @@ class Song(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    # album_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("albums.id")))
+    album_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("albums.id")))
     song_url = db.Column(db.String)
+    duration = db.Column(db.String)
 
     song_within_playlist = db.relationship("Playlist", secondary="playlist_songs", back_populates="playlist_song_inventory")
 
