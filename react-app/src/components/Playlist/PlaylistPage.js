@@ -67,7 +67,7 @@ export default function PlaylistPage(){
 
     return (
         <>
-            {aPlaylist.User && (
+            {!!aPlaylist.User && (
                 <div className="playlistarea" style={{color:"white"}}>
                     {sessionUser?.id !== aPlaylist?.User?.id && (
                         <div className="plheader" style={{backgroundImage: `url(${playlist.playlist_picture})`, backgroundSize: "0.5px 0.5px", width: "109%", paddingBottom: "40px"}}>
@@ -122,13 +122,14 @@ export default function PlaylistPage(){
                     </div>
                     {aPlaylist.Songs && (
                         <div>
+                            {aPlaylist.Songs.map((song) => {
                             <div>
                                 <div>
                                     <div></div>
                                     <div>
-                                        <span></span>
-                                        {/* <button style={{background: "none"}} className="dropdown-songs" onClick={(e) => activeMenu === song.id ? setActiveMenu(null) : setActiveMenu(song.id)}>...</button> */}
-                                        {/* {activeMenu === song.id && (
+                                        <span style={{width:"50px"}}>{song.duration}</span>
+                                        <button style={{background: "none"}} className="dropdown-songs" onClick={(e) => activeMenu === song.id ? setActiveMenu(null) : setActiveMenu(song.id)}>...</button>
+                                        {activeMenu === song.id && (
                                             <div>
                                                 <div>
 
@@ -141,10 +142,11 @@ export default function PlaylistPage(){
                                                     )}
                                                 </div>
                                             </div>
-                                        )} */}
+                                        )}
                                     </div>
                                 </div>
                             </div>
+                            })}
                         </div>
                     )}
                 </div>
