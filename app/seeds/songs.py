@@ -1,4 +1,4 @@
-from app.models import db, Song, environment, SCHEMA
+from app.models import db, Song, Playlist, environment, SCHEMA
 
 def seed_songs():
     last = Song(
@@ -209,4 +209,67 @@ def seed_songs():
 
     all_songs6 = [energy, down, lowe, wicked, magic]
     add_songs6 = [db.session.add(song) for song in all_songs6]
+    db.session.commit()
+
+    jazz = Playlist(
+        creator_id=1,
+        title='Chilled Jazz',
+        description='Mellow jazz to stay focused or unwind.',
+        playlist_picture='https://i.scdn.co/image/ab67706f00000002392a9feff0144c3929490108',
+        playlist_song_inventory= [last, danced, home, sunrise, vine]
+    )
+    rap = Playlist(
+        creator_id=2,
+        title='RapCaviar',
+        description='New music from Polo G, Don Toliver and A Boogie Wit da Hoodie.',
+        playlist_picture='https://i.scdn.co/image/ab67706c0000da843edc54301248b254cd66e43f',
+        playlist_song_inventory= [swag, shoes, broke, kobe, good]
+    )
+    kpop = Playlist(
+        creator_id=3,
+        title='K-Pop Fresh',
+        description='The freshest K-Pop of today!',
+        playlist_picture='https://i.scdn.co/image/ab67706f0000000282065b75f9e16e007bc61e01',
+        playlist_song_inventory= [lost, you, friend, awake, mirage]
+    )
+    lofijazz = Playlist(
+        creator_id=4,
+        title='Jazz Lofi',
+        description='A selection of carefully crafted, jazz infused lofi hip-hop tracks to help you escape to your favourite cafe on a crisp autumn afternoon... 🎺',
+        playlist_picture='https://i.scdn.co/image/ab67706c0000da841e06d4daf6106ce92bd86f3e',
+        playlist_song_inventory= [simple, late, moon, evergreen, reflection]
+    )
+    hiphop = Playlist(
+        creator_id=5,
+        title='Hip-Hop Favourites',
+        description='The tracks you just keep pulling up.',
+        playlist_picture='https://i.scdn.co/image/ab67706f000000022ca685619429b532370a735d',
+        playlist_song_inventory= [us, traffic, role, bank, lot]
+    )
+    carribean = Playlist(
+        creator_id=6,
+        title='Island Reggae',
+        description='Let the music lift your soul. Vibes from the different islands in the Caribbean.',
+        playlist_picture='https://i.scdn.co/image/ab67706f00000002cc860855a01c86a92b2e1ac4',
+        playlist_song_inventory= [energy, down, lowe, wicked, magic]
+    )
+
+    all_playlists2 = [jazz, rap, kpop, lofijazz, hiphop, carribean]
+    add_playlists = [db.session.add(playlist) for playlist in all_playlists2]
+    db.session.commit()
+
+
+def undo_songs():
+    if environment == "production":
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.songs RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.playlists RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.playlist_songs RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute("DELETE FROM songs")
+        db.session.execute("DELETE FROM playlists")
+        db.session.execute("DELETE FROM playlist_songs")
+
     db.session.commit()
