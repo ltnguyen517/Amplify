@@ -71,6 +71,6 @@ class User(db.Model, UserMixin):
         if following:
             user['Following'] = [followingplaylist.to_dict(user=True) for followingplaylist in self.playlist_following]
         if amplifyPlaylists:
-            user['AmplifyPlaylists'] = [playlist.to_dict() for playlist in self.playlist_amplifyusers]
+            user['AmplifyPlaylists'] = [playlist.to_dict(picture=True) for playlist in self.playlist_amplifyusers]
 
         return user

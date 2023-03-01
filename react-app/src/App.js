@@ -6,6 +6,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import PlaylistPage from "./components/Playlist/PlaylistPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import NavBar from "./components/Navbar/Navbar";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
-        <Switch>
+        <><NavBar /><Switch>
           <Route path="/login" exact={true}>
             <LoginFormPage />
           </Route>
@@ -28,7 +29,7 @@ function App() {
           <Route path="/playlist/:playlistId" exact={true}>
             <PlaylistPage />
           </Route>
-        </Switch>
+        </Switch></>
       )}
     </>
   );

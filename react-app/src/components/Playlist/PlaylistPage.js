@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Link, useHistory, useLocation, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import * as actionthunksPlaylist from "../../store/playlist";
+import UpdatePlaylistModal from "./UpdatePlaylistModal";
 import "./PlaylistPage.css"
 
 export default function PlaylistPage(){
@@ -9,6 +10,7 @@ export default function PlaylistPage(){
     const dispatch = useDispatch()
     const { playlistId } = useParams()
     const location = useLocation()
+    let nav = document.getElementById("headnavbar")
 
     const [aPlaylist, setAPlaylist] = useState([])
     const [showMenu, setShowMenu] = useState(false)
@@ -28,12 +30,31 @@ export default function PlaylistPage(){
         await dispatch(actionthunksPlaylist.getAllPlaylists())
     }, [dispatch, playlistId, edit, setEdit, setAPlaylist, sessionUser?.id])
 
+    useEffect(() => {
+        if (!showMenu) return;
+
+        const closeMenu = () => {
+            setShowMenu(false);
+        };
+        document.addEventListener('click', closeMenu);
+        return () => document.removeEventListener("click", closeMenu);
+
+    }, [showMenu]);
+
     const playlistArr = Object.values(playlistState)
     const playlist = playlistArr.filter(playlist => Number(playlist.id) === Number(playlistId))[0]
+
+    if (location.pathname.includes("playlist") && nav && playlist) {
+        nav.style.backgroundImage = `url(${playlist.playlist_picture})`
+        nav.style.backgroundSize = "0.5px 0.5px"
+    }
+
+    document.body.style = 'background: #1e1e1e';
 
     let userPlaylists
     let lengthUserPlaylists
     let onlyOneUniqueUserPlaylist
+
     if(sessionUser){
         userPlaylists = playlistArr.filter(playlist => playlist?.User?.id === sessionUser.id)
         lengthUserPlaylists = userPlaylists.length + 1
@@ -50,6 +71,16 @@ export default function PlaylistPage(){
         }
     }
     if(!playlistId) return null
+
+    const siftSongCount = () => {
+        i = i + 1
+        return i
+    }
+
+    const openMenu = () => {
+        if(showMenu) return
+        setShowMenu(true)
+    }
 
     const createPlaylist = async (e) => {
         if(lengthUserPlaylists > 6){
@@ -69,6 +100,9 @@ export default function PlaylistPage(){
         <>
             {!!aPlaylist.User && (
                 <div className="playlistarea" style={{color:"white"}}>
+                    {sessionUser?.id === aPlaylist?.User?.id && (
+                        <UpdatePlaylistModal playlistId={playlistId} playlist={playlist} aPlaylist={aPlaylist} />
+                    )}
                     {sessionUser?.id !== aPlaylist?.User?.id && (
                         <div className="plheader" style={{backgroundImage: `url(${playlist.playlist_picture})`, backgroundSize: "0.5px 0.5px", width: "109%", paddingBottom: "40px"}}>
                             <div className="plpicarea" style={{paddingLeft: "30px"}}>
@@ -108,24 +142,34 @@ export default function PlaylistPage(){
                             <div>
                                 #
                                 &nbsp;
+                                &nbsp;
                                 Title
                             </div>
                         </div>
                         <div>
-                            &nbsp;
-                            &nbsp;
                             Album
                         </div>
                         <div style={{paddingRight: "20px"}}>
-                            <i class="fa-light fa-clock"></i>
+                            <i class="fa-regular fa-clock"></i>
                         </div>
                     </div>
                     {aPlaylist.Songs && (
-                        <div>
+                        <div style={{marginTop: "1.5vh", paddingLeft: "30px"}}>
                             {aPlaylist.Songs.map((song) => {
-                            <div>
-                                <div>
-                                    <div></div>
+                            return <div className="plsongholder" style={{ paddingBottom: "10px", listStyle: "none", display: "flex", justifyContent: "space-between" }}>
+                                    <div style={{ width: "305px" }}>
+                                        {sessionUser && (
+                                            <>
+                                                {siftSongCount()}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Link style={{ textDecoration: "none", color: "white" }}>{song.name}</Link>
+                                            </>
+                                        )}
+                                        {!sessionUser && (
+                                            <>
+                                                {siftSongCount()}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Link to="/login" style={{ textDecoration: "none", color: "white" }}>{song.name}</Link>
+                                            </>
+                                        )}
+                                    </div>
+                                    <div style={{ marginLeft: "-95px" }}><Link style={{ textDecoration: "none", color: "white" }} to={`/album/${song.album.id}`}>{song.album.title}</Link></div>
                                     <div>
                                         <span style={{width:"50px"}}>{song.duration}</span>
                                         <button style={{background: "none"}} className="dropdown-songs" onClick={(e) => activeMenu === song.id ? setActiveMenu(null) : setActiveMenu(song.id)}>...</button>
@@ -144,7 +188,7 @@ export default function PlaylistPage(){
                                             </div>
                                         )}
                                     </div>
-                                </div>
+
                             </div>
                             })}
                         </div>

@@ -1,5 +1,5 @@
 .playlistarea{
-    padding-bottom: 80px;
+    padding-bottom: 79px;
 }
 .plheader{
     display: flex;
@@ -15,6 +15,12 @@
 .plinfoarea{
     padding-left: 50px;
     padding-top: 50px;
+}
+.plcontainer{
+    display: flex;
+    flex-direction: row;
+    margin-top:20px;
+    margin-bottom: -20px;
 }
 .pldeletebutton{
     background-color: #1ed760;
@@ -38,4 +44,7 @@
 .number{
     display: flex;
     flex-direction: row;
+}
+.plsongholder:hover{
+    background-color: gray;
 }

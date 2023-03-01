@@ -9,8 +9,8 @@ const UpdatePlaylistModal = ({ playlistId, playlist, aPlaylist }) => {
     return (
         <>
             <div onClick={() => setShowModal(true)}>
-
-                <div className='plheader' style={{ backgroundImage: playlist ? `url(${playlist.playlist_picture})` : null, backgroundSize: playlist ? "0.5px 0.5px" : null, width: "110%", paddingBottom: "30px" }}>
+            {/* <button onClick={() => setShowModal(true)}>Edit Playlist</button> */}
+                <div className='plheader' style={{ backgroundImage: playlist ? `url(${playlist.playlist_picture})` : null, backgroundSize: playlist ? "0.5px 0.5px" : null, width: "109%", paddingBottom: "30px" }}>
 
                     <div style={{ width: "250px", height: "250px", paddingLeft: "30px", cursor: "pointer" }} className="plpicturearea">
                         <img className="plimg" src={playlist?.playlist_picture} />

@@ -27,6 +27,7 @@ class Song(db.Model):
             'name': self.name,
             'albumId': self.album_id,
             'songUrl': self.song_url,
+            'duration': self.duration,
             'album': self.albums.to_dict(pictures=True)
         }
         if album:

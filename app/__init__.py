@@ -4,7 +4,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
-from .models import db, User, Playlist
+from .models import db, User, Playlist, Song, Album
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.playlist_routes import playlist_routes
@@ -53,9 +53,9 @@ def https_redirect():
 
 # Added this bc couldnt get playlists model to appear
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 @app.after_request
 def inject_csrf_token(response):

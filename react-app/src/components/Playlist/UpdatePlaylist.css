@@ -1,0 +1,51 @@
+.editplarea{
+    border-radius: 20px;
+    background-color: #282828;
+    padding-bottom: 25px;
+    width: 500px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.editplinput{
+    display: flex;
+    flex-direction: row;
+}
+.editpicarea > input{
+    display: none;
+}
+.editpicarea{
+    /* border-radius: 20px; */
+    /* border: 1px solid white; */
+    margin-right: 20px;
+    box-shadow: 5px 5px 12px 5px black;
+}
+.titledescarea{
+    display: flex;
+    flex-direction: column;
+}
+.titledescarea > input {
+    color: white;
+    width: 100%;
+    height: 30px;
+    background-color: #3e3e3e;
+}
+.descriptionwrite{
+    width: 100%;
+    height: 100px;
+    background-color: #3e3e3e;
+    color: white;
+}
+.submiteditbutton{
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.editsubbutt{
+    background-color: white;
+    font-weight: 780;
+    border: 1px solid black;
+    border-radius: 25px;
+    height: 50px;
+    width: 100px;
+}

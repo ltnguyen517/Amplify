@@ -25,7 +25,7 @@ class Album(db.Model):
             'id': self.id,
             'title': self.title,
             'year': self.year,
-            'artistId': self.artist.to_dict()
+            # 'artistId': self.artist.to_dict()
         }
         if pictures:
             album['AlbumPhoto'] = self.album_photo

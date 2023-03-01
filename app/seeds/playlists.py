@@ -1,4 +1,4 @@
-from app.models import db, Playlist, environment, SCHEMA
+from app.models import db, Playlist, Song, environment, SCHEMA
 
 def seed_playlists():
     jazz = Playlist(
