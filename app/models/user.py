@@ -8,15 +8,15 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get('SCHEMA')
 
-user_followers = db.Table(
-    "user_followers",
+follows = db.Table(
+    "follows",
     db.Model.metadata,
     db.Column("user_followers", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id"))),
     db.Column("user_following", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
 )
 
 if environment == 'production':
-    user_followers.schema = SCHEMA
+    follows.schema = SCHEMA
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -36,7 +36,7 @@ class User(db.Model, UserMixin):
 
     playlist_following = db.relationship("Playlist", secondary="playlist_followers", back_populates="playlist_follower")
 
-    followers = db.relationship("User", secondary=user_followers, primaryjoin=(user_followers.c.user_followers == id), secondaryjoin=(user_followers.c.user_following == id), backref=db.backref('user_followers', lazy='dynamic'), lazy='dynamic')
+    followers = db.relationship("User", secondary=follows, primaryjoin=(follows.c.user_followers == id), secondaryjoin=(follows.c.user_following == id), backref=db.backref('follows', lazy='dynamic'), lazy='dynamic')
 
     @property
     def password(self):

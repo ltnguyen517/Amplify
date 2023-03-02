@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.models import db, User, Playlist, Song
-from app.models.user import user_followers
+from app.models.user import follows
 
 user_routes = Blueprint('users', __name__)
 
@@ -93,7 +93,7 @@ def follow(userId, userId2):
 
 @user_routes.route("/<int:userId>/follow/<int:userId2>", methods=["DELETE"])
 @login_required
-def follow(userId, userId2):
+def unfollow(userId, userId2):
     current_user = User.query.get(userId)
     second_user = User.query.get(userId2)
 
@@ -102,3 +102,22 @@ def follow(userId, userId2):
     current_followers = User.query.filter(User.followers.any(userId=userId2)).all()
     return {"followers": [follower.to_dict() for follower in current_followers]}
 
+# Get users following list
+
+@user_routes.route("/<int:id>/followingcompilation")
+def followingList(id):
+    followingdeets = db.session.query(follows).filter_by(user_following = id).all()
+    followeddeets = db.session.query(follows).filter_by(user_followers = id).all()
+
+    newState = {"people_user_follows": [],
+                "followers_of_user": []
+                }
+    for person, person2 in followingdeets:
+        if person == id:
+            newState["people_user_follows"].append(person2)
+
+    for person, person2 in followeddeets:
+        if person2 == id:
+            newState["followers_of_user"].append(person)
+
+    return newState
