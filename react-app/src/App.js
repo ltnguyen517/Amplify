@@ -3,8 +3,10 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
+import PlaylistPage from "./components/Playlist/PlaylistPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import NavBar from "./components/Navbar/Navbar";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,14 +19,17 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
-        <Switch>
-          <Route path="/login" >
+        <><NavBar /><Switch>
+          <Route path="/login" exact={true}>
             <LoginFormPage />
           </Route>
-          <Route path="/signup">
+          <Route path="/signup" exact={true}>
             <SignupFormPage />
           </Route>
-        </Switch>
+          <Route path="/playlist/:playlistId" exact={true}>
+            <PlaylistPage />
+          </Route>
+        </Switch></>
       )}
     </>
   );

@@ -11,7 +11,7 @@ def seed_users():
     marnie = User(
         username='marnie', email='marnie@aa.io', password='password', profile_picture='https://img.freepik.com/premium-vector/female-user-profile-avatar-is-woman-character-screen-saver-with-emotions_505620-617.jpg')
     lebron = User(
-        username='KingJames', email='lakers@gmail.com', password='password', profile_picture='https://images.complex.com/complex/images/c_fill,dpr_auto,f_auto,q_auto,w_1400/fl_lossy,pg_1/m5dapn9dj85obl9fjo98/lebron-james-fake-trade-twitter?fimg-ssr-default'
+        username='KingJames', email='lakers@gmail.com', password='password', profile_picture='https://www.rappler.com/tachyon/2022/11/reuters-lakers-lebron-james-november-11-2022-scaled.jpg'
     )
     anh = User(
         username='BoHyun', email='anhbo@yahoo.com', password='password', profile_picture='https://i0.wp.com/annyeongoppa.com/wp-content/uploads/2020/04/MV5BZWY1MTQxYmEtNjgxZS00YmU3LWE3MWYtN2E4MjNkMWUzMDRjXkEyXkFqcGdeQXVyNDY5MjMyNTg@._V1_.jpg?resize=780%2C520&ssl=1'
@@ -34,9 +34,9 @@ def seed_users():
 def undo_users():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
-        db.session.execute(f"TRUNCATE table {SCHEMA}.user_followers RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.follows RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM users")
-        db.session.execute("DELETE FROM user_followers")
+        db.session.execute("DELETE FROM users")
 
     db.session.commit()

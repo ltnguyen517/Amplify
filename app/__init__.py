@@ -4,9 +4,11 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
-from .models import db, User
+from .models import db, User, Playlist, Song, Album
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.playlist_routes import playlist_routes
+from .api.song_routes import song_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -28,6 +30,9 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(playlist_routes, url_prefix='/api/playlists')
+app.register_blueprint(song_routes, url_prefix='/api/songs')
+
 db.init_app(app)
 Migrate(app, db)
 
@@ -48,6 +53,11 @@ def https_redirect():
             code = 301
             return redirect(url, code=code)
 
+# Added this bc couldnt get playlists model to appear
+
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 @app.after_request
 def inject_csrf_token(response):

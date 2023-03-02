@@ -15,16 +15,21 @@ class Song(db.Model):
     name = db.Column(db.String)
     album_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("albums.id")))
     song_url = db.Column(db.String)
+    duration = db.Column(db.String)
 
     song_within_playlist = db.relationship("Playlist", secondary="playlist_songs", back_populates="playlist_song_inventory")
 
     albums = db.relationship("Album", back_populates="songs")
 
-    def to_dict(self):
-        return {
+    def to_dict(self, album=False):
+        song = {
             'id': self.id,
             'name': self.name,
             'albumId': self.album_id,
             'songUrl': self.song_url,
-            'album': self.albums.to_dict()
+            'duration': self.duration,
+            'album': self.albums.to_dict(pictures=True)
         }
+        if album:
+            song['Album'] = self.albums
+        return song

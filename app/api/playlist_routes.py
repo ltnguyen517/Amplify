@@ -1,5 +1,5 @@
 from flask import Blueprint, request, session, render_template, jsonify
-from app.models import db, Playlist, User, Song
+from app.models import db, Playlist, User, Song, Album
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
 from sqlalchemy.sql import func
@@ -38,6 +38,7 @@ def upload_picture():
             return {"picture": f"http://amplifyproj.s3.amazonaws.com/{filename}"}
         else:
             return {"error": "Not a valid file"}
+
 
 # Get all playlists
 
@@ -78,6 +79,17 @@ def create_playlist():
     else:
         return form.errors
 
+# Get followers of a playlist
+
+@playlist_routes.route("/<int:playlistId>/playlist-followers")
+def playlist_followers(playlistId):
+    playlist = Playlist.query.get(playlistId)
+
+    if playlist:
+        return playlist.to_dict(playlistFollowers=True)
+    else:
+        return {"note": f"Playlist {playlistId} you were looking for could not be located"}
+
 # Add a song to a playlist
 
 @playlist_routes.route("/<int:playlistId>/insertsong/<int:songId>", methods=["POST"])
@@ -109,12 +121,14 @@ def edit_playlist(playlistId):
 
     form = PlaylistForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
-    if form.validate_on_submit():
-        playlist.title = request.get_json()["title"]
-        playlist.description = request.get_json()["description"]
-        playlist.playlist_picture = request.get_json()["playlist_picture"]
-        db.session.commit()
-        return playlist.to_dict(user=True)
+
+    if playlist and form.validate_on_submit():
+        if current_user.id == playlist.creator_id:
+            playlist.title = request.get_json()["title"]
+            playlist.description = request.get_json()["description"]
+            playlist.playlist_picture = request.get_json()["playlist_picture"]
+            db.session.commit()
+            return playlist.to_dict(user=True)
     if form.errors:
         return form.errors
 

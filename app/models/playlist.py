@@ -35,7 +35,7 @@ class Playlist(db.Model):
     creator_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     title = db.Column(db.String(150), nullable=False)
     description = db.Column(db.String(255), nullable=False)
-    playlist_picture = db.Column(db.Text)
+    playlist_picture = db.Column(db.String)
 
     playlist_follower = db.relationship("User", secondary=playlist_followers, back_populates="playlist_following")
 
@@ -43,14 +43,31 @@ class Playlist(db.Model):
 
     playlist_ofperson = db.relationship("User", back_populates="playlist_amplifyusers")
 
-    def to_dict(self):
-        return {
+    def to_dict(self, user=False, picture=False, songs=False, playlistFollowers=False):
+        # return {
+        #     'id': self.id,
+        #     'creatorId': self.creator_id,
+        #     'title': self.title,
+        #     'description': self.description,
+        #     'picture': self.playlist_picture,
+        #     'user': self.playlist_ofperson.to_dict(),
+        #     'songs': [song.to_dict() for song in self.playlist_song_inventory],
+        #     'playlistFollowers': [user.to_dict() for user in self.playlist_follower]
+        # }
+        playlist = {
             'id': self.id,
             'creatorId': self.creator_id,
             'title': self.title,
             'description': self.description,
-            'picture': self.playlist_picture,
-            'person': self.playlist_ofperson.to_dict(),
-            'songs': [song.to_dict() for song in self.playlist_song_inventory],
-            'playlistFollowers': [user.to_dict() for user in self.playlist_follower]
+            'playlist_picture': self.playlist_picture
         }
+        if user:
+            playlist["User"] = self.playlist_ofperson.to_dict()
+        if picture:
+            playlist["Picture"] = self.playlist_picture
+        if songs:
+            playlist["Songs"] = [song.to_dict() for song in self.playlist_song_inventory]
+        if playlistFollowers:
+            playlist["Followers"] = [user.to_dict() for user in self.playlist_follower]
+
+        return playlist
