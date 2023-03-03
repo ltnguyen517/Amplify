@@ -28,11 +28,15 @@
     font-weight: bold;
     border-radius: 20px;
     margin-top: 20px;
-    width: 100px;
-    height: 35px;
+    width: 83px;
+    height: 32px;
     border: none;
     cursor: pointer;
-    padding-top: 1px;
+    /* padding-top: 1px; */
+}
+.pldeletebutton:hover{
+    background-color: #1ed75fc9;
+    cursor: pointer;
 }
 .songsheader{
     display: flex;

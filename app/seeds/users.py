@@ -37,6 +37,6 @@ def undo_users():
         db.session.execute(f"TRUNCATE table {SCHEMA}.follows RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM users")
-        db.session.execute("DELETE FROM users")
+        db.session.execute("DELETE FROM follows")
 
     db.session.commit()

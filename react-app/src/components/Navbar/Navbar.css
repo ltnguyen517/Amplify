@@ -97,3 +97,12 @@ body{
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+
+.user-playlist-div{
+    margin-left: 20px;
+    height: 520px;
+    overflow-y: auto;
+}
+.profddright{
+    padding-top: 5px;
+}

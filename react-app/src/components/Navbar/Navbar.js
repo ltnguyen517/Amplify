@@ -2,7 +2,10 @@ import React, {useEffect, useRef, useState} from "react";
 import { NavLink, Link, useParams, useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as actionthunksPlaylist from "../../store/playlist";
-import "./Navbar.css"
+import * as followingPlaylistAct from "../../store/followingplaylist";
+import PlaylistsOfUser from "../PlaylistsOfUser/PlaylistsOfUser";
+import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
+import "./Navbar.css";
 
 const NavBar = () => {
     const dispatch = useDispatch()
@@ -11,11 +14,17 @@ const NavBar = () => {
     const sessionUser = useSelector((state) => state.session.user)
     let nav = document.getElementById("headnavbar")
     const playlistState = useSelector((state) => state.playlist)
+    const followingPlaylistState = useSelector((state) => state.followingPlaylist)
     const [isDisabled, setIsDisabled] = useState(false)
+    const [playlistsFollowing, setPlaylistsFollowing] = useState([])
+    const [playlistsUser, setPlaylistsUser] = useState([])
 
     let playlists
+    let followingPlaylist
+
     useEffect(async () => {
         playlists = await dispatch(actionthunksPlaylist.getAllPlaylists())
+        // await dispatch(followingPlaylistAct.getAllPlFollowed(sessionUser?.id))
     }, [dispatch, sessionUser?.id])
 
     if (location.pathname === "/" && nav) {
@@ -27,6 +36,9 @@ const NavBar = () => {
     }
 
     const playlistArr = Object.values(playlistState)
+    const followedPlaylistsArr = Object.values(followingPlaylistState)
+
+
     let userPlaylists
     let lengthUserPlaylists
 
@@ -165,12 +177,24 @@ const NavBar = () => {
           <div style={{ borderBottom: "1px solid gray" }}><br /></div>
           <br />
 
+          <div style={{ overflowY: "scroll" }}>
+            <div className='user-playlist-div'>
+              <PlaylistsOfUser />
+              {followedPlaylistsArr && (
+                followedPlaylistsArr.map((playlist) => {
+                  return <div>
+                    <Link to={`/playlist/${playlist.id}`}>{playlist.title}</Link>
+                  </div>
+                })
+              )}
+            </div>
+          </div>
 
         </div>
       )
       navbar = (
         <nav id="top-navbar">
-          <div style={{ marginRight: "30px" }}>
+          {/* <div style={{ marginRight: "30px" }}>
             <Link to={{ pathname: "https://github.com/ltnguyen517/Amplify" }} target="_blank">
               <i style={{ color: "white", marginTop: "20%" }} class="fa-brands fa-github fa-lg"></i>
             </Link>
@@ -178,8 +202,10 @@ const NavBar = () => {
             &nbsp;
             &nbsp;
 
+          </div> */}
+          <div className='profddright' style={{ marginRight: "115px" }}>
+            <ProfileDropDown />
           </div>
-
         </nav>
       )
 

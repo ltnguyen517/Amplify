@@ -2,13 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Link, useHistory, useLocation, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import * as actionthunksPlaylist from "../../store/playlist";
+import * as followingPlaylistAct from "../../store/followingplaylist"
 import UpdatePlaylistModal from "./UpdatePlaylistModal";
 import "./PlaylistPage.css"
 
 export default function PlaylistPage(){
     const history = useHistory()
     const dispatch = useDispatch()
-    const { playlistId } = useParams()
+    let { playlistId } = useParams()
     const location = useLocation()
     let nav = document.getElementById("headnavbar")
 
@@ -19,6 +20,7 @@ export default function PlaylistPage(){
     const [edit, setEdit] = useState(true)
     const [playlistsFollowing, setPlaylistsFollowing] = useState([])
     const playlistState = useSelector((state) => state.playlist)
+    const followingPlaylistState = useSelector((state) => state.followingPlaylist)
     const sessionUser = useSelector((state) => state.session.user)
 
     let i = 0
@@ -26,9 +28,15 @@ export default function PlaylistPage(){
     useEffect(async () => {
         if(!playlistState) return null
 
+        (async () => {
+            if(sessionUser){
+                const followingPlaylistsDetails = await dispatch(followingPlaylistAct.getAllPlFollowed(sessionUser.id))
+                await setPlaylistsFollowing(followingPlaylistsDetails.followingPlaylist)
+            }
+        })();
         setAPlaylist(await dispatch(actionthunksPlaylist.getAPlaylist(playlistId)))
         await dispatch(actionthunksPlaylist.getAllPlaylists())
-    }, [dispatch, playlistId, edit, setEdit, setAPlaylist, sessionUser?.id])
+    }, [dispatch, playlistId, setPlaylistsFollowing, edit, setEdit, setAPlaylist, sessionUser?.id])
 
     useEffect(() => {
         if (!showMenu) return;
@@ -82,6 +90,35 @@ export default function PlaylistPage(){
         setShowMenu(true)
     }
 
+    let followButton
+    let followedPlaylistsArr = Object.values(followingPlaylistState)
+
+    if (sessionUser) {
+        if (followedPlaylistsArr.length >= 1) {
+            if (!!aPlaylist.User) {
+                if (followedPlaylistsArr.some((e) => e.id === Number(playlistId))) {
+                    followButton = (
+                        <button hidden={sessionUser?.id === aPlaylist?.User?.id} onClick={(e) => { unfollowPlaylist(e); setEdit(!edit); }} style={{ backgroundColor: "#1e1e1e", border: "none", cursor: "pointer" }}>
+                            <i style={{ color: "#1ed760" }} class="fa-solid fa-heart fa-2x"></i>
+                        </button>
+                    )
+                } else {
+                    followButton = (
+                        <button hidden={sessionUser.id === aPlaylist.User.id} onClick={(e) => { followPlaylist(e); setEdit(!edit); }} style={{ backgroundColor: "#1e1e1e", border: "none", cursor: "pointer" }}>
+                            <i style={{ color: "#babbbb" }} class="fa-regular fa-heart fa-2x"></i>
+                        </button>
+                    )
+                }
+            }
+        } else {
+            followButton = (
+                <button hidden={sessionUser?.id === aPlaylist?.User?.id} onClick={(e) => { followPlaylist(e); setEdit(!edit); }} style={{ backgroundColor: "#1e1e1e", border: "none", cursor: "pointer" }}>
+                    <i style={{ color: "#babbbb" }} class="fa-regular fa-heart fa-2x"></i>
+                </button>
+            )
+        }
+    }
+
     const createPlaylist = async (e) => {
         if(lengthUserPlaylists > 6){
             return window.alert("You're only able to create a maximum of 6 playlists")
@@ -96,6 +133,19 @@ export default function PlaylistPage(){
         await dispatch(actionthunksPlaylist.createPlaylist(brandNewPlaylist))
     }
 
+    const followPlaylist = async (e) => {
+        e.preventDefault()
+        setEdit(true)
+        await dispatch(followingPlaylistAct.followPlaylist(sessionUser.id, playlistId))
+        await dispatch(followingPlaylistAct.getAllPlFollowed(sessionUser.id))
+    }
+    const unfollowPlaylist = async (e) => {
+        e.preventDefault()
+        setEdit(true)
+        await dispatch(followingPlaylistAct.unfollowPlaylist(sessionUser.id, Number(playlistId)))
+        await dispatch(followingPlaylistAct.getAllPlFollowed(sessionUser.id))
+    }
+
     return (
         <>
             {!!aPlaylist.User && (
@@ -105,7 +155,7 @@ export default function PlaylistPage(){
                     )}
                     {sessionUser?.id !== aPlaylist?.User?.id && (
                         <div className="plheader" style={{backgroundImage: `url(${playlist.playlist_picture})`, backgroundSize: "0.5px 0.5px", width: "109%", paddingBottom: "40px"}}>
-                            <div className="plpicarea" style={{paddingLeft: "30px"}}>
+                            <div className="plpicarea" style={{paddingLeft: "30px", paddingTop: "23px"}}>
                                 <img className="plpic" src={playlist.playlist_picture} />
                             </div>
                             <div className="plinfoarea" style={{marginTop: "50px"}}>
@@ -131,7 +181,10 @@ export default function PlaylistPage(){
                         </div>
                     )}
                     <div className="plcontainer" style={{paddingLeft: "30px"}}>
-                        <div>
+                        <div style={{ marginBottom: "45px", marginLeft: "60px", marginTop: "10px" }}>
+                            {followButton}
+                        </div>
+                        <div style={{ marginBottom: "40px"}}>
                             {sessionUser && (
                                 <button className="pldeletebutton" hidden={sessionUser.id !== aPlaylist?.User?.id} onClick={(e) => {removePlaylist(e); setEdit(!edit);}}>DELETE</button>
                             )}
@@ -146,11 +199,11 @@ export default function PlaylistPage(){
                                 Title
                             </div>
                         </div>
-                        <div>
+                        <div style={{ marginRight: "60px"}}>
                             Album
                         </div>
                         <div style={{paddingRight: "20px"}}>
-                            <i class="fa-regular fa-clock"></i>
+                            <i class="fa-thin fa-clock"></i>
                         </div>
                     </div>
                     {aPlaylist.Songs && (
@@ -180,7 +233,7 @@ export default function PlaylistPage(){
                                                 </div>
                                                 <div>
                                                     {showMenu && (
-                                                        <div>
+                                                        <div className="createpldropdown">
                                                             <button className="createplbutton" onClick={createPlaylist}>Create Playlist</button>
                                                         </div>
                                                     )}

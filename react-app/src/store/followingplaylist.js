@@ -21,7 +21,7 @@ export const getAllPlFollowed = (id) => async (dispatch) => {
     const response = await fetch(`/api/users/${id}/playlists-followed`)
     if(response.ok){
         const data = await response.json()
-        dispatch(getPlFollowed(data.Following))
+        dispatch(getPlFollowed(data.followingPlaylist))
         return data
     }
     return response
@@ -29,11 +29,14 @@ export const getAllPlFollowed = (id) => async (dispatch) => {
 
 export const followPlaylist = (userId, playlistId) => async (dispatch) => {
     const response = await fetch(`/api/users/${userId}/playlist-follow/${playlistId}`, {
-        method: "POST"
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        }
     })
     if(response.ok){
         const data = await response.json()
-        dispatch(createPlFollow(data.Following))
+        dispatch(createPlFollow(data.followingPlaylist))
         return data
     }
     return response
@@ -63,7 +66,7 @@ export default function followingPlaylistReducer(state = initialState, action){
             return newState
         }
         case CREATE_PLAYLIST_FOLLOW: {
-            let newState = {...state}
+            let newState = { ...state }
             newState[action.playlist[0].id] = action.playlist
             return newState
         }
