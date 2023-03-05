@@ -97,4 +97,4 @@ export function Modal({ onClose, children }) {
 //   );
 // }
 
-export const useModal = () => useContext(ModalContext);
+// export const useModal = () => useContext(ModalContext);

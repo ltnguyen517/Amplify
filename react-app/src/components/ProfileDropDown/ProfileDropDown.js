@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useHistory, useParams, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import LogoutButton from '../auth/LogoutButton';
 import "./ProfileDropDown.css"
 
 const ProfileDropDown = () => {
@@ -8,7 +9,7 @@ const ProfileDropDown = () => {
     const [showMenu, setShowMenu] = useState(false)
 
     const openMenu = () => {
-        if (showMenu) return
+        if (showMenu) return;
         setShowMenu(true)
     }
 
@@ -27,15 +28,16 @@ const ProfileDropDown = () => {
     return (
         <div className='pfdropdownarea'>
             <button id="ddbutton" onClick={openMenu}>
-                <i style={{ marginTop: "5px", marginRight: "18px", fontSize: "20px" }} class="fa-solid fa-circle-user"></i>
-                <div style={{ marginTop: "5px", width: "fit-content", marginRight: "20px", marginLeft: "-10px" }}>{sessionUser.username}</div>
+                <i style={{ marginTop: "5px", marginLeft: "1px", fontSize: "20px" }} class="fa-solid fa-circle-user"></i>
+                <div style={{ marginTop: "5px", width: "fit-content", marginLeft: "5px" }}>{sessionUser.username}</div>
             </button>
             {showMenu && (
                 <div className='dd'>
                     <div>
-                        <Link style={{ textDecoration: "none", color: "gray", fontSize: "12px" }} onClick={async (e) => await fetch(`/api/users/${sessionUser.id}`)} to={`/user/${sessionUser.id}`}>Profile</Link>
+                        <Link style={{ textDecoration: "none", color: "gray", fontSize: "14px", marginLeft: "12px" }} onClick={async (e) => await fetch(`/api/users/${sessionUser.id}`)} to={`/user/${sessionUser.id}`}>Profile</Link>
                     </div>
-                    {/* <div className='logout-button-dropdown'><LogoutButton /></div> */}
+                    <hr></hr>
+                    <div className='ddlogoutbutton' style={{fontSize: "14px"}}><LogoutButton /></div>
                 </div>
             )}
         </div>

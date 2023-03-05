@@ -5,6 +5,9 @@ import * as actionthunksPlaylist from "../../store/playlist";
 import * as followingPlaylistAct from "../../store/followingplaylist";
 import PlaylistsOfUser from "../PlaylistsOfUser/PlaylistsOfUser";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
+import logo from "./logo.png";
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 import "./Navbar.css";
 
 const NavBar = () => {
@@ -16,6 +19,7 @@ const NavBar = () => {
     const playlistState = useSelector((state) => state.playlist)
     const followingPlaylistState = useSelector((state) => state.followingPlaylist)
     const [isDisabled, setIsDisabled] = useState(false)
+    const audioState = useSelector((state) => state.audioPlayer)
     const [playlistsFollowing, setPlaylistsFollowing] = useState([])
     const [playlistsUser, setPlaylistsUser] = useState([])
 
@@ -24,7 +28,7 @@ const NavBar = () => {
 
     useEffect(async () => {
         playlists = await dispatch(actionthunksPlaylist.getAllPlaylists())
-        // await dispatch(followingPlaylistAct.getAllPlFollowed(sessionUser?.id))
+        await dispatch(followingPlaylistAct.getAllPlFollowed(sessionUser?.id))
     }, [dispatch, sessionUser?.id])
 
     if (location.pathname === "/" && nav) {
@@ -72,47 +76,49 @@ const NavBar = () => {
         setTimeout(() => setIsDisabled(false), 500)
       }
     }
-    if (location.pathname === "/likes") {
-      sidenav = (
-        <div className='side-nav' style={{ color: "#adb3b3" }}>
+    // if (location.pathname === "/likes") {
+    //   sidenav = (
+    //     <div className='side-nav' style={{ color: "#adb3b3" }}>
 
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <i class="fa-solid fa-house" style={{ color: "#b3b3b3" }}></i>
-            &nbsp;
-            Home</Link>
-
-
-          <br />
-          <button className='create-playlist-button' onClick={createPlaylist} disabled={isDisabled}>
-            <i class="fa-solid fa-square-plus"></i>
-            &nbsp;
-            Create playlist
-          </button>
-
-          <div style={{ borderBottom: "1px solid gray" }}><br /></div>
-          <br />
+    //       <Link to="/" style={{ textDecoration: "none" }}>
+    //         <i class="fa-solid fa-house" style={{ color: "#b3b3b3" }}></i>
+    //         &nbsp;
+    //         Home</Link>
 
 
-        </div>
-      )
-      navbar = (
-        <nav id="top-navbar" style={{ backgroundColor: "#513a9e", backgroundImage: "none" }}>
-          <div style={{ marginRight: "30px" }}>
-            <Link to={{ pathname: "https://github.com/ltnguyen517/Amplify" }} target="_blank">
-              <i style={{ color: "white", marginTop: "20%" }} class="fa-brands fa-github fa-lg"></i>
-            </Link>
+    //       <br />
+    //       <button className='create-playlist-button' onClick={createPlaylist} disabled={isDisabled}>
+    //         <i class="fa-solid fa-square-plus"></i>
+    //         &nbsp;
+    //         Create playlist
+    //       </button>
 
-          </div>
-
-        </nav>
-      )
+    //       <div style={{ borderBottom: "1px solid gray" }}><br /></div>
+    //       <br />
 
 
-    }
+    //     </div>
+    //   )
+    //   navbar = (
+    //     <nav id="top-navbar" style={{ backgroundColor: "#513a9e", backgroundImage: "none" }}>
+    //       <div style={{ marginRight: "30px" }}>
+    //         <Link to={{ pathname: "https://github.com/ltnguyen517/Amplify" }} target="_blank">
+    //           <i style={{ color: "white", marginTop: "20%" }} class="fa-brands fa-github fa-lg"></i>
+    //         </Link>
+
+    //       </div>
+
+    //     </nav>
+    //   )
+
+
+    // }
     if (location.pathname !== "/sign-up" && location.pathname !== "/login" && !sessionUser) {
       sidenav = (
         <div className='side-nav' style={{ color: "#adb3b3" }}>
-
+          <div style={{ marginBottom: "20px" }} id='logo'>
+            <img onClick={(e) => history.push("/")} style={{ width: "155px", height: "45px", cursor: "pointer" }} src={logo} />
+          </div>
           <div>
             <Link to="/">
               <i class="fa-solid fa-house" style={{ color: "#b3b3b3" }}></i>
@@ -161,6 +167,9 @@ const NavBar = () => {
     } else if (sessionUser && location.pathname !== "/sign-up" && location.pathname !== "/login" && location.pathname !== "/likes") {
       sidenav = (
         <div className='side-nav' style={{ color: "#adb3b3" }}>
+          <div style={{ marginBottom: "5px" }} id='logo'>
+            <img onClick={(e) => history.push("/")} style={{ width: "142px", height: "75px", cursor: "pointer", marginLeft: "11.5px" }} src={logo} />
+          </div>
 
           <Link to="/" style={{ textDecoration: "none" }}>
             <i class="fa-solid fa-house" style={{ color: "#b3b3b3" }}></i>
@@ -194,21 +203,12 @@ const NavBar = () => {
       )
       navbar = (
         <nav id="top-navbar">
-          {/* <div style={{ marginRight: "30px" }}>
-            <Link to={{ pathname: "https://github.com/ltnguyen517/Amplify" }} target="_blank">
-              <i style={{ color: "white", marginTop: "20%" }} class="fa-brands fa-github fa-lg"></i>
-            </Link>
-            &nbsp;
-            &nbsp;
-            &nbsp;
-
-          </div> */}
           <div className='profddright' style={{ marginRight: "115px" }}>
             <ProfileDropDown />
           </div>
         </nav>
       )
-
+    }
     return (
       <>
         {navbar}
@@ -217,6 +217,6 @@ const NavBar = () => {
       </>
     );
 
-}
+
 }
 export default NavBar;

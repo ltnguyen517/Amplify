@@ -59,8 +59,8 @@ const initialState = {}
 export default function followingPlaylistReducer(state = initialState, action){
     switch (action.type) {
         case GET_PLAYLISTS_FOLLOWED: {
-            let newState = {...state}
-            action.playlists.forEach((playlist) => {
+            let newState = { ...state }
+            action.playlists?.forEach((playlist) => {
                 newState[playlist.id] = playlist
             })
             return newState
