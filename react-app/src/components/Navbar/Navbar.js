@@ -168,7 +168,7 @@ const NavBar = () => {
       sidenav = (
         <div className='side-nav' style={{ color: "#adb3b3" }}>
           <div style={{ marginBottom: "5px" }} id='logo'>
-            <img onClick={(e) => history.push("/")} style={{ width: "142px", height: "75px", cursor: "pointer", marginLeft: "11.5px" }} src={logo} />
+            <img onClick={(e) => history.push("/")} style={{ width: "150px", height: "75px", cursor: "pointer", marginLeft: "11.5px" }} src={logo} />
           </div>
 
           <Link to="/" style={{ textDecoration: "none" }}>
@@ -180,7 +180,7 @@ const NavBar = () => {
           <button className='create-playlist-button' onClick={createPlaylist} disabled={isDisabled}>
             <i class="fa-solid fa-square-plus"></i>
             &nbsp;
-            Create playlist
+            Create Playlist
           </button>
 
           <div style={{ borderBottom: "1px solid gray" }}><br /></div>

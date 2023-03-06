@@ -1,4 +1,4 @@
-const GET_PLAYLISTS_FOLLOWED = "/playlists/getPlaylistsFollowed"
+const GET_PLAYLISTS_FOLLOWED = "playlists/getPlaylistsFollowed"
 const CREATE_PLAYLIST_FOLLOW = "playlists/createPlaylistFollow"
 const DELETE_PLAYLIST_FOLLOW = "playlists/deletePlaylistFollow"
 
