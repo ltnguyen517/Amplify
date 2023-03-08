@@ -3,10 +3,13 @@ import { NavLink, Link, useParams, useHistory, useLocation } from "react-router-
 import { useDispatch, useSelector } from "react-redux";
 import * as actionthunksPlaylist from "../../store/playlist";
 import * as followingPlaylistAct from "../../store/followingplaylist";
+import * as audioplayerActions from "../../store/audioplayer"
+import AudioPlayerComponent from "../Audioplayer/Audioplayer";
 import PlaylistsOfUser from "../PlaylistsOfUser/PlaylistsOfUser";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 import logo from "./logo.png";
 import AudioPlayer from 'react-h5-audio-player';
+
 import 'react-h5-audio-player/lib/styles.css';
 import "./Navbar.css";
 
@@ -19,7 +22,7 @@ const NavBar = () => {
     const playlistState = useSelector((state) => state.playlist)
     const followingPlaylistState = useSelector((state) => state.followingPlaylist)
     const [isDisabled, setIsDisabled] = useState(false)
-    const audioState = useSelector((state) => state.audioPlayer)
+    const audioState = useSelector((state) => state.audioplayer)
     const [playlistsFollowing, setPlaylistsFollowing] = useState([])
     const [playlistsUser, setPlaylistsUser] = useState([])
 
@@ -208,7 +211,45 @@ const NavBar = () => {
           </div>
         </nav>
       )
+      if (audioState.current_song.length > 0) {
+        bottomnav = (
+          audioState.current_song.length > 0 && (
+            <div className='bottom-div-container'>
+              <div className='audio-container' style={{ display: "flex", marginLeft: "20px" }}>
+                <div className='bottom-nav-image-container' style={{ display: "flex" }}>
+                  <img style={{ width: "80px" }} src={audioState.current_song[0].album.album_photo}></img>
+                  <div className='bottom-div-album-name-artist-container' style={{ display: "flex", flexDirection: "column", marginLeft: "20px", marginTop: "15px", width: "300px" }}>
+                    <Link id='bottom-nav-album-link' to={`/album/${audioState.current_song[0].album.id}`}>{audioState.current_song[0].name}</Link>
+                  </div>
+                </div>
+                <div style={{ marginLeft: "50px" }}>
+                  <AudioPlayerComponent />
+                </div>
+              </div>
+            </div>
+          )
+        )
+      } else {
+        bottomnav = (
+          <div className='bottom-div-container'>
+            <div style={{ marginLeft: "230px" }}>
+              <AudioPlayerComponent/>
+            </div>
+          </div>
+        )
+      }
+    } else if (location.pathname === "/login") {
+      navbar = (
+        <nav id='logging-in-signing-up-nav'>
+          <div id="login-signup-page">
+            <Link to="/">
+              <img className='logo-img' src={logo}></img>
+            </Link>
+          </div>
+        </nav>
+      )
     }
+
     return (
       <>
         {navbar}

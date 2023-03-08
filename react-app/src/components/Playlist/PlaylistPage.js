@@ -3,6 +3,7 @@ import { NavLink, Link, useHistory, useLocation, useParams } from "react-router-
 import React, { useState, useEffect } from "react";
 import * as actionthunksPlaylist from "../../store/playlist";
 import * as followingPlaylistAct from "../../store/followingplaylist"
+import * as audioplayerActions from "../../store/audioplayer"
 import UpdatePlaylistModal from "./UpdatePlaylistModal";
 import "./PlaylistPage.css"
 
@@ -17,6 +18,7 @@ export default function PlaylistPage(){
     const [showMenu, setShowMenu] = useState(false)
     const [activeMenu, setActiveMenu] = useState()
     const [canSee, setCanSee] = useState(false)
+    const [addedToQueue, setAddedToQueue] = useState(false)
     const [edit, setEdit] = useState(true)
     const [playlistsFollowing, setPlaylistsFollowing] = useState([])
     const playlistState = useSelector((state) => state.playlist)
@@ -146,6 +148,11 @@ export default function PlaylistPage(){
         await dispatch(followingPlaylistAct.getAllPlFollowed(sessionUser.id))
     }
 
+    const listenPlaylist = async (e) => {
+        e.preventDefault()
+        await dispatch(audioplayerActions.addPlaylist(playlistId))
+    }
+
     return (
         <>
             {!!aPlaylist.User && (
@@ -181,6 +188,11 @@ export default function PlaylistPage(){
                         </div>
                     )}
                     <div className="plcontainer" style={{paddingLeft: "30px"}}>
+                        <div>
+                            <button hidden={!sessionUser || aPlaylist?.Songs?.length === 0} onClick={listenPlaylist} style={{ backgroundColor: "#1e1e1e", border: "none", cursor: "pointer", marginTop: "6px" }}>
+                                <i style={{ color: "#1ed760" }} class="fa-solid fa-circle-play fa-4x"></i>
+                            </button>
+                        </div>
                         <div style={{ marginBottom: "45px", marginLeft: "60px", marginTop: "10px" }}>
                             {followButton}
                         </div>
@@ -199,11 +211,11 @@ export default function PlaylistPage(){
                                 Title
                             </div>
                         </div>
-                        <div style={{ marginRight: "60px"}}>
+                        <div style={{ marginRight: "-95px"}}>
                             Album
                         </div>
-                        <div style={{paddingRight: "20px"}}>
-                            <i class="fa-thin fa-clock"></i>
+                        <div style={{paddingRight: "70px"}}>
+                            <i class="fa-regular fa-clock"></i>
                         </div>
                     </div>
                     {aPlaylist.Songs && (
@@ -213,7 +225,7 @@ export default function PlaylistPage(){
                                     <div style={{ width: "305px" }}>
                                         {sessionUser && (
                                             <>
-                                                {siftSongCount()}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Link style={{ textDecoration: "none", color: "white" }}>{song.name}</Link>
+                                                {siftSongCount()}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Link onClick={async (e) => await dispatch(audioplayerActions.addSong(song.id))} style={{ textDecoration: "none", color: "white" }}>{song.name}</Link>
                                             </>
                                         )}
                                         {!sessionUser && (
@@ -227,23 +239,64 @@ export default function PlaylistPage(){
                                         <span style={{width:"50px"}}>{song.duration}</span>
                                         <button style={{background: "none"}} className="dropdown-songs" onClick={(e) => activeMenu === song.id ? setActiveMenu(null) : setActiveMenu(song.id)}>...</button>
                                         {activeMenu === song.id && (
+                                            <div className='active-playlist-song-dropdown'>
                                             <div>
-                                                <div>
-
-                                                </div>
-                                                <div>
-                                                    {showMenu && (
-                                                        <div className="createpldropdown">
-                                                            <button className="createplbutton" onClick={createPlaylist}>Create Playlist</button>
-                                                        </div>
-                                                    )}
-                                                </div>
+                                                {sessionUser && (
+                                                    <Link className="yes" to={`/album/${song.album.id}`}>Album Page</Link>
+                                                )}
+                                                {!sessionUser && (
+                                                    <Link className="logged-out-album-page" to={`/album/${song.album.id}`}>Album Page</Link>
+                                                )}
+                                                <br />
+                                                {sessionUser && (
+                                                    <button className="add-to-queue-button" onClick={async (e) => {
+                                                        await dispatch(audioplayerActions.nextSong(song.id)); setAddedToQueue(true); setTimeout(() => {
+                                                            setAddedToQueue(false)
+                                                        }, 1500)
+                                                    }}>Add to queue</button>
+                                                )}
                                             </div>
+
+                                            <div>
+                                                {sessionUser && (
+                                                    <button className='add-song-to-playlist-button' onClick={openMenu}>Add to playlist</button>
+                                                )}
+                                                {showMenu && (
+                                                    <div className='add-song-dropdown'>
+                                                        <button className="create-playlist-button-dropdown" onClick={createPlaylist}>Create Playlist</button>
+                                                        <div style={{ borderBottom: "1px solid #808080", marginBottom: "5px" }}></div>
+                                                        {onlyOneUniqueUserPlaylist.map((playlist) => {
+                                                            return <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                                                <button className="create-playlist-button-dropdown" onClick={async (e) => {
+                                                                    await fetch(`/api/playlists/${playlist.id}/insertsong/${song.id}`, {
+                                                                        method: "POST"
+                                                                    });
+                                                                    setCanSee(true)
+                                                                    setTimeout(() => {
+                                                                        setCanSee(false)
+                                                                    }, 1500)
+                                                                }}>{playlist.title}</button>
+                                                            </div>
+                                                        })}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
                                         )}
                                     </div>
 
                             </div>
                             })}
+                        </div>
+                    )}
+                    {canSee && (
+                        <div style={{ marginTop: "300px" }} id='song-added-div' hidden>
+                            <div style={{ display: "flex", alignItems: "center", fontWeight: "700" }}>Added to Playlist</div>
+                        </div>
+                    )}
+                    {addedToQueue && (
+                        <div style={{ marginTop: "300px" }} id='song-added-div' hidden>
+                            <div style={{ display: "flex", alignItems: "center", fontWeight: "700" }}>Added to Queue</div>
                         </div>
                     )}
                 </div>
