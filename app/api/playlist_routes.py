@@ -1,12 +1,15 @@
 from flask import Blueprint, request, session, render_template, jsonify
-from app.models import db, Playlist, User, Song, Album
+from app.models import db, Playlist, User, Song, Album, Artist
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
 from sqlalchemy.sql import func
 from ..forms import PlaylistForm
+import s3_helpers
 import boto3
 import botocore
 import os
+
+playlist_routes = Blueprint("playlists", __name__)
 
 BUCKET_NAME = os.environ.get("S3_BUCKET")
 S3_LOCATION = f"http://{BUCKET_NAME}.s3.amazonaws.com/"
@@ -18,27 +21,28 @@ s3 = boto3.client(
    aws_secret_access_key=os.environ.get("S3_SECRET")
 )
 
-playlist_routes = Blueprint("playlists", __name__)
-
 @playlist_routes.route("/pictures/upload", methods=["POST"])
 def upload_picture():
     if request.method == "POST":
-        file = request.files["file"]
-        if file:
-            filename = secure_filename(file.filename)
+        img = request.files["file"]
+        if img:
+            filename = secure_filename(img.filename)
             s3.upload_fileobj(
-                file,
+                img,
                 BUCKET_NAME,
                 filename,
                 ExtraArgs = {
                     'ACL':'public-read',
-                    'ContentType': file.content_type
+                    'ContentType': img.content_type
                 }
             )
-            return {"picture": f"http://amplifyproj.s3.amazonaws.com/{filename}"}
+            return {"picture": f"https://amplifyproj.s3.amazonaws.com/{filename}"}
         else:
             return {"error": "Not a valid file"}
 
+@playlist_routes.route("/upload")
+def uploading():
+    return render_template("imgupload.html")
 
 # Get all playlists
 

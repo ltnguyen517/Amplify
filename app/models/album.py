@@ -15,17 +15,17 @@ class Album(db.Model):
     title = db.Column(db.String)
     album_photo = db.Column(db.String)
     year = db.Column(db.Integer)
-    # artist_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("artists.id")))
+    artist_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("artists.id")))
 
     songs = db.relationship("Song", back_populates="albums")
-    # artists = db.relationship("Artist", back_populates="albums")
+    artist = db.relationship("Artist", back_populates="albums")
 
     def to_dict(self, pictures=False, songs=False):
         album = {
             'id': self.id,
             'title': self.title,
             'year': self.year,
-            # 'artistId': self.artist.to_dict()
+            'artist': self.artist.to_dict()
         }
         if pictures:
             album['AlbumPhoto'] = self.album_photo

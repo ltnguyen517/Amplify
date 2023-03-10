@@ -4,31 +4,31 @@ def seed_songs():
     last = Song(
         name="Last Call",
         album_id=1,
-        song_url="https://open.spotify.com/track/2nUhKiUfVdLcGmcdYHdjBw?si=6035fad3fa3949ba",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album1/Glass+Trio+-+Last+Call.mp3",
         duration="2:49"
     )
     danced = Song(
         name="When we danced",
         album_id=1,
-        song_url="https://open.spotify.com/track/2pcDGklI3mOVMZrvnUF2t5?si=6a1aada97b3e4cba",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album1/Annie+Berenson+-+When+we+danced.mp3",
         duration="4:29"
     )
     home = Song(
         name="Home town",
         album_id=1,
-        song_url="https://open.spotify.com/track/26UQyr3L71oAnXQIJf18gr?si=81a22e3246ec4c90",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album1/Cole+Peers+trio+-+Home+town.mp3",
         duration="2:58"
     )
     sunrise = Song(
         name="Beautiful Sunrise",
         album_id=1,
-        song_url="https://open.spotify.com/track/6vtzBYf1I2Ozsdp94A2t5i?si=2f66ce41b78b4553",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album1/Arta+Porting+-+Beautiful+Sunrise.mp3",
         duration="4:51"
     )
     vine = Song(
         name="Vine Street",
         album_id=1,
-        song_url="https://open.spotify.com/track/4W4PZdDzTUa06u4iXCKRxI?si=ffe712f80b544029",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album1/Soft+Brush+Touches+-+Vine+Street.mp3",
         duration="2:26"
     )
 
@@ -39,66 +39,66 @@ def seed_songs():
     swag = Song(
         name="Surf Swag",
         album_id=2,
-        song_url="https://open.spotify.com/track/56ehF3tXMjwLJkAmuKzRE2?si=2b4fbb93fce54cb9",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album2/Lil+Wayne+-+Surf+Swag.mp3",
         duration="4:09"
     )
     shoes = Song(
         name="Shoes",
         album_id=2,
-        song_url="https://open.spotify.com/track/5yHevmbP3PEex0kxP2cBc5?si=b0112568c70340f7",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album2/Lil+Wayne+-+Shoes.mp3",
         duration="4:39"
     )
-    broke = Song(
-        name="Broke Up",
+    money = Song(
+        name="Money Trees",
         album_id=2,
-        song_url="https://open.spotify.com/track/2tuP9seR6rU15jGMsXUKGa?si=c6284faed624408c",
-        duration="3:48"
+        song_url="https://amplifyproj.s3.amazonaws.com/Album2/Kendrick+Lamar%2C+Jay+Rock+-+Money+Trees.mp3",
+        duration="6:26"
     )
     kobe = Song(
         name="Kobe Bryant",
         album_id=2,
-        song_url="https://open.spotify.com/track/7sYtgBHnF2D1mgA7vNXig1?si=1454f2c00b454d99",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album2/Lil+Wayne+-+Lil+Wayne+-+Kobe+Bryant+(Official+Audio).mp3",
         duration="2:23"
     )
     good = Song(
         name="I'm Good",
         album_id=2,
-        song_url="https://open.spotify.com/track/76YNfvQTKTMhnFNmBOW1nt?si=d55a4ee921fa4525",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album2/Lil+Wayne%2C+Lucci+Lou+-+Im+Good.mp3",
         duration="2:26"
     )
 
-    all_songs2 = [swag, shoes, broke, kobe, good]
+    all_songs2 = [swag, shoes, money, kobe, good]
     add_songs2 = [db.session.add(song) for song in all_songs2]
     db.session.commit()
 
     lost = Song(
         name="Lost Me",
         album_id=3,
-        song_url="https://open.spotify.com/track/4KTK0uE4uJlS2Y8Gtq81I9?si=08ad30c94ee54339",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album3/Stray+Kids+-+Lost+Me.mp3",
         duration="3:09"
     )
     you = Song(
         name="I do! Do you?",
         album_id=3,
-        song_url="https://open.spotify.com/track/7wFeVMTlgOu910OH9RctRI?si=1b92f4c5186a4aad",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album3/Kep1er+-+I+do!+Do+you.mp3",
         duration="3:34"
     )
     friend = Song(
         name="Best Friend Ever",
         album_id=3,
-        song_url="https://open.spotify.com/track/1Z5Dmg7Dvu0X4oSdqLZ3Lu?si=1fa287e21a2f4b5d",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album3/NCT+DREAM+-+Best+Friend+Ever.mp3",
         duration="3:21"
     )
     awake = Song(
         name="Awake",
         album_id=3,
-        song_url="https://open.spotify.com/track/4EJfHZ99jW6QIBgWOctQBP?si=19d545fb90ce4ceb",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album3/THE+BOYZ+-+Awake.mp3",
         duration="2:17"
     )
     mirage = Song(
         name="Mirage",
         album_id=3,
-        song_url="https://open.spotify.com/track/0pb1A3X512jNOVaHkEouMi?si=0a0ff423d3e74eb4",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album3/TFN+-+Mirage.mp3",
         duration="3:12"
     )
 
@@ -109,31 +109,31 @@ def seed_songs():
     simple = Song(
         name="Simple Things",
         album_id=4,
-        song_url="https://open.spotify.com/track/1sIhzlCiHJ7xYWe4Zf4NO5?si=62e43a933a1f49a4",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album4/Two+Scents%2C+Yestalgia+-+Simple+Things.mp3",
         duration="2:40"
     )
     late = Song(
         name="Late Nights",
         album_id=4,
-        song_url="https://open.spotify.com/track/6wuFNv26eUmtgqURavWAZd?si=f169b69b620e4325",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album4/ZENDR+-+Late+Nights.mp3",
         duration="1:54"
     )
     moon = Song(
         name="Silver Moon",
         album_id=4,
-        song_url="https://open.spotify.com/track/1pdFdlCaBlPCiKOlFirlP4?si=6037bd04b1044c29",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album4/Two+Scents%2C+Mondo+Loops+-+Silver+Moon.mp3",
         duration="2:03"
     )
     evergreen = Song(
         name="Evergreen",
         album_id=4,
-        song_url="https://open.spotify.com/track/65Vo7KrPt7nrTBTlQpxVJi?si=d76c0d72057c4f2f",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album4/Two+Scents%2C+teafourtwo+-+Evergreen.mp3",
         duration="2:33"
     )
     reflection = Song(
         name="Reflection",
         album_id=4,
-        song_url="https://open.spotify.com/track/2p6UuVWDsjZ73icEPvXn6x?si=c020a88ea9434fe9",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album4/HoK%C3%B8%2C+Yoann+Garel%2C+Damien+Fleau+-+Reflection.mp3",
         duration="2:25"
     )
 
@@ -144,31 +144,31 @@ def seed_songs():
     us = Song(
         name="Us",
         album_id=5,
-        song_url="https://open.spotify.com/track/4mRq7hOLd6o8c24WFhPsdY?si=7b5cf34d217d40f4",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album5/Lil+Reese+-+Us.mp3",
         duration="3:21"
     )
     traffic = Song(
         name="Traffic",
         album_id=5,
-        song_url="https://open.spotify.com/track/3WpGt7fhdIDd5ej7xyzbe8?si=93b1a24f4daa496b",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album5/Lil+Reese%2C+Chief+Keef+-+Traffic.mp3",
         duration="3:57"
     )
     role = Song(
         name="No Role Modelz",
         album_id=5,
-        song_url="https://open.spotify.com/track/68Dni7IE4VyPkTOH9mRWHr?si=5e9f2507417e4f97",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album5/J.+Cole+-+No+Role+Modelz.mp3",
         duration="4:52"
     )
     bank = Song(
         name="Bank Account",
         album_id=5,
-        song_url="https://open.spotify.com/track/5eqK0tbzUPo2SoeZsov04s?si=28ceb8662d914746",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album5/21+Savage+-+Bank+Account.mp3",
         duration="3:40"
     )
     lot = Song(
         name="a lot",
         album_id=5,
-        song_url="https://open.spotify.com/track/2t8yVaLvJ0RenpXUIAC52d?si=7bc42c5498be45ef",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album5/21+Savage+-+a+lot.mp3",
         duration="4:48"
     )
 
@@ -179,31 +179,31 @@ def seed_songs():
     energy = Song(
         name="Energy",
         album_id=6,
-        song_url="https://open.spotify.com/track/6C76s0vqIxMnVH7ZOsdtS2?si=fa810a6fac194552",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album6/Kabaka+Pyramid%2C+Jemere+Morgan+-+Energy.mp3",
         duration="3:32"
     )
     down = Song(
         name="Let Me Down",
         album_id=6,
-        song_url="https://open.spotify.com/track/7FomypRpFKzSIBOX338U4P?si=a2620209ec0a4fe2",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album6/Jaz+Karis+-+Let+Me+Down.mp3",
         duration="2:28"
     )
     lowe = Song(
         name="Lowe Mi",
         album_id=6,
-        song_url="https://open.spotify.com/track/23sdZgBlHvaHJcfOLu2PgZ?si=342a846505fc4469",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album6/Sevana+-+Lowe+Mi.mp3",
         duration="3:54"
     )
     wicked = Song(
         name="The Wicked",
         album_id=6,
-        song_url="https://open.spotify.com/track/306Z0s3TVHyD0cSPJusjht?si=bb7fd916ada44532",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album6/I+Wayne+-+The+Wicked.mp3",
         duration="4:08"
     )
     magic = Song(
         name="Magic",
         album_id=6,
-        song_url="https://open.spotify.com/track/2md0a0rA0bpwS45hy6suj4?si=c79600ebeb3a461c",
+        song_url="https://amplifyproj.s3.amazonaws.com/Album6/Kes%2C+KES+the+Band%2C+Jimmy+October%2C+Etienne+Charles+-+Magic.mp3",
         duration="4:10"
     )
 
@@ -223,7 +223,7 @@ def seed_songs():
         title='RapCaviar',
         description='New music from Polo G, Don Toliver and A Boogie Wit da Hoodie.',
         playlist_picture='https://i.scdn.co/image/ab67706c0000da843edc54301248b254cd66e43f',
-        playlist_song_inventory= [swag, shoes, broke, kobe, good]
+        playlist_song_inventory= [swag, shoes, money, kobe, good]
     )
     kpop = Playlist(
         creator_id=3,

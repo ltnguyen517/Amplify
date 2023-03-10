@@ -25,7 +25,7 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), nullable=False, unique=True)
+    username = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_picture = db.Column(db.String)
@@ -38,6 +38,8 @@ class User(db.Model, UserMixin):
 
     followers = db.relationship("User", secondary=follows, primaryjoin=(follows.c.user_followers == id), secondaryjoin=(follows.c.user_following == id), backref=db.backref('follows', lazy='dynamic'), lazy='dynamic')
 
+    usersend_likes = db.relationship("Song", secondary="likes", back_populates="likesof_song")
+
     @property
     def password(self):
         return self.hashed_password
@@ -49,7 +51,7 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def to_dict(self, amplifyPlaylists=False, following=False):
+    def to_dict(self, amplifyPlaylists=False, following=False, likes=False):
         # return {
         #     'id': self.id,
         #     'username': self.username,
@@ -72,5 +74,7 @@ class User(db.Model, UserMixin):
             user['following'] = [amplifyPlaylists.to_dict(user=True) for amplifyPlaylists in self.playlist_following]
         if amplifyPlaylists:
             user['AmplifyPlaylists'] = [playlistList.to_dict(picture=True) for playlistList in self.playlist_amplifyusers]
+        if likes:
+            user["SongsLiked"] = [song.to_dict() for song in self.usersend_likes]
 
         return user

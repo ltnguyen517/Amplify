@@ -12,15 +12,15 @@ playlist_followers = db.Table(
     db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
 )
 
-if environment == 'production':
-    playlist_followers.schema = SCHEMA
-
 playlist_songs = db.Table(
     "playlist_songs",
     db.Model.metadata,
     db.Column("song_id", db.Integer, db.ForeignKey(add_prefix_for_prod("songs.id"))),
     db.Column("playlist_id", db.Integer, db.ForeignKey(add_prefix_for_prod("playlists.id")))
 )
+
+if environment == 'production':
+    playlist_followers.schema = SCHEMA
 
 if environment == 'production':
     playlist_songs.schema = SCHEMA
