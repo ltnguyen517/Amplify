@@ -4,7 +4,6 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
 from sqlalchemy.sql import func
 from ..forms import PlaylistForm
-import s3_helpers
 import boto3
 import botocore
 import os
@@ -49,12 +48,12 @@ def uploading():
 @playlist_routes.route("/")
 def get_playlists():
     get_playlists = Playlist.query.all()
-    playlistsdict = [play.to_dict(user=True) for play in get_playlists]
+    playlistsdict = [playlist.to_dict(user=True) for playlist in get_playlists]
     return {"Playlists": playlistsdict}
 
 # Get one specific playlist
 
-@playlist_routes.route("/<int:playlistId>")
+@playlist_routes.route("/<int:playlistId>/")
 def get_a_playlist(playlistId):
     playlist = Playlist.query.get(playlistId)
     if playlist:
@@ -116,7 +115,7 @@ def insertsong_to_playlist(playlistId, songId):
 
 # Edit a playlist
 
-@playlist_routes.route("/<int:playlistId>", methods=["PUT"])
+@playlist_routes.route("/<int:playlistId>/", methods=["PUT"])
 @login_required
 def edit_playlist(playlistId):
     playlist = Playlist.query.get(playlistId)
@@ -133,6 +132,30 @@ def edit_playlist(playlistId):
             playlist.playlist_picture = request.get_json()["playlist_picture"]
             db.session.commit()
             return playlist.to_dict(user=True)
+    # updated_title = request.json["title"]
+    # updated_description = request.json["description"]
+    # updated_picture  = request.json["playlist_picture"]
+
+    # if playlist:
+    #     if playlist.creator_id == current_user.id:
+    #         if updated_title:
+    #             playlist.title = updated_title
+    #         else:
+    #             playlist.title = playlist.title
+    #         if updated_description:
+    #             playlist.description = updated_description
+    #         else:
+    #             playlist.description = playlist.description
+    #         if updated_picture:
+    #             playlist.playlist_picture = updated_picture
+    #         else:
+    #             playlist.playlist_picture = playlist.playlist_picture
+    #         db.session.commit()
+    #         return playlist.to_dict(user=True)
+    #     else:
+    #         return {"note": "You're not able to edit a playlist that you do not own"}
+    # else:
+    #     return {"note": "No such playlist was found"}
     if form.errors:
         return form.errors
 
@@ -159,7 +182,7 @@ def deletesong_from_playlist(playlistId, songId):
 
 # Delete a playlist
 
-@playlist_routes.route("/<int:playlistId>", methods=["DELETE"])
+@playlist_routes.route("/<int:playlistId>/", methods=["DELETE"])
 @login_required
 def delete_playlist(playlistId):
     playlist = Playlist.query.get(playlistId)
