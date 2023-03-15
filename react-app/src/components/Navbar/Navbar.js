@@ -44,7 +44,6 @@ const NavBar = () => {
     const playlistArr = Object.values(playlistState)
     const followedPlaylistsArr = Object.values(followingPlaylistState)
 
-
     let userPlaylists
     let lengthUserPlaylists
 
@@ -78,43 +77,43 @@ const NavBar = () => {
         setTimeout(() => setIsDisabled(false), 500)
       }
     }
-    // if (location.pathname === "/likes") {
-    //   sidenav = (
-    //     <div className='side-nav' style={{ color: "#adb3b3" }}>
+    if (location.pathname === "/likes") {
+      sidenav = (
+        <div className='side-nav' style={{ color: "#adb3b3" }}>
 
-    //       <Link to="/" style={{ textDecoration: "none" }}>
-    //         <i class="fa-solid fa-house" style={{ color: "#b3b3b3" }}></i>
-    //         &nbsp;
-    //         Home</Link>
-
-
-    //       <br />
-    //       <button className='create-playlist-button' onClick={createPlaylist} disabled={isDisabled}>
-    //         <i class="fa-solid fa-square-plus"></i>
-    //         &nbsp;
-    //         Create playlist
-    //       </button>
-
-    //       <div style={{ borderBottom: "1px solid gray" }}><br /></div>
-    //       <br />
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <i class="fa-solid fa-house" style={{ color: "#b3b3b3" }}></i>
+            &nbsp;
+            Home</Link>
 
 
-    //     </div>
-    //   )
-    //   navbar = (
-    //     <nav id="top-navbar" style={{ backgroundColor: "#513a9e", backgroundImage: "none" }}>
-    //       <div style={{ marginRight: "30px" }}>
-    //         <Link to={{ pathname: "https://github.com/ltnguyen517/Amplify" }} target="_blank">
-    //           <i style={{ color: "white", marginTop: "20%" }} class="fa-brands fa-github fa-lg"></i>
-    //         </Link>
+          <br />
+          <button className='create-playlist-button' onClick={createPlaylist} disabled={isDisabled}>
+            <i class="fa-solid fa-square-plus"></i>
+            &nbsp;
+            Create playlist
+          </button>
 
-    //       </div>
-
-    //     </nav>
-    //   )
+          <div style={{ borderBottom: "1px solid gray" }}><br /></div>
+          <br />
 
 
-    // }
+        </div>
+      )
+      navbar = (
+        <nav id="top-navbar" style={{ backgroundColor: "#513a9e", backgroundImage: "none" }}>
+          <div style={{ marginRight: "30px" }}>
+            <Link to={{ pathname: "https://github.com/ltnguyen517/Amplify" }} target="_blank">
+              <i style={{ color: "white", marginTop: "20%" }} class="fa-brands fa-github fa-lg"></i>
+            </Link>
+
+          </div>
+
+        </nav>
+      )
+
+
+    }
     if (location.pathname !== "/sign-up" && location.pathname !== "/login" && !sessionUser) {
       sidenav = (
         <div className='side-nav' style={{ color: "#adb3b3" }}>
