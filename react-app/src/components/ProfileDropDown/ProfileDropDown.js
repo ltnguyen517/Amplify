@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink, useHistory, useParams, useLocation } from 'react-router-dom';
+import { Link, NavLink, useHistory, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import LogoutButton from '../auth/LogoutButton';
 import "./ProfileDropDown.css"

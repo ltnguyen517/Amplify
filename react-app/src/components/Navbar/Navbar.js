@@ -9,7 +9,6 @@ import PlaylistsOfUser from "../PlaylistsOfUser/PlaylistsOfUser";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 import logo from "./logo.png";
 import AudioPlayer from 'react-h5-audio-player';
-
 import 'react-h5-audio-player/lib/styles.css';
 import "./Navbar.css";
 
