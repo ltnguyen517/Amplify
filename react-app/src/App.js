@@ -8,6 +8,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import NavBar from "./components/Navbar/Navbar";
 import HomePage from "./components/HomePage/Home";
+import SongsLiked from "./components/SongsLiked/SongsLiked";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -33,6 +34,9 @@ function App() {
         </Route>
         <Route path="/signup" exact={true}>
           <SignupFormPage />
+        </Route>
+        <Route path='/likes'>
+          <SongsLiked />
         </Route>
         <Route path='/' exact={true}>
           <HomePage />

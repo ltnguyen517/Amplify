@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as likedSongsStore from "../../store/likedsongs"
 import * as audioStore from "../../store/audioplayer"
 import * as playlistStore from "../../store/playlist"
