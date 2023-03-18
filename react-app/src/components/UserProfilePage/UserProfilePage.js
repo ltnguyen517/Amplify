@@ -230,7 +230,51 @@ const UserProfilePage = () => {
             )
         }
     } else {
-        
+        return (
+            <div className="userprofmain">
+                <div className="userprofheader" style={{ display: "flex", flexDirection: "row" }}>
+                    <div className="userprofpicture">
+                        {followerProfileImg}
+                    </div>
+                    <div className="userdata">
+                        Profile
+                        <h1 className="name" style={{ color: "white" }}>
+                            {user.username}
+                        </h1>
+                        {lengthUserPlaylists}
+
+                        <span style={{ fontSize: "20px" }}>·</span>
+
+                        {profileFollowers?.followers_of_user?.length} Followers
+
+                        <span style={{ fontSize: "20px" }}>·</span>
+
+                        {profileFollowers?.people_user_follows?.length} Following
+                    </div>
+                </div>
+                <div className="followpersonarea">
+                    {toFollowButton}
+                </div>
+                <div className="userprofdetails">
+                    <h2 style={{ color: "white" }}>Playlists</h2>
+                    <div className="userprofplaylists">
+                        <UserOwnPlaylists userPlaylistsList={userPlaylistsList} />
+                    </div>
+                    <h2 style={{ color: "white" }}>Followed Playlists</h2>
+                    <div className="followedplaylistscontainer">
+                        <UserFollowedPlaylists followingPlaylists={followingPlaylists} />
+                    </div>
+                    <h2 style={{ color: "white" }}>Following</h2>
+                    <div className="usersfollowed-container">
+                        <UserFollowing userFollowingArr={userFollowingArr} followerProfileImg={followerProfileImg} />
+                    </div>
+                    <h2 style={{ color: "white" }}>Followers</h2>
+                    <div className="usersfollowed-container">
+                        <UserFollowers userFollowerArr={userFollowerArr} followerProfileImg={followerProfileImg} />
+                    </div>
+                </div>
+            </div>
+        )
     }
 };
 
