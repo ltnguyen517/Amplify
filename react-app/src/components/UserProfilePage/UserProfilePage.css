@@ -1,0 +1,66 @@
+.unfollowbutton {
+    margin-top: 10px;
+    background: none;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    width: 90px;
+    height: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: white;
+}
+.followbutton {
+    margin-top: 10px;
+    background: none;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    width: 90px;
+    height: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: #1ed760;
+}
+.userprofmain{
+    padding-bottom: 90px;
+    margin-left: 20px;
+}
+.userprofheader{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #808080;
+    margin-right: -100px;
+}
+.userprofpicture {
+    border: 1px solid white;
+    border-radius: 1000px;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+    margin-top: 20px;
+    background-color: gray;
+}
+.userdata {
+    margin-top: 80px;
+    margin-left: 30px;
+    color: white;
+}
+.userprofplaylists {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 270px);
+    padding-left: 30px;
+}
+.followedplaylistscontainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 270px);
+    padding-left: 30px;
+}
+.usersfollowed-container {
+    display: flex;
+    flex-direction: row;
+
+}
+

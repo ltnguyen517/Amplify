@@ -145,7 +145,7 @@ const UserProfilePage = () => {
                         </div>
                         <div className="userdata">
                             Profile
-                            <h1 className="name" style={{color: "white"}}>
+                            <h1 style={{color: "white"}}>
                                 {sessionUser.username}
                             </h1>
                             {lengthUserPlaylists}
