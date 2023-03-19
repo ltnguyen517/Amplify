@@ -93,11 +93,24 @@ const NavBar = () => {
             &nbsp;
             Create playlist
           </button>
-
+          <Link to="/likes">
+            <i class="fa solid fa-heart"></i>
+            Liked Songs
+          </Link>
           <div style={{ borderBottom: "1px solid gray" }}><br /></div>
           <br />
-
-
+          <div style={{ overflowY: "scroll" }}>
+            <div className="userplaylistclass">
+              <PlaylistsOfUser />
+              {followedPlaylistsArr && (
+                followedPlaylistsArr.map((playlist) => {
+                  return <div>
+                    <Link to={`/playlist/${playlist.id}`}>{playlist.title}</Link>
+                  </div>
+                })
+              )}
+            </div>
+          </div>
         </div>
       )
       navbar = (
@@ -106,13 +119,40 @@ const NavBar = () => {
             <Link to={{ pathname: "https://github.com/ltnguyen517/Amplify" }} target="_blank">
               <i style={{ color: "white", marginTop: "20%" }} class="fa-brands fa-github fa-lg"></i>
             </Link>
-
           </div>
-
+          <div className="loginsignup" style={{marginRight: "80px"}}>
+            <ProfileDropDown />
+          </div>
         </nav>
       )
-
-
+      if (audioState.current_song.length > 0) {
+        bottomnav = (
+          audioState.current_song.length > 0 && (
+            <div className='bottom-div-container'>
+              <div className='audio-container' style={{ display: "flex", marginLeft: "20px" }}>
+                <div className='bottom-nav-image-container' style={{ display: "flex" }}>
+                  <img style={{ width: "80px" }} src={audioState.current_song[0].album.album_photo}></img>
+                  <div className='bottom-div-album-name-artist-container' style={{ display: "flex", flexDirection: "column", marginLeft: "20px", marginTop: "15px", width: "300px" }}>
+                    <Link id='bottom-nav-album-link' to={`/album/${audioState.current_song[0].album.id}`}>{audioState.current_song[0].name}</Link>
+                    <Link id="bottomnavartist" to={`/artist/${audioState.current_song[0].album.artist.id}`}>{audioState.current_song[0].album.artist.name}</Link>
+                  </div>
+                </div>
+                <div style={{ marginLeft: "50px" }}>
+                  <AudioPlayerComponent />
+                </div>
+              </div>
+            </div>
+          )
+        )
+      } else {
+        bottomnav = (
+          <div className='bottom-div-container'>
+            <div style={{ marginLeft: "230px" }}>
+              <AudioPlayerComponent/>
+            </div>
+          </div>
+        )
+      }
     }
     if (location.pathname !== "/sign-up" && location.pathname !== "/login" && !sessionUser) {
       sidenav = (
@@ -125,10 +165,13 @@ const NavBar = () => {
               <i class="fa-solid fa-house" style={{ color: "#b3b3b3" }}></i>
               &nbsp;
               Home</Link>
-
           </div>
-
-
+          <div>
+            <Link to="/login">
+              <i class="fa-solid fa-square-plus"></i>
+              Create Playlist
+            </Link>
+          </div>
         </div>
       )
       navbar = (
@@ -183,10 +226,12 @@ const NavBar = () => {
             &nbsp;
             Create Playlist
           </button>
-
+          <Link to="/likes">
+            <i class="fa-solid fa-heart"></i>
+            Liked Songs
+          </Link>
           <div style={{ borderBottom: "1px solid gray" }}><br /></div>
           <br />
-
           <div style={{ overflowY: "scroll" }}>
             <div className='user-playlist-div'>
               <PlaylistsOfUser />
@@ -199,12 +244,11 @@ const NavBar = () => {
               )}
             </div>
           </div>
-
         </div>
       )
       navbar = (
         <nav id="top-navbar">
-          <div className='profddright' style={{ marginRight: "115px" }}>
+          <div className='loginsignup' style={{ marginRight: "115px" }}>
             <ProfileDropDown />
           </div>
         </nav>
@@ -218,6 +262,7 @@ const NavBar = () => {
                   <img style={{ width: "80px" }} src={audioState.current_song[0].album.album_photo}></img>
                   <div className='bottom-div-album-name-artist-container' style={{ display: "flex", flexDirection: "column", marginLeft: "20px", marginTop: "15px", width: "300px" }}>
                     <Link id='bottom-nav-album-link' to={`/album/${audioState.current_song[0].album.id}`}>{audioState.current_song[0].name}</Link>
+                    <Link id="bottomnavartist" to={`/artist/${audioState.current_song[0].album.artist.id}`}>{audioState.current_song[0].album.artist.name}</Link>
                   </div>
                 </div>
                 <div style={{ marginLeft: "50px" }}>
@@ -255,7 +300,6 @@ const NavBar = () => {
         {bottomnav}
       </>
     );
-
-
 }
+
 export default NavBar;
