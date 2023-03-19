@@ -1,5 +1,5 @@
 
-.create-playlist-button{
+.createplaylist-button{
     display: flex;
     padding-bottom: 10px;
     border: none;
@@ -12,11 +12,11 @@
     margin-top: -1px;
 
 }
-.create-playlist-button:hover{
+.createplaylist-button:hover{
     color: white;
     cursor: pointer;
 }
-#top-navbar{
+#topnavbar {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -28,7 +28,7 @@
     margin-top: -10px;
     width: 108.95%
 }
-.side-nav{
+.sidenav{
     height: 100%;
     width: 190px;
     position: fixed;
@@ -39,7 +39,7 @@
     padding-top: 30px;
 }
 
-.side-nav a{
+.sidenav a{
     display: flex;
     padding-bottom: 10px;
     text-decoration: none;
@@ -47,14 +47,14 @@
     overflow-y:visible;
 }
 
-.side-nav a:hover{
+.sidenav a:hover{
     color: white
 }
-.login-signup{
+.loginsignup{
     padding-top: 5px;
     margin-right: 10px;
 }
-#login-nav-button{
+#loginnav-button{
     background-color: white;
     font-weight: 750;
     border: none;
@@ -62,7 +62,7 @@
     padding: 14px 32px;
     cursor: pointer;
 }
-.logged-out-bottom-div-container{
+.loggedoutbottomdiv-container{
     z-index: 100;
     overflow: hidden;
     position: fixed;
@@ -98,7 +98,7 @@ body{
     background: #555;
   }
 
-.user-playlist-div{
+.userplaylistclass{
     margin-left: 20px;
     height: 520px;
     overflow-y: auto;
@@ -106,11 +106,11 @@ body{
 .profddright{
     padding-top: 5px;
 }
-#bottom-nav-album-link{
+#bottomnav-album-link{
     text-decoration: none;
     color: white;
 }
-#bottom-nav-album-link:hover{
+#bottomnav-album-link:hover{
     text-decoration: underline;
 }
 .bottom-div-container{
@@ -125,15 +125,32 @@ body{
     background-color: #181818;
     overflow-x: hidden;
 }
-#logging-in-signing-up-nav{
+#logginginsigningup-nav{
     display: flex;
     flex-direction: row;
     justify-content: center;
     position: relative;
     height: 80px;
 }
-.logo-img{
+.logoimg{
     width: 200px;
     height: 55px;
     padding-top: 15px;
+}
+#signupnav-button {
+    border: none;
+    background-color: #111111;
+    color: #808080;
+    cursor: pointer;
+}
+#signupnav-button:hover {
+    color: white;
+}
+#bottomnavartist{
+    text-decoration: none;
+    color: gray;
+}
+#bottomnavartist:hover{
+    text-decoration: underline;
+    color: white;
 }
