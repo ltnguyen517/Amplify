@@ -9,6 +9,8 @@ import Navigation from "./components/Navigation";
 import NavBar from "./components/Navbar/Navbar";
 import HomePage from "./components/HomePage/Home";
 import SongsLiked from "./components/SongsLiked/SongsLiked";
+import UserProfilePage from "./components/UserProfilePage/UserProfilePage";
+import AudioPlayerComponent from "./components/Audioplayer/Audioplayer";
 import Error404Page from "./components/ErrorPage/ErrorPage";
 
 function App() {
@@ -36,11 +38,17 @@ function App() {
         <Route path="/signup" exact={true}>
           <SignupFormPage />
         </Route>
+        <Route path="/audio">
+          <AudioPlayerComponent />
+        </Route>
         <Route path='/likes'>
           <SongsLiked />
         </Route>
         <Route path='/playlist/:playlistId' exact={true}>
           <PlaylistPage />
+        </Route>
+        <Route path='/user/:userId' exact={true}>
+          <UserProfilePage />
         </Route>
         <Route path='/' exact={true}>
           <HomePage />

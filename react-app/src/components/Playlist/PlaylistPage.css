@@ -94,3 +94,23 @@
 .create-playlist-button-dropdown:hover{
     color: white;
 }
+.removesong{
+    color: gray;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.removesong:hover{
+    color: white
+}
+.logged-out-album-page {
+    text-decoration: none;
+    color: gray;
+    font-size: 13px;
+    margin-left: 20px;
+    padding-right: 10px;
+    margin-right: 20px;
+}
+.logged-out-album-page:hover {
+    color: white;
+}
