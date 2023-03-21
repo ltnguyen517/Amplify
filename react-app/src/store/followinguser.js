@@ -38,7 +38,7 @@ export const followAUser = (userId, userId2) => async (dispatch) => {
     })
     if(response.ok){
         const data = await response.json()
-        dispatch(actionCreateFollow(id2))
+        dispatch(actionCreateFollow(userId2))
         return data
     } else {
         return response
@@ -46,7 +46,7 @@ export const followAUser = (userId, userId2) => async (dispatch) => {
 }
 
 export const unfollowAUser = (userId, userId2) => async (dispatch) => {
-    const response = await fetch(`/api/users/${userId}/follow/${id2}`, {
+    const response = await fetch(`/api/users/${userId}/follow/${userId2}`, {
         method: "DELETE"
     })
     if(response.ok){

@@ -1,5 +1,5 @@
 from flask import Blueprint, request, session, render_template, jsonify
-from app.models import db, Playlist, User, Song, Album
+from app.models import db, Playlist, User, Song, Album, Artist
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
 from sqlalchemy.sql import func
@@ -7,6 +7,8 @@ from ..forms import PlaylistForm
 import boto3
 import botocore
 import os
+
+playlist_routes = Blueprint("playlists", __name__)
 
 BUCKET_NAME = os.environ.get("S3_BUCKET")
 S3_LOCATION = f"http://{BUCKET_NAME}.s3.amazonaws.com/"
@@ -18,39 +20,40 @@ s3 = boto3.client(
    aws_secret_access_key=os.environ.get("S3_SECRET")
 )
 
-playlist_routes = Blueprint("playlists", __name__)
-
 @playlist_routes.route("/pictures/upload", methods=["POST"])
 def upload_picture():
     if request.method == "POST":
-        file = request.files["file"]
-        if file:
-            filename = secure_filename(file.filename)
+        img = request.files["file"]
+        if img:
+            filename = secure_filename(img.filename)
             s3.upload_fileobj(
-                file,
+                img,
                 BUCKET_NAME,
                 filename,
                 ExtraArgs = {
                     'ACL':'public-read',
-                    'ContentType': file.content_type
+                    'ContentType': img.content_type
                 }
             )
-            return {"picture": f"http://amplifyproj.s3.amazonaws.com/{filename}"}
+            return {"picture": f"https://amplifyproj.s3.amazonaws.com/{filename}"}
         else:
             return {"error": "Not a valid file"}
 
+@playlist_routes.route("/upload")
+def uploading():
+    return render_template("imgupload.html")
 
 # Get all playlists
 
 @playlist_routes.route("/")
 def get_playlists():
     get_playlists = Playlist.query.all()
-    playlistsdict = [play.to_dict(user=True) for play in get_playlists]
+    playlistsdict = [playlist.to_dict(user=True) for playlist in get_playlists]
     return {"Playlists": playlistsdict}
 
 # Get one specific playlist
 
-@playlist_routes.route("/<int:playlistId>")
+@playlist_routes.route("/<int:playlistId>/")
 def get_a_playlist(playlistId):
     playlist = Playlist.query.get(playlistId)
     if playlist:
@@ -112,7 +115,7 @@ def insertsong_to_playlist(playlistId, songId):
 
 # Edit a playlist
 
-@playlist_routes.route("/<int:playlistId>", methods=["PUT"])
+@playlist_routes.route("/<int:playlistId>/", methods=["PUT"])
 @login_required
 def edit_playlist(playlistId):
     playlist = Playlist.query.get(playlistId)
@@ -129,6 +132,30 @@ def edit_playlist(playlistId):
             playlist.playlist_picture = request.get_json()["playlist_picture"]
             db.session.commit()
             return playlist.to_dict(user=True)
+    # updated_title = request.json["title"]
+    # updated_description = request.json["description"]
+    # updated_picture  = request.json["playlist_picture"]
+
+    # if playlist:
+    #     if playlist.creator_id == current_user.id:
+    #         if updated_title:
+    #             playlist.title = updated_title
+    #         else:
+    #             playlist.title = playlist.title
+    #         if updated_description:
+    #             playlist.description = updated_description
+    #         else:
+    #             playlist.description = playlist.description
+    #         if updated_picture:
+    #             playlist.playlist_picture = updated_picture
+    #         else:
+    #             playlist.playlist_picture = playlist.playlist_picture
+    #         db.session.commit()
+    #         return playlist.to_dict(user=True)
+    #     else:
+    #         return {"note": "You're not able to edit a playlist that you do not own"}
+    # else:
+    #     return {"note": "No such playlist was found"}
     if form.errors:
         return form.errors
 
@@ -155,7 +182,7 @@ def deletesong_from_playlist(playlistId, songId):
 
 # Delete a playlist
 
-@playlist_routes.route("/<int:playlistId>", methods=["DELETE"])
+@playlist_routes.route("/<int:playlistId>/", methods=["DELETE"])
 @login_required
 def delete_playlist(playlistId):
     playlist = Playlist.query.get(playlistId)

@@ -8,7 +8,6 @@ export function ModalProvider({ children }) {
     const modalRef = useRef();
     const [value, setValue] = useState();
 
-
     useEffect(() => {
         setValue(modalRef.current);
     }, [])
@@ -97,4 +96,4 @@ export function Modal({ onClose, children }) {
 //   );
 // }
 
-export const useModal = () => useContext(ModalContext);
+// export const useModal = () => useContext(ModalContext);

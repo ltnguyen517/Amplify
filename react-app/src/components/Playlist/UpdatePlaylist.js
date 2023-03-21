@@ -13,7 +13,8 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
     const editingArr = Object.values(editingPlaylist)
     const playlistOfUser = editingArr.filter(playlist => Number(playlist.id) === Number(playlistId))
 
-    const [picture, setPicture] = useState("")
+    const [image, setImage] = useState("")
+    const [imageLoading, setImageLoading] = useState(false);
     const [errors, setErrors] = useState([])
     const [title, setTitle] = useState(playlistOfUser[0].title)
     const [description, setDescription] = useState(playlistOfUser[0].description)
@@ -40,7 +41,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
         e.preventDefault()
         if(errors.length) return
         setErrors([])
-        setPicture("")
+        setImage("")
         const errArr = []
         if(description.length <= 5 || description.length > 255) errArr.push("Description needs to be between 6 to 255 characters long!")
 
@@ -99,7 +100,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
             const playlisttoUpdate = {
                 title,
                 description: " ",
-                playlist_picture: picURL.picture
+                playlist_picture: picURL.image
             }
 
             const updatedPlaylist = await dispatch(actionthunksPlaylist.editPlaylist(playlisttoUpdate, playlistId))
@@ -117,7 +118,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
             const playlisttoUpdate = {
                 title,
                 description,
-                playlist_picture: picURL.picture
+                playlist_picture: picURL.image
             }
             const updatedPlaylist = await dispatch(actionthunksPlaylist.editPlaylist(playlisttoUpdate, playlistId))
             if (updatedPlaylist) {

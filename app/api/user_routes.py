@@ -76,6 +76,39 @@ def playlists_user_follows(id):
     else:
         return {"note": f"User {id} does not exist"}
 
+# Get user's song(s) likes
+
+@user_routes.route("/<int:id>/likesof_song")
+def song_likes(id):
+    user = User.query.get(id)
+    if user:
+        return user.to_dict(likes=True)
+    else:
+        return {"note": "User was not found"}
+
+# User wants to like/unlike a song
+
+@user_routes.route("/<int:id>/like-unlikesong/<int:id2>", methods=["POST", "DELETE"])
+@login_required
+def like_unlike_song(id, id2):
+    user = User.query.get(id)
+    song = Song.query.get(id2)
+
+    if user:
+        if song:
+            if request.method == "POST":
+                user.usersend_likes.append(song)
+                db.session.commit()
+                return user.to_dict(likes=True)
+            else:
+                user.usersend_likes.remove(song)
+                db.session.commit()
+                return user.to_dict(likes=True)
+        else:
+            return {"note": "Song could not be found"}
+    else:
+        return {"note": "User could not be found"}
+
 # User wants to follow another user
 
 @user_routes.route("/<int:userId>/follow/<int:userId2>", methods=["POST"])

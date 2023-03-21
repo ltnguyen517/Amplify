@@ -4,12 +4,16 @@ import session from './session';
 import playlistReducer from './playlist';
 import followingPlaylistReducer from './followingplaylist';
 import followingUserReducer from './followinguser';
+import audioPlayerReducer from './audioplayer';
+import songsLikedReducer from './likedsongs';
 
 const rootReducer = combineReducers({
   session,
-  playlist: playlistReducer,
-  followingPlaylist: followingPlaylistReducer,
-  followingUser: followingUserReducer
+  playlistReducer,
+  followingPlaylistReducer,
+  followingUserReducer,
+  audioPlayerReducer,
+  songsLikedReducer
 });
 
 

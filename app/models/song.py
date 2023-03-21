@@ -5,6 +5,16 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get('SCHEMA')
 
+likes = db.Table(
+    "likes",
+    db.Model.metadata,
+    db.Column("song_id", db.Integer, db.ForeignKey(add_prefix_for_prod("songs.id"))),
+    db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
+)
+
+if environment == 'production':
+    likes.schema = SCHEMA
+
 class Song(db.Model):
     __tablename__ = "songs"
 
@@ -21,6 +31,8 @@ class Song(db.Model):
 
     albums = db.relationship("Album", back_populates="songs")
 
+    likesof_song = db.relationship("User", secondary=likes, back_populates="usersend_likes")
+
     def to_dict(self, album=False):
         song = {
             'id': self.id,
@@ -32,4 +44,5 @@ class Song(db.Model):
         }
         if album:
             song['Album'] = self.albums
+
         return song

@@ -28,11 +28,14 @@
     font-weight: bold;
     border-radius: 20px;
     margin-top: 20px;
-    width: 100px;
-    height: 35px;
+    width: 83px;
+    height: 32px;
     border: none;
     cursor: pointer;
-    padding-top: 1px;
+}
+.pldeletebutton:hover{
+    background-color: #1ed75fc9;
+    cursor: pointer;
 }
 .songsheader{
     display: flex;
@@ -47,4 +50,67 @@
 }
 .plsongholder:hover{
     background-color: gray;
+}
+.active-playlist-song-dropdown{
+    position: absolute;
+    z-index: 99999;
+    background-color: black;
+    margin-left: -30px;
+    margin-top: 20px;
+}
+.yes{
+    text-decoration: none;
+    color: gray;
+    font-size: 13px;
+    margin-left: 6px;
+}
+.yes:hover{
+    color: white;
+}
+.add-to-queue-button{
+    color: gray;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.add-to-queue-button:hover{
+    color: white;
+}
+.add-song-to-playlist-button{
+    color: gray;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.add-song-to-playlist-button:hover{
+    color: white;
+}
+.create-playlist-button-dropdown{
+    color: gray;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.create-playlist-button-dropdown:hover{
+    color: white;
+}
+.removesong{
+    color: gray;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.removesong:hover{
+    color: white
+}
+.logged-out-album-page {
+    text-decoration: none;
+    color: gray;
+    font-size: 13px;
+    margin-left: 20px;
+    padding-right: 10px;
+    margin-right: 20px;
+}
+.logged-out-album-page:hover {
+    color: white;
 }
