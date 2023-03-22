@@ -39,16 +39,23 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        const formData = new FormData();
+        formData.append("image", image);
+
+
+
         if(errors.length) return
         setErrors([])
+
         setImage("")
+
         const errArr = []
         if(description.length <= 5 || description.length > 255) errArr.push("Description needs to be between 6 to 255 characters long!")
 
         let picUpload = document.querySelector("#file-input")
         setErrors(errArr)
 
-        for (let i = 0; i < picUpload.files.length; i++) {
+        for (let i = 0; i < picUpload?.files.length; i++) {
             let pic = picUpload.files[i]
             if (pic.type !== "image/gif" && pic.type !== "image/jpeg" && pic.type !== "image/png") {
                 rightOne = false
@@ -60,7 +67,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
 
         if(errArr.length) return
 
-        let pic = picUpload.files[0]
+        let pic = picUpload?.files[0]
         formData.append('file', pic)
 
         if (pic === undefined && !description) {
@@ -91,12 +98,12 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
                 await setShowModal(false)
             }
         } else if (pic !== undefined && !description) {
-            const pic = await fetch("/api/playlists/pictures/upload", {
+            const img = await fetch("/api/playlists/pictures/upload", {
                 method: "POST",
                 body: formData
             })
 
-            const picURL = await pic.json()
+            const picURL = await img.json()
             const playlisttoUpdate = {
                 title,
                 description: " ",
@@ -110,11 +117,11 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
                 await setShowModal(false)
             }
         } else {
-            const pic = await fetch("/api/playlists/pictures/upload", {
+            const img = await fetch("/api/playlists/pictures/upload", {
                 method: "POST",
                 body: formData
             })
-            const picURL = await pic.json()
+            const picURL = await img.json()
             const playlisttoUpdate = {
                 title,
                 description,
@@ -128,30 +135,37 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
             }
         }
     }
+
+    const updateImage = (e) => {
+        const file = e.target.files[0];
+        setImage(file);
+    }
+
+
     return (
         <div className='editplarea'>
             <form className='editplform' onSubmit={handleSubmit}>
-                <h3>Editing information</h3>
+                <h2 style={{color: "white"}}>Edit details</h2>
                 <div>
                     {errors.map((error) => {
                         return <span>{error}</span>
                     })}
                 </div>
-
                 <div className='editplinput'>
 
                     <div style={{ width: "200px", height: "200px" }} className='editpicarea'>
                         <label htmlFor='file-input'>
                             <img style={{ width: "200px", height: "210px" }} src={playlistOfUser[0].playlist_picture} />
                         </label>
-                        <input className="file-input" type='file' name='file' encType="multipart/form-data" />
+                        <input id="file-input" type='file' name='file' accept="image/*" onChange={updateImage} encType="multipart/form-data" />
                     </div>
 
-                    <div className='titledescarea'>
-                        <label>Title</label>
-                        <input className="titlearea" name='title' type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <div className='titledescarea' style={{color: "white"}}>
+                        <label style={{marginBottom: "7px"}}>Title</label>
+                        <input id="titlearea" name='title' type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
 
-                        <label>Description</label>
+                        <br/>
+                        <label style={{marginBottom: "7px"}}>Description</label>
                         <textarea placeholder='Add a description' className="descriptionwrite" name='description' type='text' value={description} onChange={(e) => setDescription(e.target.value)} />
                     </div>
                 </div>
@@ -161,7 +175,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
                 </div>
             </form>
 
-            <div style={{ fontSize: "11.5px", marginTop: "10px", marginLeft: "10px" }}>
+            <div style={{ fontSize: "10.8px", marginTop: "8px", color: "white", marginLeft: "8px"}}>
                 By proceeding, you agree to give Amplify access to the image you choose to upload. Please make sure you have the right to upload the image.
             </div>
         </div>

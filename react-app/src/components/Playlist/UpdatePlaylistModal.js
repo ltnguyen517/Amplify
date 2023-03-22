@@ -12,18 +12,19 @@ const UpdatePlaylistModal = ({ playlistId, playlist, aPlaylist }) => {
             {/* <button onClick={() => setShowModal(true)}>Edit Playlist</button> */}
                 <div className='plheader' style={{ backgroundImage: playlist ? `url(${playlist.playlist_picture})` : null, backgroundSize: playlist ? "0.5px 0.5px" : null, width: "109%", paddingBottom: "30px" }}>
 
-                    <div style={{ width: "250px", height: "250px", paddingLeft: "30px", cursor: "pointer" }} className="plpicturearea">
-                        <img className="plimg" src={playlist?.playlist_picture} />
+                    <div style={{ width: "250px", height: "250px", paddingLeft: "30px", cursor: "pointer" }}>
+                        <img className="plpic" src={playlist?.playlist_picture} />
                     </div>
 
-                    <div id='plinfoarea' style={{ paddingLeft: "30px", marginTop: "50px" }}>
-                        <div id='pltext' style={{ fontSize: "12px" }}>
+                    <div className="plinfoarea" style={{ paddingLeft: "30px", marginTop: "50px" }}>
+                        <div className='pltext' style={{ fontSize: "12px" }}>
                             PLAYLIST
                         </div>
-                        <div className="pltitlearea" style={{ cursor: "pointer", fontSize: "70px", fontWeight: "700", textDecoration: "none" }}>
+                        <div className="pltitle" style={{ cursor: "pointer", fontSize: "70px", fontWeight: "700", textDecoration: "none" }}>
                             {playlist?.title}
                         </div>
-                        <div className="pldescriptionarea">
+                        <div className="pldescription">
+                        
                             {playlist?.description}
                         </div>
                         <div>

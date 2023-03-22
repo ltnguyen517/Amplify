@@ -15,8 +15,6 @@
     display: none;
 }
 .editpicarea{
-    /* border-radius: 20px; */
-    /* border: 1px solid white; */
     margin-right: 20px;
     box-shadow: 5px 5px 12px 5px black;
 }
@@ -26,7 +24,7 @@
 }
 .titledescarea > input {
     color: white;
-    width: 100%;
+    width: 96%;
     height: 30px;
     background-color: #3e3e3e;
 }
@@ -43,9 +41,10 @@
 }
 .editsubbutt{
     background-color: white;
-    font-weight: 780;
+    font-weight: 800;
     border: 1px solid black;
     border-radius: 25px;
-    height: 50px;
-    width: 100px;
+    height: 40px;
+    width: 90px;
+    margin-right: -6px;
 }
