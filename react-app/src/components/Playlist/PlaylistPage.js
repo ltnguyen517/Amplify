@@ -206,7 +206,7 @@ export default function PlaylistPage(){
                             <div className="plpicarea" style={{paddingLeft: "30px", paddingTop: "23px"}}>
                                 <img className="plpic" src={playlist.playlist_picture} />
                             </div>
-                            <div className="plinfoarea" style={{marginTop: "28px"}}>
+                            <div className="plinfoarea" style={{marginTop: "50px"}}>
                                 <div className="pltext" style={{fontSize: "13px", marginLeft: "4px"}}>
                                     PLAYLIST
                                 </div>

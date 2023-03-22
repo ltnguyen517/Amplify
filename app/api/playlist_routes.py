@@ -1,6 +1,8 @@
 from flask import Blueprint, request, session, render_template, jsonify
 from app.models import db, Playlist, User, Song, Album, Artist
 from flask_login import current_user, login_required, login_user, logout_user
+from app.s3_helpers import (
+    upload_file_to_s3, allowed_file, get_unique_filename)
 from werkzeug.utils import secure_filename
 from sqlalchemy.sql import func
 from ..forms import PlaylistForm
@@ -10,38 +12,56 @@ import os
 
 playlist_routes = Blueprint("playlists", __name__)
 
-BUCKET_NAME = os.environ.get("S3_BUCKET")
-S3_LOCATION = f"http://{BUCKET_NAME}.s3.amazonaws.com/"
-ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif"}
-
-s3 = boto3.client(
-   "s3",
-   aws_access_key_id=os.environ.get("S3_KEY"),
-   aws_secret_access_key=os.environ.get("S3_SECRET")
-)
-
 @playlist_routes.route("/pictures/upload", methods=["POST"])
-def upload_picture():
-    if request.method == "POST":
-        img = request.files["file"]
-        if img:
-            filename = secure_filename(img.filename)
-            s3.upload_fileobj(
-                img,
-                BUCKET_NAME,
-                filename,
-                ExtraArgs = {
-                    'ACL':'public-read',
-                    'ContentType': img.content_type
-                }
-            )
-            return {"picture": f"https://amplifyproj.s3.amazonaws.com/{filename}"}
-        else:
-            return {"error": "Not a valid file"}
+@login_required
+def upload_image():
+    if "image" not in request.files:
+        return {"errors": "image required"}, 400
 
-@playlist_routes.route("/upload")
-def uploading():
-    return render_template("imgupload.html")
+    image = request.files["image"]
+
+    if not allowed_file(image.filename):
+        return {"errors": "file type not permitted"}, 400
+
+    image.filename = get_unique_filename(image.filename)
+
+    upload = upload_file_to_s3(image)
+
+    if "url" not in upload:
+        # if the dictionary doesn't have a url key
+        # it means that there was an error when we tried to upload
+        # so we send back that error message
+        return upload, 400
+
+    url = upload["url"]
+    # flask_login allows us to get the current user from the request
+    new_image = Playlist(user=current_user, url=url)
+    db.session.add(new_image)
+    db.session.commit()
+    return {"url": url}
+
+# @playlist_routes.route("/pictures/upload", methods=["POST"])
+# def upload_picture():
+#     if request.method == "POST":
+#         img = request.files["file"]
+#         if img:
+#             filename = secure_filename(img.filename)
+#             s3.upload_fileobj(
+#                 img,
+#                 BUCKET_NAME,
+#                 filename,
+#                 ExtraArgs = {
+#                     'ACL':'public-read',
+#                     'ContentType': img.content_type
+#                 }
+#             )
+#             return {"picture": f"https://amplifyproj.s3.amazonaws.com/{filename}"}
+#         else:
+#             return {"error": "Not a valid file"}
+
+# @playlist_routes.route("/upload")
+# def uploading():
+#     return render_template("imgupload.html")
 
 # Get all playlists
 
@@ -119,45 +139,45 @@ def insertsong_to_playlist(playlistId, songId):
 @login_required
 def edit_playlist(playlistId):
     playlist = Playlist.query.get(playlistId)
-    if not playlist:
-        return {"errors": ["Playlist couldn't be found"]}, 404
+    # if not playlist:
+    #     return {"errors": ["Playlist couldn't be found"]}, 404
 
-    form = PlaylistForm()
-    form["csrf_token"].data = request.cookies["csrf_token"]
+    # form = PlaylistForm()
+    # form["csrf_token"].data = request.cookies["csrf_token"]
 
-    if playlist and form.validate_on_submit():
-        if current_user.id == playlist.creator_id:
-            playlist.title = request.get_json()["title"]
-            playlist.description = request.get_json()["description"]
-            playlist.playlist_picture = request.get_json()["playlist_picture"]
-            db.session.commit()
-            return playlist.to_dict(user=True)
-    # updated_title = request.json["title"]
-    # updated_description = request.json["description"]
-    # updated_picture  = request.json["playlist_picture"]
-
-    # if playlist:
-    #     if playlist.creator_id == current_user.id:
-    #         if updated_title:
-    #             playlist.title = updated_title
-    #         else:
-    #             playlist.title = playlist.title
-    #         if updated_description:
-    #             playlist.description = updated_description
-    #         else:
-    #             playlist.description = playlist.description
-    #         if updated_picture:
-    #             playlist.playlist_picture = updated_picture
-    #         else:
-    #             playlist.playlist_picture = playlist.playlist_picture
+    # if playlist and form.validate_on_submit():
+    #     if current_user.id == playlist.creator_id:
+    #         playlist.title = request.get_json()["title"]
+    #         playlist.description = request.get_json()["description"]
+    #         playlist.playlist_picture = request.get_json()["playlist_picture"]
     #         db.session.commit()
     #         return playlist.to_dict(user=True)
-    #     else:
-    #         return {"note": "You're not able to edit a playlist that you do not own"}
-    # else:
-    #     return {"note": "No such playlist was found"}
-    if form.errors:
-        return form.errors
+    updated_title = request.json["title"]
+    updated_description = request.json["description"]
+    updated_picture  = request.json["playlist_picture"]
+
+    if playlist:
+        if playlist.creator_id == current_user.id:
+            if updated_title:
+                playlist.title = updated_title
+            else:
+                playlist.title = playlist.title
+            if updated_description:
+                playlist.description = updated_description
+            else:
+                playlist.description = playlist.description
+            if updated_picture:
+                playlist.playlist_picture = updated_picture
+            else:
+                playlist.playlist_picture = playlist.playlist_picture
+            db.session.commit()
+            return playlist.to_dict(user=True, picture=True)
+        else:
+            return {"note": "You're not able to edit a playlist that you do not own"}
+    else:
+        return {"note": "No such playlist was found"}
+    # if form.errors:
+    #     return form.errors
 
 
 # Delete a song from a playlist
