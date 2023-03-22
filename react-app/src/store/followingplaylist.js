@@ -21,7 +21,7 @@ export const getAllPlFollowed = (id) => async (dispatch) => {
     const response = await fetch(`/api/users/${id}/playlists-followed`)
     if(response.ok){
         const data = await response.json()
-        dispatch(getPlFollowed(data.followingPlaylist))
+        dispatch(getPlFollowed(data.following))
         return data
     }
     return response
@@ -36,7 +36,7 @@ export const followPlaylist = (userId, playlistId) => async (dispatch) => {
     })
     if(response.ok){
         const data = await response.json()
-        dispatch(createPlFollow(data.followingPlaylist))
+        dispatch(createPlFollow(data.following))
         return data
     }
     return response

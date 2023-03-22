@@ -1,9 +1,9 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy.sql import func
 
-import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get('SCHEMA')
+# import os
+# environment = os.getenv("FLASK_ENV")
+# SCHEMA = os.environ.get('SCHEMA')
 
 class Artist(db.Model):
     __tablename__ = "artists"
@@ -25,7 +25,7 @@ class Artist(db.Model):
         }
 
         if songs:
-            artist["Songs"] = [song.to_dict(songs=True) for song in self.albums]
+            artist["Songs"] = [album.to_dict(songs=True) for album in self.albums]
 
         if albums:
             artist["Albums"] = [album.to_dict() for album in self.albums]

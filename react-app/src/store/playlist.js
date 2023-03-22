@@ -65,9 +65,9 @@ export const getPlaylistsFollowed = (id) => async (dispatch) => {
         const data = await response.json()
         dispatch(getFollowedPlaylists(data))
         return data
-    } else {
-        return response
     }
+    return response
+
 };
 
 export const createPlaylist = (playlist) => async (dispatch) => {
@@ -88,7 +88,7 @@ export const createPlaylist = (playlist) => async (dispatch) => {
 };
 
 export const editPlaylist = (playlist, id) => async (dispatch) => {
-    const response = await fetch(`/api/playlists/${id}`, {
+    const response = await fetch(`/api/playlists/${id}/`, {
         method: "PUT",
         headers: {
             'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ export const editPlaylist = (playlist, id) => async (dispatch) => {
 };
 
 export const deletePlaylist = (id) => async (dispatch) => {
-    const response = await fetch(`/api/playlists/${id}`, {
+    const response = await fetch(`/api/playlists/${id}/`, {
         method: "DELETE"
     })
     if (response.ok){
@@ -120,7 +120,7 @@ export const deletePlaylist = (id) => async (dispatch) => {
 const initialState = {}
 
 export default function playlistReducer(state = initialState, action){
-    let newState
+    let newState = {}
 
     switch (action.type){
         case GET_ALL_PLAYLISTS:

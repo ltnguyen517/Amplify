@@ -54,7 +54,7 @@ export const unfollowAUser = (userId, userId2) => async (dispatch) => {
         dispatch(actionDeleteFollow(userId2))
         return data
     } else {
-        return response
+        return await response.json()
     }
 }
 

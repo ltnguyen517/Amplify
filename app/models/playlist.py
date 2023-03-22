@@ -1,9 +1,9 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy.sql import func
 
-import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get('SCHEMA')
+# import os
+# environment = os.getenv("FLASK_ENV")
+# SCHEMA = os.environ.get('SCHEMA')
 
 playlist_followers = db.Table(
     "playlist_followers",

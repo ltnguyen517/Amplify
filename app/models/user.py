@@ -4,9 +4,9 @@ from flask_login import UserMixin
 from sqlalchemy.sql import func
 from datetime import datetime
 
-import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get('SCHEMA')
+# import os
+# environment = os.getenv("FLASK_ENV")
+# SCHEMA = os.environ.get('SCHEMA')
 
 follows = db.Table(
     "follows",
@@ -51,17 +51,7 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def to_dict(self, amplifyPlaylists=False, following=False, likes=False):
-        # return {
-        #     'id': self.id,
-        #     'username': self.username,
-        #     'email': self.email,
-        #     'picture': self.profile_picture,
-        #     'createdAt': self.created_at,
-        #     'updatedAt': self.updated_at,
-        #     'amplifyPlaylists': [playlist.to_dict() for playlist in self.playlist_amplifyusers],
-        #     'following': [followingplaylist.to_dict(user=True) for followingplaylist in self.playlist_following]
-        # }
+    def to_dict(self, playlist=False, following=False, likes=False):
         user = {
             'id': self.id,
             'username': self.username,
@@ -71,9 +61,9 @@ class User(db.Model, UserMixin):
             'updatedAt': self.updated_at
         }
         if following:
-            user['following'] = [amplifyPlaylists.to_dict(user=True) for amplifyPlaylists in self.playlist_following]
-        if amplifyPlaylists:
-            user['AmplifyPlaylists'] = [playlistList.to_dict(picture=True) for playlistList in self.playlist_amplifyusers]
+            user['following'] = [playlist.to_dict(user=True) for playlist in self.playlist_following]
+        if playlist:
+            user['Playlists'] = [playlistList.to_dict(picture=True) for playlistList in self.playlist_amplifyusers]
         if likes:
             user["SongsLiked"] = [song.to_dict() for song in self.usersend_likes]
 

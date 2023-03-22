@@ -42,7 +42,7 @@ const SongsLiked = () => {
         return () => document.removeEventListener('click', closeMenu);
     }, [showMenu]);
 
-    const playlistArr = Object.values(playlistState)
+    const playlistArr = Object.values(playlistState || {})
     let userPlaylists
     let lengthUserPlaylists
 
@@ -211,44 +211,130 @@ const SongsLiked = () => {
             <div className='songslikedarea' style={{ color: "white", paddingBottom: "80px", width: "100%" }}>
                 <div className='songslikedhead' style={{ display: "flex", paddingLeft: "60px", paddingTop: "50px", paddingBottom: "20px" }}>
                     <div className='likedsongdefaultimg' style={{ marginBottom: "10px" }}>
-                        <img src='https://misc.scdn.co/liked-songs/liked-songs-300.png' style={{ height: "100%" }}></img>
+                        <img src='https://misc.scdn.co/liked-songs/liked-songs-300.png' style={{ height: "235px" }}></img>
                     </div>
                     <div className='songsliked-info' style={{ marginLeft: "20px", display: "flex", flexDirection: "column" }}>
-                        <h1 style={{ color: "white", fontSize: "13px", marginBottom: "-50px", marginTop: "70px" }}>PLAYLIST</h1>
-                        <h1 style={{ fontSize: "75px", fontWeight: "700" }}>Liked Songs</h1>
-                        <Link onClick={(e) => history.push(`/user/${sessionUser.id}`)}>{sessionUser.username}</Link>
+                        <h1 style={{ color: "white", fontSize: "14px", marginBottom: "-50px", marginTop: "70px" }}>PLAYLIST</h1>
+                        <h1 style={{ fontSize: "74px", fontWeight: "700"}}>Liked Songs</h1>
+                        <Link onClick={(e) => history.push(`/user/${sessionUser.id}`)} style={{color:"white", textDecoration: "none", marginLeft: "3px"}}>{sessionUser.username}</Link>
                     </div>
                 </div>
                 <div className='playbutton' style={{ paddingLeft: "60px", height: "100px" }}>
                 </div>
                 <div className='songsheadarea' style={{ marginLeft: "55px", marginRight: "55px" }}>
-                    <div className='titlealbumicon'>
+                    <div>
                         <div>
                             #
                             &nbsp;
                             &nbsp;
                             TITLE
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            ALBUM
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            <i class="fa-regular fa-clock"></i>
                         </div>
                     </div>
-                    <div>
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
+                    {/* <div style={{ marginRight: "-95px" }}>
                         ALBUM
                     </div>
-                    <div style={{ paddingRight: "20px" }}>
+                    <div style={{ paddingRight: "70px" }}>
                         <i class="fa-regular fa-clock"></i>
-                    </div>
+                    </div> */}
                 </div>
-                <div className='nothingliked' style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+
+                <div className='nothingliked' style={{ fontSize: "13.5px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <br />
                     <h1>You currently do not have any liked songs.</h1>
                     <br />
                     <h2 style={{ marginTop: "-10px" }}>You should give it a try and start liking some songs!</h2>

@@ -15,20 +15,13 @@
     justify-content: center;
 }
 .back-home-button {
-    width: 190px;
-    height: 32px;
+    width: 150px;
+    height: 35px;
     color: white;
+    font-weight: 100px;
     cursor: pointer;
     border-radius: 11px;
     border-width: 0.3px;
     border-color: rgba(128, 128, 128, 0);
-    background-image: radial-gradient(
-      circle at center center,
-      rgb(255, 56, 92) 0%,
-      rgb(230, 30, 77) 27.5%,
-      rgb(227, 28, 95) 40%,
-      rgb(215, 4, 102) 57.5%,
-      rgb(189, 30, 89) 75%,
-      rgb(189, 30, 89) 100%
-    );
+    background-color: #1ed760;
 }

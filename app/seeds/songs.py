@@ -236,7 +236,7 @@ def seed_songs():
         creator_id=4,
         title='Jazz Lofi',
         description='A selection of carefully crafted, jazz infused lofi hip-hop tracks to help you escape to your favourite cafe on a crisp autumn afternoon... 🎺',
-        playlist_picture='https://i.scdn.co/image/ab67706c0000da841e06d4daf6106ce92bd86f3e',
+        playlist_picture='https://i.scdn.co/image/ab67706c0000da84e6f59fbe26ac1670b79dba2b',
         playlist_song_inventory= [simple, late, moon, evergreen, reflection]
     )
     hiphop = Playlist(
