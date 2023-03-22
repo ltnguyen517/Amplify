@@ -17,7 +17,7 @@ const NavBar = () => {
     const history = useHistory()
     const location = useLocation()
     const sessionUser = useSelector((state) => state.session.user)
-    let nav = document.getElementById("headnavbar")
+    let nav = document.getElementById("topnavbar")
     const playlistState = useSelector((state) => state.playlist)
     const followingPlaylistState = useSelector((state) => state.followingPlaylist)
     const [isDisabled, setIsDisabled] = useState(false)
@@ -41,8 +41,8 @@ const NavBar = () => {
         nav.style.background = "white"
     }
 
-    const playlistArr = Object.values(playlistState)
-    const followedPlaylistsArr = Object.values(followingPlaylistState)
+    const playlistArr = Object.values(playlistState || {})
+    const followedPlaylistsArr = Object.values(followingPlaylistState || {})
 
     let userPlaylists
     let lengthUserPlaylists
@@ -93,8 +93,10 @@ const NavBar = () => {
             &nbsp;
             Create playlist
           </button>
+          &nbsp;
           <Link to="/likes">
-            <i class="fa solid fa-heart"></i>
+            <i class="fa solid fa-heart" style={{marginLeft: "20px"}}></i>
+            &nbsp;
             Liked Songs
           </Link>
           <div style={{ borderBottom: "1px solid gray" }}><br /></div>
@@ -114,18 +116,18 @@ const NavBar = () => {
         </div>
       )
       navbar = (
-        <nav id="topnavbar" style={{ backgroundColor: "#513a9e", backgroundImage: "none" }}>
-          <div style={{ marginRight: "30px" }}>
+        <nav id="topnavbar" style={{ backgroundColor: "#1e1e1e", backgroundImage: "none" }}>
+          <div style={{ marginRight: "20px" }}>
             <Link to={{ pathname: "https://github.com/ltnguyen517/Amplify" }} target="_blank">
-              <i style={{ color: "white", marginTop: "20%" }} class="fa-brands fa-github fa-lg"></i>
+              <i style={{ color: "#1ed760", marginTop: "25px" }} class="fa-brands fa-github fa-lg"></i>
             </Link>
           </div>
-          <div className="loginsignup" style={{marginRight: "80px"}}>
+          <div className="loginsignup" style={{marginRight: "120px"}}>
             <ProfileDropDown />
           </div>
         </nav>
       )
-      if (audioState.current_song.length > 0) {
+      if (audioState?.current_song.length > 0) {
         bottomnav = (
           audioState.current_song.length > 0 && (
             <div className='bottom-div-container'>
@@ -154,42 +156,44 @@ const NavBar = () => {
         )
       }
     }
-    if (location.pathname !== "/sign-up" && location.pathname !== "/login" && !sessionUser) {
+    if (location.pathname !== "/signup" && location.pathname !== "/login" && !sessionUser) {
       sidenav = (
         <div className='sidenav' style={{ color: "#adb3b3" }}>
-          <div style={{ marginBottom: "20px" }} id='logo'>
-            <img onClick={(e) => history.push("/")} style={{ width: "155px", height: "45px", cursor: "pointer" }} src={logo} />
+          <div style={{ marginBottom: "5px" }} id='logo'>
+            <img onClick={(e) => history.push("/")} style={{ width: "150px", height: "75px", cursor: "pointer", marginLeft: "11.5px" }} src={logo} />
           </div>
           <div>
-            <Link to="/">
+            <Link to="/" style={{ textDecoration: "none" }}>
               <i class="fa-solid fa-house" style={{ color: "#b3b3b3" }}></i>
               &nbsp;
               Home</Link>
+              <br />
           </div>
           <div>
             <Link to="/login">
               <i class="fa-solid fa-square-plus"></i>
+              &nbsp;
               Create Playlist
             </Link>
           </div>
         </div>
       )
       navbar = (
-        <nav id="topnavbar">
-          <div style={{ marginRight: "30px" }}>
+        <nav id="topnavbar" style={{backgroundColor: "#1e1e1e"}}>
+          <div style={{ marginRight: "15px", marginTop: "15px" }}>
             <Link to={{ pathname: "https://github.com/ltnguyen517/Amplify" }} target="_blank">
-              <i style={{ color: "white", marginTop: "20%" }} class="fa-brands fa-github fa-lg"></i>
+              <i style={{ color: "#1ed760" }} class="fa-brands fa-github fa-lg"></i>
             </Link>
 
           </div>
-          <div className='loginsignup' style={{ display: "flex", marginRight: "60px" }}>
-            <div style={{ paddingTop: "10px", marginRight: "10px" }}>
-              <button style={{ fontSize: "18px", fontWeight: "700", background: "none" }} id='signupnav-button' onClick={(e) => history.push("/sign-up")}>
+          <div className='loginsignup' style={{ display: "flex", marginRight: "12px" }}>
+            <div style={{ paddingTop: "8px", marginRight: "10px" }}>
+              <button style={{ fontSize: "17px", fontWeight: "700", background: "none" }} id='signupnav-button' onClick={(e) => history.push("/signup")}>
                 Sign Up
               </button>
             </div>
             <button id='loginnav-button' onClick={(e) => history.push("/login")}>
-              Log In
+              Login
             </button>
           </div>
         </nav>
@@ -198,17 +202,17 @@ const NavBar = () => {
         <div className='loggedoutbottomdiv-container'>
           <div className='logged-out-text'>
             &nbsp;
-            <div style={{ fontSize: "13px", marginLeft: "12px", marginBottom: "5px" }}>
+            <div style={{ fontSize: "12px", marginLeft: "12px", marginBottom: "4px" }}>
               PREVIEW OF AMPLIFY
             </div>
-            <div style={{ marginLeft: "12px", fontWeight: "550" }}>
+            <div style={{ marginLeft: "12px", fontWeight: "528" }}>
               Sign up to get unlimited songs and podcasts with occasional ads. No credit card needed.
             </div>
           </div>
-          <button style={{ marginTop: "12px", borderRadius: "30px", height: "50px", width: "150px", fontWeight: "700", border: "none", cursor: "pointer", marginRight: "10px" }} onClick={(e) => history.push("/sign-up")}>Sign up free</button>
+          <button style={{ marginTop: "15px", borderRadius: "30px", height: "44px", width: "140px", fontWeight: "700", border: "none", cursor: "pointer", marginRight: "5px" }} onClick={(e) => history.push("/signup")}>Sign up free</button>
         </div>
       )
-    } else if (sessionUser && location.pathname !== "/sign-up" && location.pathname !== "/login" && location.pathname !== "/likes") {
+    } else if (sessionUser && location.pathname !== "/signup" && location.pathname !== "/login" && location.pathname !== "/likes") {
       sidenav = (
         <div className='sidenav' style={{ color: "#adb3b3" }}>
           <div style={{ marginBottom: "5px" }} id='logo'>
@@ -226,8 +230,11 @@ const NavBar = () => {
             &nbsp;
             Create Playlist
           </button>
+
+          <br />
           <Link to="/likes">
             <i class="fa-solid fa-heart"></i>
+            &nbsp;
             Liked Songs
           </Link>
           <div style={{ borderBottom: "1px solid gray" }}><br /></div>
@@ -247,13 +254,13 @@ const NavBar = () => {
         </div>
       )
       navbar = (
-        <nav id="topnavbar">
+        <nav id="topnavbar" style={{backgroundColor: "#1e1e1e"}}>
           <div className='loginsignup' style={{ marginRight: "115px" }}>
             <ProfileDropDown />
           </div>
         </nav>
       )
-      if (audioState.current_song.length > 0) {
+      if (audioState?.current_song.length > 0) {
         bottomnav = (
           audioState.current_song.length > 0 && (
             <div className='bottom-div-container'>

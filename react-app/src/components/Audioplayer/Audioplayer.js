@@ -122,7 +122,7 @@ const AudioPlayerComponent = () => {
 
     let skipSongButton
 
-    if (audioState.queue) {
+    if (audioState?.queue) {
         skipSongButton = (
             <button style={{ cursor: "pointer", background: "none", border: "none" }} onClick={skipSong}>
                 <i class="fa-solid fa-forward fa-2x"></i>
@@ -132,7 +132,7 @@ const AudioPlayerComponent = () => {
 
     let backButton
 
-    if (audioState.current_song) {
+    if (audioState?.current_song) {
         backButton = (
             <button style={{ cursor: "pointer", background: "none", border: "none" }} onClick={goBack}>
                 <i class="fa-solid fa-backward fa-2x"></i>

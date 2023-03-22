@@ -1,3 +1,6 @@
+* {
+    font-family: Circular;
+}
 .home-mainbox {
     color: white;
     padding-left: 30px;
@@ -7,11 +10,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, 270px);
     padding-left: 30px;
-    font-family: Circular;
 }
 .artistpic {
     width: 250px;
-    height: 250px;
+    height: 258px;
     padding-bottom: 35px;
     border-radius: 20px;
     background-color: #181818;
@@ -22,6 +24,14 @@
 .artistpic:hover {
     transition: 1s;
     background-color: rgb(40, 40, 40);
+}
+.photoofartist {
+    width: 200px;
+    height: 220px;
+    margin-top: 20px;
+    margin-left: 25px;
+    border-radius: 16px;
+    box-shadow: 5px 5px 12px 5px black;
 }
 .albumarea {
     display: grid;
@@ -54,10 +64,10 @@
     padding-left: 30px;
 }
 .photoofplaylist {
-    width: 220px;
+    width: 200px;
     height: 220px;
     margin-top: 20px;
     margin-left: 25px;
-    border-radius: 15px;
+    border-radius: 16px;
     box-shadow: 5px 5px 12px 5px black;
 }

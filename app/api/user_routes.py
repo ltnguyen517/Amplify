@@ -29,7 +29,7 @@ def user(id):
 @user_routes.route("/<int:id>/playlists")
 def get_playlist_of_user(id):
     user = User.query.get(id)
-    return user.to_dict(amplifyPlaylists=True)
+    return user.to_dict(playlist=True)
 
 # User wants to follow a playlist
 

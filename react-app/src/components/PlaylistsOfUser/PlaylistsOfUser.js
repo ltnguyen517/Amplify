@@ -14,7 +14,7 @@ const PlaylistsOfUser = () => {
         dispatch(actionthunksPlaylist.getAllPlaylists())
     }, [sessionUser?.id, dispatch])
 
-    const playlistArr = Object.values(playlistState)
+    const playlistArr = Object.values(playlistState || {})
     const playlistsUser = playlistArr.filter(playlist => playlist?.User?.id === sessionUser.id)
 
     let playlistContainer

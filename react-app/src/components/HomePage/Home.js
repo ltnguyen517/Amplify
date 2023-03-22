@@ -15,6 +15,8 @@ const HomePage = () => {
     const [albums, setAlbums] = useState([])
     const [artists, setArtists] = useState([])
 
+    document.body.style = 'background: #1e1e1e';
+
     let now = new Date();
     let currentTime = now.toLocaleString('en-US', { hour: 'numeric', hourCycle: "h24"})
 
@@ -54,19 +56,21 @@ const HomePage = () => {
             {!sessionUser && (
                 <h1>{message}</h1>
             )}
-            <h3>Artists</h3>
+            <h2>Artists</h2>
             <div className="artistarea">
                 {artists.map((artist) => {
                     return <div className="artistpic" onClick={(e) => history.push(`/artist/${artist.id}`)}>
                         <Link to={`/artist/${artist.id}`}>
                             <img className="photoofartist" src={artist.artist_photo} />
                         </Link>
-                        <span style={{ marginLeft: "15px", fontWeight: "700"}}>{artist.name}</span>
+                        <span style={{ marginLeft: "25px", marginTop: "-50px", fontWeight: "600"}}>{artist.name}</span>
                     </div>
                 })}
             </div>
-
-            <h3>Albums</h3>
+            <br />
+            <br />
+            <br />
+            <h2>Albums</h2>
             <div className="albumarea">
                 {albums.map((album) => {
                     return <div className="albumpic" onClick={(e) => history.push(`/album/${album.id}`)}>
@@ -74,12 +78,14 @@ const HomePage = () => {
                             <img className="photoofalbum" src={album.AlbumPhoto} />
                         </Link>
                         <p style={{ marginLeft: "15px", fontWeight: "700"}}>{album.title}</p>
-                        <span style={{marginLeft: "15px", paddingBottom: "20px"}}>{album.year} - {album.artist.name}</span>
+                        <span style={{marginLeft: "15px", paddingBottom: "20px"}}>{album.year} · {album.artist.name}</span>
                     </div>
                 })}
             </div>
-
-            <h3>Playlists</h3>
+            <br />
+            <br />
+            <br />
+            <h2>Playlists</h2>
             <div className="playlistarea" style={{paddingBottom: "80px"}}>
                 {playlists && (
                     playlists.map((playlist) => {
@@ -87,8 +93,8 @@ const HomePage = () => {
                             <Link to={`/playlist/${playlist.id}`}>
                                 <img className="photoofplaylist" src={playlist.playlist_picture} />
                             </Link>
-                            <p style={{ marginLeft: "15px", fontWeight: "700"}}>{playlist.title}</p>
-                            <span style={{marginLeft: "15px", paddingBottom: "20px"}}>By {playlist.User.username}</span>
+                            <p style={{ marginLeft: "27px", fontWeight: "700"}}>{playlist.title}</p>
+                            <span style={{marginLeft: "27px", paddingBottom: "20px"}}>By {playlist.User.username}</span>
                         </div>
                     })
                 )}

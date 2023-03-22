@@ -1,6 +1,6 @@
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Link, useHistory, useLocation, useParams } from "react-router-dom";
-import React, { useState, useEffect } from "react";
 import * as actionthunksPlaylist from "../../store/playlist";
 import * as followingPlaylistAct from "../../store/followingplaylist"
 import * as audioplayerActions from "../../store/audioplayer"
@@ -14,7 +14,7 @@ export default function PlaylistPage(){
     const dispatch = useDispatch()
     let { playlistId } = useParams()
     const location = useLocation()
-    let nav = document.getElementById("headnavbar")
+    let nav = document.getElementById("topnavbar")
 
     const [aPlaylist, setAPlaylist] = useState([])
     const [showMenu, setShowMenu] = useState(false)
@@ -32,8 +32,13 @@ export default function PlaylistPage(){
     let i = 0
 
     useEffect(async () => {
-        if(!playlistId) return <Error404Page />
-        if(!playlistState) return null
+        if(!playlistId) {
+            return <Error404Page />
+        }
+
+        if(!playlistState) {
+            return null
+        }
 
         (async () => {
             if(sessionUser){
@@ -58,9 +63,14 @@ export default function PlaylistPage(){
     }, [showMenu]);
 
     const playlistArr = Object.values(playlistState)
+
     const playlist = playlistArr.filter(playlist => Number(playlist.id) === Number(playlistId))[0]
-    
-    if(!playlist) return <Error404Page />
+
+    if(!playlist) {
+        return (
+            <Error404Page />
+        )
+    }
 
     if (location.pathname.includes("playlist") && nav && playlist) {
         nav.style.backgroundImage = `url(${playlist.playlist_picture})`
@@ -78,6 +88,8 @@ export default function PlaylistPage(){
         lengthUserPlaylists = userPlaylists.length + 1
         onlyOneUniqueUserPlaylist = userPlaylists.filter(playlist => playlist.id !== Number(playlistId))
     }
+
+    let followButton
 
     const removePlaylist = async (e) => {
         setEdit(true)
@@ -100,7 +112,6 @@ export default function PlaylistPage(){
         setShowMenu(true)
     }
 
-    let followButton
     let followedPlaylistsArr = Object.values(followingPlaylistState)
 
     if (sessionUser) {
@@ -191,25 +202,27 @@ export default function PlaylistPage(){
                         <UpdatePlaylistModal playlistId={playlistId} playlist={playlist} aPlaylist={aPlaylist} />
                     )}
                     {sessionUser?.id !== aPlaylist?.User?.id && (
-                        <div className="plheader" style={{backgroundImage: `url(${playlist.playlist_picture})`, backgroundSize: "0.5px 0.5px", width: "109%", paddingBottom: "40px"}}>
+                        <div className="plheader" style={{backgroundImage: `url(${playlist.playlist_picture})`, backgroundSize: "0.5px 0.5px", width: "105.5%", paddingBottom: "23px"}}>
                             <div className="plpicarea" style={{paddingLeft: "30px", paddingTop: "23px"}}>
                                 <img className="plpic" src={playlist.playlist_picture} />
                             </div>
-                            <div className="plinfoarea" style={{marginTop: "50px"}}>
-                                <div className="pltext" style={{fontSize: "13px"}}>
+                            <div className="plinfoarea" style={{marginTop: "28px"}}>
+                                <div className="pltext" style={{fontSize: "13px", marginLeft: "4px"}}>
                                     PLAYLIST
                                 </div>
                                 <div className="pltitle" style={{fontSize: "65px", fontWeight: "700", textDecoration: "none"}}>
                                     {playlist.title}
                                 </div>
-                                <div className="pldescription">
+                                <div className="pldescription" style={{marginLeft: "4px", fontSize: "15px"}}>
+                                    <br />
                                     {playlist.description}
                                 </div>
                                 <div>
-                                    <Link style={{textDecoration: "none", color: "white"}} to={`/user/${aPlaylist?.User?.id}`}>
+                                    <br />
+                                    <Link style={{textDecoration: "none", color: "white", fontSize: "15px", marginLeft: "4px"}} to={`/user/${aPlaylist?.User?.id}`}>
                                         {aPlaylist?.User?.username}
                                     </Link>
-                                    <span style={{fontSize: "20px"}}>·</span>
+                                    <span style={{fontSize: "15px"}}>·</span>
                                     {aPlaylist?.Songs && (
                                         <span>{aPlaylist?.Songs?.length} songs</span>
                                     )}
@@ -293,8 +306,10 @@ export default function PlaylistPage(){
                                                     )}
                                                 </div>
                                                 <button className="removesong" hidden={!sessionUser || sessionUser.id !== aPlaylist.User.id} onClick={async (e) => {
-                                                    {deleteASong(e, song.id);
-                                                    setEdit(!edit)}
+                                                    {
+                                                        deleteASong(e, song.id);
+                                                        setEdit(!edit)
+                                                    }
                                                 }}>Remove song</button>
                                                 <div>
                                                     {sessionUser && (

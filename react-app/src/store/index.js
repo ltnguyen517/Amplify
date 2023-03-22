@@ -9,11 +9,11 @@ import songsLikedReducer from './likedsongs';
 
 const rootReducer = combineReducers({
   session,
-  playlistReducer,
-  followingPlaylistReducer,
-  followingUserReducer,
-  audioPlayerReducer,
-  songsLikedReducer
+  playlist: playlistReducer,
+  followingPlaylist: followingPlaylistReducer,
+  followingUser: followingUserReducer,
+  audioplayer: audioPlayerReducer,
+  songsLiked: songsLikedReducer
 });
 
 

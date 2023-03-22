@@ -14,7 +14,7 @@ const UserProfilePage = () => {
     const dispatch = useDispatch()
     const sessionUser = useSelector((state) => state.session.user)
     const playlistState = useSelector((state) => state.playlist)
-    const userFollowState = useSelector((state) => state.follows.people_user_follows)
+    const userFollowState = useSelector((state) => state.follows?.people_user_follows)
 
     const [user, setUser] = useState([])
     const [everyUser, setEveryUser] = useState([])
@@ -26,6 +26,8 @@ const UserProfilePage = () => {
     let { userId } = useParams()
 
     const userFollowing = []
+
+    document.body.style = 'background: #1e1e1e';
 
     useEffect(() => {
         (async () => {
@@ -94,15 +96,15 @@ const UserProfilePage = () => {
 
     let followerProfileImg
 
-    if(!sessionUserFollowers) return null
+    if(!sessionUserFollowers) {return null}
 
     if(!user.profile_picture){
         followerProfileImg = <i class="fa-solid fa-user fa-4x"></i>
     } else {
-        followerProfileImg = <img src={sessionUser.profile_picture}/>
+        followerProfileImg = <img src={sessionUser?.profile_picture}/>
     }
 
-    const playlistArray = Object.values(playlistState)
+    const playlistArray = Object.values(playlistState || {})
     const userPlaylistsList = playlistArray.filter(playlist => Number(playlist?.User?.id) === Number(userId))
 
     let lengthUserPlaylists
@@ -114,7 +116,7 @@ const UserProfilePage = () => {
 
     let toFollowButton
     if(sessionUser !== null){
-        if(userFollowState.includes(user.id)){
+        if(userFollowState?.includes(user.id)){
             toFollowButton = (<button className="unfollowbutton" hidden={sessionUser.id === user.id} onClick={(e) => { unFollow(e); setEdit(!edit) }}>Unfollow</button>)
         } else {
             toFollowButton = (<button className="followbutton" hidden={sessionUser.id === user.id} onClick={(e) => { follow(e); setEdit(!edit) }}>Follow</button>)
