@@ -63,7 +63,6 @@ export default function PlaylistPage(){
     }, [showMenu]);
 
     const playlistArr = Object.values(playlistState)
-
     const playlist = playlistArr.filter(playlist => Number(playlist.id) === Number(playlistId))[0]
 
     if(!playlist) {
@@ -76,7 +75,6 @@ export default function PlaylistPage(){
         nav.style.backgroundImage = `url(${playlist.playlist_picture})`
         nav.style.backgroundSize = "0.5px 0.5px"
     }
-
     document.body.style = 'background: #1e1e1e';
 
     let userPlaylists
@@ -202,27 +200,29 @@ export default function PlaylistPage(){
                         <UpdatePlaylistModal playlistId={playlistId} playlist={playlist} aPlaylist={aPlaylist} />
                     )}
                     {sessionUser?.id !== aPlaylist?.User?.id && (
-                        <div className="plheader" style={{ backgroundSize: "0.5px 0.5px", paddingBottom: "25px" }}>
-                            <div className="plpicarea" style={{paddingLeft: "15px", paddingTop: "35px"}}>
+                        <div className="plheader" style={{ backgroundSize: "0.5px 0.5px", width: "497%", height: "280px", paddingTop: "15px", marginLeft: "-35px", backgroundImage: `url(${playlist.playlist_picture})`}}>
+                            <div className="plpicarea" style={{paddingLeft: "31px"}}>
                                 <img className="plpic" src={playlist.playlist_picture} />
                             </div>
-                            <div className="plinfoarea" style={{marginTop: "50px"}}>
-                                <div className="pltext" style={{fontSize: "13px", marginLeft: "4px"}}>
+                            <div className="plinfoarea" style={{marginTop: "25px"}}>
+                                <div className="pltext" style={{fontSize: "12px", marginLeft: "4px"}}>
                                     PLAYLIST
                                 </div>
-                                <div className="pltitle" style={{fontSize: "62px", fontWeight: "690", textDecoration: "none"}}>
+                                <div className="pltitle" style={{fontSize: "68px", fontWeight: "700", textDecoration: "none"}}>
                                     {playlist.title}
                                 </div>
-                                <div className="pldescription" style={{marginLeft: "4px", fontSize: "14px"}}>
-                                    <br />
+                                <div className="pldescription" style={{marginTop: "6px"}}>
+
                                     {playlist.description}
                                 </div>
-                                <div>
-                                    <br />
-                                    <Link style={{textDecoration: "none", color: "white", fontSize: "14px", marginLeft: "4px"}} to={`/user/${aPlaylist?.User?.id}`}>
+                                <div style={{marginTop: "9px"}}>
+
+                                    <Link style={{textDecoration: "none", color: "white", fontSize: "14px"}} to={`/user/${aPlaylist?.User?.id}`}>
                                         {aPlaylist?.User?.username}
                                     </Link>
+                                    &nbsp;
                                     <span style={{fontSize: "14px"}}>·</span>
+                                    &nbsp;
                                     {aPlaylist?.Songs && (
                                         <span style={{fontSize: "14px"}}>{aPlaylist?.Songs?.length} songs</span>
                                     )}
@@ -230,22 +230,26 @@ export default function PlaylistPage(){
                             </div>
                         </div>
                     )}
-                    <div className="plcontainer" style={{paddingLeft: "30px"}}>
-                        <div>
-                            <button hidden={!sessionUser || aPlaylist?.Songs?.length === 0} onClick={listenPlaylist} style={{ backgroundColor: "#1e1e1e", border: "none", cursor: "pointer", marginTop: "6px" }}>
+                    <div className="plcontainer" >
+                        <div style={{marginLeft: "-260px"}}>
+                            <button hidden={!sessionUser || aPlaylist?.Songs?.length === 0} onClick={listenPlaylist} style={{ backgroundColor: "#1e1e1e", border: "none", cursor: "pointer", marginTop: "290px"}}>
                                 <i style={{ color: "#1ed760" }} class="fa-solid fa-circle-play fa-4x"></i>
                             </button>
                         </div>
-                        <div style={{ marginBottom: "45px", marginLeft: "60px", marginTop: "10px" }}>
+                        <div style={{marginTop: "302px", marginLeft: "28px" }}>
                             {followButton}
                         </div>
-                        <div style={{ marginBottom: "40px"}}>
+                        <div style={{marginTop: "302px", marginLeft: "28px" }}>
                             {sessionUser && (
                                 <button className="pldeletebutton" hidden={sessionUser.id !== aPlaylist?.User?.id} onClick={(e) => {removePlaylist(e); setEdit(!edit);}}>DELETE</button>
                             )}
                         </div>
                     </div>
-                    <div className="songsheader" style={{paddingLeft: "30px", marginRight: "-95px"}}>
+
+                    <br />
+                    <br />
+
+                    <div className="songsheader" style={{paddingLeft: "30px", marginRight: "-95px", marginTop: "400px"}}>
                         <div className="number">
                             <div>
                                 #
@@ -254,10 +258,21 @@ export default function PlaylistPage(){
                                 Title
                             </div>
                         </div>
-                        <div style={{ marginRight: "-95px"}}>
+                        <div >
+                        &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
                             Album
                         </div>
-                        <div style={{paddingRight: "70px"}}>
+                        <div style={{paddingRight: "20px"}}>
                             <i class="fa-regular fa-clock"></i>
                         </div>
                     </div>
