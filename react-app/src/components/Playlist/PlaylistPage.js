@@ -202,29 +202,29 @@ export default function PlaylistPage(){
                         <UpdatePlaylistModal playlistId={playlistId} playlist={playlist} aPlaylist={aPlaylist} />
                     )}
                     {sessionUser?.id !== aPlaylist?.User?.id && (
-                        <div className="plheader" style={{backgroundImage: `url(${playlist.playlist_picture})`, backgroundSize: "0.5px 0.5px", width: "105.5%", paddingBottom: "23px"}}>
-                            <div className="plpicarea" style={{paddingLeft: "30px", paddingTop: "23px"}}>
+                        <div className="plheader" style={{ backgroundSize: "0.5px 0.5px", paddingBottom: "25px" }}>
+                            <div className="plpicarea" style={{paddingLeft: "15px", paddingTop: "35px"}}>
                                 <img className="plpic" src={playlist.playlist_picture} />
                             </div>
                             <div className="plinfoarea" style={{marginTop: "50px"}}>
                                 <div className="pltext" style={{fontSize: "13px", marginLeft: "4px"}}>
                                     PLAYLIST
                                 </div>
-                                <div className="pltitle" style={{fontSize: "65px", fontWeight: "700", textDecoration: "none"}}>
+                                <div className="pltitle" style={{fontSize: "62px", fontWeight: "690", textDecoration: "none"}}>
                                     {playlist.title}
                                 </div>
-                                <div className="pldescription" style={{marginLeft: "4px", fontSize: "15px"}}>
+                                <div className="pldescription" style={{marginLeft: "4px", fontSize: "14px"}}>
                                     <br />
                                     {playlist.description}
                                 </div>
                                 <div>
                                     <br />
-                                    <Link style={{textDecoration: "none", color: "white", fontSize: "15px", marginLeft: "4px"}} to={`/user/${aPlaylist?.User?.id}`}>
+                                    <Link style={{textDecoration: "none", color: "white", fontSize: "14px", marginLeft: "4px"}} to={`/user/${aPlaylist?.User?.id}`}>
                                         {aPlaylist?.User?.username}
                                     </Link>
-                                    <span style={{fontSize: "15px"}}>·</span>
+                                    <span style={{fontSize: "14px"}}>·</span>
                                     {aPlaylist?.Songs && (
-                                        <span>{aPlaylist?.Songs?.length} songs</span>
+                                        <span style={{fontSize: "14px"}}>{aPlaylist?.Songs?.length} songs</span>
                                     )}
                                 </div>
                             </div>
