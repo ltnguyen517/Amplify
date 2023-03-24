@@ -73,10 +73,11 @@ export const getPlaylistsFollowed = (id) => async (dispatch) => {
 export const createPlaylist = (playlist) => async (dispatch) => {
     const response = await fetch("/api/playlists/", {
         method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(playlist)
+        // headers: {
+        //     'Content-Type': 'application/json'
+        // },
+        // body: JSON.stringify(playlist)
+        body: playlist
     })
     if (response.ok){
         const data = await response.json()
