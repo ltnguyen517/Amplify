@@ -39,9 +39,9 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
         const formData = new FormData();
         formData.append("image", image);
-
 
 
         if(errors.length) return
@@ -144,7 +144,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
 
     return (
         <div className='editplarea'>
-            <form className='editplform' onSubmit={handleSubmit}>
+            <form className='editplform' onSubmit={handleSubmit} encType="multipart/form-data">
                 <h2 style={{color: "white"}}>Edit details</h2>
                 <div>
                     {errors.map((error) => {
@@ -157,7 +157,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
                         <label htmlFor='file-input'>
                             <img style={{ width: "200px", height: "210px" }} src={playlistOfUser[0].playlist_picture} />
                         </label>
-                        <input id="file-input" type='file' name='file' accept="image/*" onChange={updateImage} encType="multipart/form-data" />
+                        <input id="file-input" type='file' name='file' accept="image/*" onChange={updateImage} />
                     </div>
 
                     <div className='titledescarea' style={{color: "white"}}>

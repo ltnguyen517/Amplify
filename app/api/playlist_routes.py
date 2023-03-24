@@ -1,8 +1,7 @@
 from flask import Blueprint, request, session, render_template, jsonify
 from app.models import db, Playlist, User, Song, Album, Artist
 from flask_login import current_user, login_required, login_user, logout_user
-from app.s3_helpers import (
-    upload_file_to_s3, allowed_file, get_unique_filename)
+from app.s3_helpers import upload_file_to_s3, allowed_file, get_unique_filename
 from werkzeug.utils import secure_filename
 from sqlalchemy.sql import func
 from ..forms import PlaylistForm
@@ -89,12 +88,22 @@ def get_a_playlist(playlistId):
 def create_playlist():
     form = PlaylistForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
+        playlist_picture = form.data['playlist_picture']
+        playlist_picture.filename = get_unique_filename(playlist_picture.filename)
+
+        upload = upload_file_to_s3(playlist_picture)
+
+        if 'url' not in upload:
+            return render_template("imgupload.html", form=form, errors=[upload])
+
         new_playlist = Playlist(
             creator_id = form.data['creator_id'],
             title = form.data['title'],
             description = form.data['description'],
-            playlist_picture = form.data['playlist_picture']
+            # playlist_picture = form.data['playlist_picture']
+            playlist_picture=upload['url']
         )
         db.session.add(new_playlist)
         db.session.commit()
