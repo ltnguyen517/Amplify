@@ -10,30 +10,32 @@ const UpdatePlaylistModal = ({ playlistId, playlist, aPlaylist }) => {
         <>
             <div onClick={() => setShowModal(true)}>
             {/* <button onClick={() => setShowModal(true)}>Edit Playlist</button> */}
-                <div className='plheader' style={{ backgroundImage: playlist ? `url(${playlist.playlist_picture})` : null, backgroundSize: playlist ? "0.5px 0.5px" : null, width: "109%", paddingBottom: "30px" }}>
+                <div className='plheader' style={{ backgroundImage: playlist ? `url(${playlist.playlist_picture})` : null, backgroundSize: playlist ? "0.5px 0.5px" : null, width: "497%",  paddingBottom: "30px", marginLeft: "-35px"}}>
 
                     <div style={{ width: "250px", height: "250px", paddingLeft: "30px", cursor: "pointer" }}>
                         <img className="plpic" src={playlist?.playlist_picture} />
                     </div>
 
-                    <div className="plinfoarea" style={{ paddingLeft: "30px", marginTop: "50px" }}>
+                    <div id="plinfoarea" style={{ paddingLeft: "30px", marginTop: "25px" }}>
                         <div className='pltext' style={{ fontSize: "12px" }}>
                             PLAYLIST
                         </div>
-                        <div className="pltitle" style={{ cursor: "pointer", fontSize: "70px", fontWeight: "700", textDecoration: "none" }}>
+                        <div className="pltitle" style={{ cursor: "pointer", fontSize: "68px", fontWeight: "700", textDecoration: "none" }}>
                             {playlist?.title}
                         </div>
-                        <div className="pldescription">
-                        
+                        <div className="pldescription" style={{marginTop: "6px"}}>
+
                             {playlist?.description}
                         </div>
-                        <div>
-                            <Link style={{ textDecoration: "none", color: "white" }} to={`/user/${aPlaylist?.User?.id}`}>
+                        <div style={{marginTop: "9px"}}>
+                            <Link style={{ textDecoration: "none", color: "white", fontSize: "14px" }} to={`/user/${aPlaylist?.User?.id}`}>
                                 {aPlaylist?.User?.username}
                             </Link>
-                            <span style={{ fontSize: "20px" }}>·</span>
+                            &nbsp;
+                            <span style={{ fontSize: "14px" }}>·</span>
+                            &nbsp;
                             {aPlaylist?.Songs && (
-                                <span>{aPlaylist?.Songs?.length} songs</span>
+                                <span style={{fontSize: "14px"}}>{aPlaylist?.Songs?.length} songs</span>
                             )}
                         </div>
                     </div>

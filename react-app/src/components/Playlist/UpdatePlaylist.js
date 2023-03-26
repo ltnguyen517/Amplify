@@ -157,7 +157,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
                         <label htmlFor='file-input'>
                             <img style={{ width: "200px", height: "210px" }} src={playlistOfUser[0].playlist_picture} />
                         </label>
-                        <input id="file-input" type='file' name='file' accept="image/*" onChange={updateImage} />
+                        <input id="file-input" type='file' name='file' accept="image/*" onChange={updateImage}  />
                     </div>
 
                     <div className='titledescarea' style={{color: "white"}}>

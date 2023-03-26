@@ -23,6 +23,8 @@ const SongsLiked = () => {
     let i = 0
     let songsLikedState
 
+    document.body.style = 'background: #1e1e1e';
+
     useEffect(async () => {
         if (sessionUser){
             songsLikedState = await dispatch(likedSongsStore.getAllLikes(sessionUser.id))
@@ -42,7 +44,7 @@ const SongsLiked = () => {
         return () => document.removeEventListener('click', closeMenu);
     }, [showMenu]);
 
-    const playlistArr = Object.values(playlistState || {})
+    const playlistArr = Object.values(playlistState)
     let userPlaylists
     let lengthUserPlaylists
 
@@ -97,7 +99,7 @@ const SongsLiked = () => {
                     <div className='songsliked-info' style={{ marginLeft: "20px", display: "flex", flexDirection: "column" }}>
                         <h1 style={{ color: "white", fontSize: "13px", marginBottom: "-50px", marginTop: "70px" }}>PLAYLIST</h1>
                         <h1 style={{ fontSize: "75px", fontWeight: "700" }}>Liked Songs</h1>
-                        <span><Link style={{ textDecoration: "none", color: "white" }} to={`/user/${sessionUser.id}`}>{sessionUser.username}</Link>{songsLikedArr.SongsLiked.length} songs</span>
+                        <span><Link style={{ textDecoration: "none", color: "white" }} to={`/user/${sessionUser.id}`}>{sessionUser.username}</Link>&nbsp;·&nbsp;{songsLikedArr.SongsLiked.length} songs</span>
                     </div>
                 </div>
                 <div className='playbutton' style={{ paddingLeft: "60px", height: "100px" }}>
@@ -107,8 +109,8 @@ const SongsLiked = () => {
                         </button>
                     </div>
                 </div>
-                <div className='songsheadarea' style={{ paddingLeft: "30px", marginRight: "-95px" }}>
-                    <div className='titlealbumicon'>
+                <div className='songsheader' style={{ paddingLeft: "30px", marginRight: "-95px" }}>
+                    <div className='number'>
                         <div>
                             #
                             &nbsp;
@@ -138,11 +140,11 @@ const SongsLiked = () => {
                     {songsLikedArr.SongsLiked && (
                         <div>
                             {songsLikedArr.SongsLiked.map((song) => {
-                                return <div className='likedsongs-playlist' style={{ paddingBottom: "10px", listStyle: "none", display: "flex", justifyContent: "space-between" }}>
+                                return <div className='plsongholder' style={{ paddingBottom: "10px", listStyle: "none", display: "flex", justifyContent: "space-between" }}>
                                     <div style={{ width: "300px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                                        <div style={{ width: "10px" }}>{siftSongCount()}</div>&nbsp;&nbsp;<img style={{ width: "30px" }} src={song.album.AlbumPhoto} />&nbsp;&nbsp;<Link onClick={async (e) => await dispatch(audioStore.addSong(song.id))} style={{ textDecoration: "none", color: "white" }}>{song.name}</Link>
+                                        <div style={{ width: "10px" }}>{siftSongCount()}</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img style={{ width: "30px" }} src={song.album.AlbumPhoto} />&nbsp;&nbsp;<Link onClick={async (e) => await dispatch(audioStore.addSong(song.id))} style={{ textDecoration: "none", color: "white" }}>{song.name}</Link>
                                     </div>
-                                    <div style={{ marginLeft: "-70px" }}><Link style={{ textDecoration: "none", color: "white" }} to={`/album/${song.album.id}`}>{song.album.title}</Link></div>
+                                    <div style={{ marginLeft: "-40px" }}><Link style={{ textDecoration: "none", color: "white" }} to={`/album/${song.album.id}`}>{song.album.title}</Link></div>
                                     <div style={{ display: "flex", marginRight: "-75px" }}>
                                         <i onClick={(e) => { unlikeSong(e, song.id); setEdit(!edit) }} style={{ paddingRight: "20px", color: "#1ed760", cursor: "pointer" }} class="fa-solid fa-heart"></i>
                                         <span style={{ width: "50px" }}>{song.duration}</span>
@@ -150,12 +152,12 @@ const SongsLiked = () => {
                                             <button style={{ background: "none", marginBottom: "20px" }} id='dropdownofspecificsong' onClick={(e) => activeMenu === song.id ? setActiveMenu(null) : setActiveMenu(song.id)}>...</button>
                                         )}
                                         {activeMenu === song.id && (
-                                            <div className='dropdownofplaylistsongs'>
+                                            <div className='active-playlist-song-dropdown'>
                                                 <div>
-                                                    <Link className="albumpg" to={`/album/${song.album.id}`}>Album Page</Link>
+                                                    <Link className="yes" to={`/album/${song.album.id}`}>Album Page</Link>
                                                     <br />
                                                     {sessionUser && (
-                                                        <button className="button-to-addtoqueue" onClick={async (e) => {
+                                                        <button className="add-to-queue-button" onClick={async (e) => {
                                                             await dispatch(audioStore.nextSong(song.id)); setAddToQueue(true); setTimeout(() => {
                                                                 setAddToQueue(false)
                                                             }, 2000)
@@ -164,15 +166,15 @@ const SongsLiked = () => {
                                                 </div>
                                                 <div>
                                                     {sessionUser && (
-                                                        <button className='buttontoaddsongtoPL' onClick={openMenu}>Add song to playlist</button>
+                                                        <button className='add-song-to-playlist-button' onClick={openMenu}>Add song to playlist</button>
                                                     )}
                                                     {showMenu && (
-                                                        <div className='songadddropdown'>
-                                                            <button className="createpl-button" onClick={createPlaylist}>Create Playlist</button>
+                                                        <div className='add-song-dropdown'>
+                                                            <button className="create-playlist-button-dropdown" onClick={createPlaylist}>Create Playlist</button>
                                                             <div style={{ borderBottom: "1px solid white" }}></div>
                                                             {userPlaylists.map((playlist) => {
                                                                 return <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                                                    <button className="createpl-button" onClick={async (e) => {
+                                                                    <button className="create-playlist-button-dropdown" onClick={async (e) => {
                                                                         await fetch(`/api/playlists/${playlist.id}/insertsong/${song.id}`, {
                                                                             method: "POST"
                                                                         });
@@ -195,12 +197,12 @@ const SongsLiked = () => {
                     )}
                 </div>
                 {canSee && (
-                    <div style={{ marginTop: "300px" }} id='songadded' hidden>
+                    <div style={{ marginTop: "300px" }} id='song-added-div' hidden>
                         <div style={{ display: "flex", alignItems: "center", fontWeight: "700" }}>Added to Playlist</div>
                     </div>
                 )}
                 {addToQueue && (
-                    <div style={{ marginTop: "300px" }} id='songadded' hidden>
+                    <div style={{ marginTop: "300px" }} id='song-added-div' hidden>
                         <div style={{ display: "flex", alignItems: "center", fontWeight: "700" }}>Added to Queue</div>
                     </div>
                 )}
@@ -211,7 +213,7 @@ const SongsLiked = () => {
             <div className='songslikedarea' style={{ color: "white", paddingBottom: "80px", width: "100%" }}>
                 <div className='songslikedhead' style={{ display: "flex", paddingLeft: "60px", paddingTop: "50px", paddingBottom: "20px" }}>
                     <div className='likedsongdefaultimg' style={{ marginBottom: "10px" }}>
-                        <img src='https://misc.scdn.co/liked-songs/liked-songs-300.png' style={{ height: "235px" }}></img>
+                        <img src='https://misc.scdn.co/liked-songs/liked-songs-300.png' style={{ height: "100%" }}></img>
                     </div>
                     <div className='songsliked-info' style={{ marginLeft: "20px", display: "flex", flexDirection: "column" }}>
                         <h1 style={{ color: "white", fontSize: "14px", marginBottom: "-50px", marginTop: "70px" }}>PLAYLIST</h1>
@@ -221,116 +223,33 @@ const SongsLiked = () => {
                 </div>
                 <div className='playbutton' style={{ paddingLeft: "60px", height: "100px" }}>
                 </div>
-                <div className='songsheadarea' style={{ marginLeft: "55px", marginRight: "55px" }}>
-                    <div>
+                <div className='songsheader' style={{ marginLeft: "55px", marginRight: "55px" }}>
+                    <div className='number'>
                         <div>
                             #
                             &nbsp;
                             &nbsp;
                             TITLE
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            ALBUM
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            <i class="fa-regular fa-clock"></i>
                         </div>
                     </div>
-                    {/* <div style={{ marginRight: "-95px" }}>
+                    <div >
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
                         ALBUM
                     </div>
-                    <div style={{ paddingRight: "70px" }}>
+                    <div style={{ paddingRight: "15px" }}>
+
                         <i class="fa-regular fa-clock"></i>
-                    </div> */}
+                    </div>
                 </div>
 
                 <div className='nothingliked' style={{ fontSize: "13.5px", display: "flex", flexDirection: "column", alignItems: "center" }}>
