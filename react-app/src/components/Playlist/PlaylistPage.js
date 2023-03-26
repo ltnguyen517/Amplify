@@ -368,7 +368,7 @@ export default function PlaylistPage(){
 
 
                     {aPlaylist.Songs && (
-                        <div style={{marginTop: "51.5vh", paddingLeft: "30px", marginRight: "-370px"}}>
+                        <div style={{marginTop: "427px", paddingLeft: "30px", marginRight: "-370px"}}>
                             {aPlaylist.Songs.map((song) => {
                             return <div className="plsongholder" style={{ paddingBottom: "10px", listStyle: "none", display: "flex", justifyContent: "space-between", marginLeft: "-570px" }}>
                                     <div style={{ width: "305px" }}>
