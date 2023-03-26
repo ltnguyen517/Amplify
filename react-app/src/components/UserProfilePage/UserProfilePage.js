@@ -104,7 +104,7 @@ const UserProfilePage = () => {
         followerProfileImg = <img src={sessionUser?.profile_picture}/>
     }
 
-    const playlistArray = Object.values(playlistState || {})
+    const playlistArray = Object.values(playlistState)
     const userPlaylistsList = playlistArray.filter(playlist => Number(playlist?.User?.id) === Number(userId))
 
     let lengthUserPlaylists
@@ -145,19 +145,20 @@ const UserProfilePage = () => {
                         <div className="userprofpicture">
                             {followerProfileImg}
                         </div>
-                        <div className="userdata">
+                        <div className="userdata" style={{fontSize: "13.5px"}}>
                             Profile
-                            <h1 style={{color: "white"}}>
+                            <div style={{color: "white", fontSize: "70px", fontWeight: "700"}}>
                                 {sessionUser.username}
-                            </h1>
+                            </div>
+                            <br/>
                             {lengthUserPlaylists}
-
-                            <span style={{fontSize: "20px"}}>·</span>
-
+                            &nbsp;
+                            <span style={{fontSize: "14px"}}>·</span>
+                            &nbsp;
                             {sessionUserFollowing?.followers_of_user?.length} Followers
-
-                            <span style={{fontSize: "20px"}}>·</span>
-
+                            &nbsp;
+                            <span style={{fontSize: "14px"}}>·</span>
+                            &nbsp;
                             {sessionUserFollowing?.people_user_follows?.length} Following
                         </div>
                     </div>
@@ -165,20 +166,21 @@ const UserProfilePage = () => {
                         {toFollowButton}
                     </div>
                     <div className="userprofdetails">
-                        <h2 style={{ color: "white" }}>Playlists</h2>
+                        <h2 style={{ color: "white", marginLeft: "28px" }}>Playlists</h2>
                         <div className="userprofplaylists">
                             <UserOwnPlaylists userPlaylistsList={userPlaylistsList} />
                         </div>
-                        <h2 style={{ color: "white" }}>Followed Playlists</h2>
+                        <h2 style={{ color: "white", marginLeft: "28px" }}>Followed Playlists</h2>
                         <div className="followedplaylistscontainer">
                             <UserFollowedPlaylists followingPlaylists={followingPlaylists} />
                         </div>
                     </div>
-                    <h2 style={{ color: "white" }}>Following</h2>
+                    <br/>
+                    <h2 style={{ color: "white", marginLeft: "28px" }}>Following</h2>
                     <div className="usersfollowed-container" style={{ display: "flex", flexDirection: "row" }}>
                         <UserFollowing userFollowingArr={userFollowingArr} followerProfileImg={followerProfileImg} />
                     </div>
-                    <h2 style={{ color: "white" }}>Followers</h2>
+                    <h2 style={{ color: "white", marginLeft: "28px" }}>Followers</h2>
                     <div className="usersfollowed-container" style={{ display: "flex", flexDirection: "row" }}>
                         <UserFollowers userFollowerArr={userFollowerArr} followerProfileImg={followerProfileImg} />
                     </div>
@@ -191,39 +193,41 @@ const UserProfilePage = () => {
                         <div className="userprofpicture">
                             {followerProfileImg}
                         </div>
-                        <div className="userdata">
+                        <div className="userdata" style={{fontSize: "13.5px"}}>
                             Profile
-                            <h1 className="name" style={{ color: "white" }}>
+                            <div style={{color: "white", fontSize: "70px", fontWeight: "700"}}>
                                 {user.username}
-                            </h1>
+                            </div>
+                            <br/>
                             {lengthUserPlaylists}
-
-                            <span style={{ fontSize: "20px" }}>·</span>
-
+                            &nbsp;
+                            <span style={{ fontSize: "14px" }}>·</span>
+                            &nbsp;
                             {profileFollowers?.followers_of_user?.length} Followers
-
-                            <span style={{ fontSize: "20px" }}>·</span>
-
+                            &nbsp;
+                            <span style={{ fontSize: "14px" }}>·</span>
+                            &nbsp;
                             {profileFollowers?.people_user_follows?.length} Following
                         </div>
                     </div>
-                    <div className="followpersonarea">
+                    <div className="followpersonarea" style={{marginLeft: "28px", marginTop: "16px"}}>
                         {toFollowButton}
                     </div>
                     <div className="userprofdetails">
-                        <h2 style={{ color: "white" }}>Playlists</h2>
+                        <h2 style={{ color: "white", marginLeft: "28px"  }}>Playlists</h2>
                         <div className="userprofplaylists">
                             <UserOwnPlaylists userPlaylistsList={userPlaylistsList} />
                         </div>
-                        <h2 style={{ color: "white" }}>Followed Playlists</h2>
+                        <h2 style={{ color: "white", marginLeft: "28px"  }}>Followed Playlists</h2>
                         <div className="followedplaylistscontainer">
                             <UserFollowedPlaylists followingPlaylists={followingPlaylists} />
                         </div>
-                        <h2 style={{ color: "white" }}>Following</h2>
+                        <br/>
+                        <h2 style={{ color: "white", marginLeft: "28px"  }}>Following</h2>
                         <div className="usersfollowed-container">
                             <UserFollowing userFollowingArr={userFollowingArr} followerProfileImg={followerProfileImg} />
                         </div>
-                        <h2 style={{ color: "white" }}>Followers</h2>
+                        <h2 style={{ color: "white", marginLeft: "28px"  }}>Followers</h2>
                         <div className="usersfollowed-container">
                             <UserFollowers userFollowerArr={userFollowerArr} followerProfileImg={followerProfileImg} />
                         </div>
@@ -234,43 +238,45 @@ const UserProfilePage = () => {
     } else {
         return (
             <div className="userprofmain">
-                <div className="userprofheader" style={{ display: "flex", flexDirection: "row" }}>
+                <div className="userprofheader" style={{ display: "flex", flexDirection: "row"}}>
                     <div className="userprofpicture">
                         {followerProfileImg}
                     </div>
-                    <div className="userdata">
+                    <div className="userdata" style={{fontSize: "13.5px"}}>
                         Profile
-                        <h1 className="name" style={{ color: "white" }}>
-                            {user.username}
-                        </h1>
+                        <div style={{color: "white", fontSize: "70px", fontWeight: "700"}}>
+                           {user.username}
+                        </div>
+                        <br/>
                         {lengthUserPlaylists}
-
-                        <span style={{ fontSize: "20px" }}>·</span>
-
+                        &nbsp;
+                        <span style={{ fontSize: "14px" }}>·</span>
+                        &nbsp;
                         {profileFollowers?.followers_of_user?.length} Followers
-
-                        <span style={{ fontSize: "20px" }}>·</span>
-
+                        &nbsp;
+                        <span style={{ fontSize: "14px" }}>·</span>
+                        &nbsp;
                         {profileFollowers?.people_user_follows?.length} Following
                     </div>
                 </div>
-                <div className="followpersonarea">
+                <div className="followpersonarea" style={{marginLeft: "28px", marginTop: "16px"}}>
                     {toFollowButton}
                 </div>
                 <div className="userprofdetails">
-                    <h2 style={{ color: "white" }}>Playlists</h2>
+                    <h2 style={{ color: "white", marginLeft: "28px" }}>Playlists</h2>
                     <div className="userprofplaylists">
                         <UserOwnPlaylists userPlaylistsList={userPlaylistsList} />
                     </div>
-                    <h2 style={{ color: "white" }}>Followed Playlists</h2>
+                    <h2 style={{ color: "white", marginLeft: "28px" }}>Followed Playlists</h2>
                     <div className="followedplaylistscontainer">
                         <UserFollowedPlaylists followingPlaylists={followingPlaylists} />
                     </div>
-                    <h2 style={{ color: "white" }}>Following</h2>
+                    <br/>
+                    <h2 style={{ color: "white", marginLeft: "28px" }}>Following</h2>
                     <div className="usersfollowed-container">
                         <UserFollowing userFollowingArr={userFollowingArr} followerProfileImg={followerProfileImg} />
                     </div>
-                    <h2 style={{ color: "white" }}>Followers</h2>
+                    <h2 style={{ color: "white", marginLeft: "28px" }}>Followers</h2>
                     <div className="usersfollowed-container">
                         <UserFollowers userFollowerArr={userFollowerArr} followerProfileImg={followerProfileImg} />
                     </div>
