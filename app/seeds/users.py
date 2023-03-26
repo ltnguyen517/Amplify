@@ -6,18 +6,19 @@ def seed_users():
     demo = User(
         username='Demo', email='demo@aa.io', password='password', profile_picture='https://media.licdn.com/dms/image/C4E03AQGzEbfkqAPq5w/profile-displayphoto-shrink_800_800/0/1623910878376?e=2147483647&v=beta&t=4lDwhV1ACtwcbZB1APcHSpQpxlvpXvuvrSzzfJV1ayw')
     godfrey = User(
-        username='GodfreyGao', email='gao@yahoo.com', password='password', profile_picture='https://i.pinimg.com/originals/72/10/48/721048c55cc9301eb1b0f2b96aa727e4.jpg'
+        username='GodfreyGao', email='gao@yahoo.com', password='password', profile_picture='https://amplifyproj.s3.amazonaws.com/UserProfilePics/godfrey.jpeg'
     )
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', profile_picture='https://img.freepik.com/premium-vector/female-user-profile-avatar-is-woman-character-screen-saver-with-emotions_505620-617.jpg')
+        username='marnie', email='marnie@aa.io', password='password', profile_picture='https://amplifyproj.s3.amazonaws.com/UserProfilePics/marnie.jpg')
     lebron = User(
-        username='KingJames', email='lakers@gmail.com', password='password', profile_picture='https://www.rappler.com/tachyon/2022/11/reuters-lakers-lebron-james-november-11-2022-scaled.jpg'
+        username='KingJames', email='lakers@gmail.com', password='password', profile_picture='https://amplifyproj.s3.amazonaws.com/UserProfilePics/lebron.jpeg'
     )
     anh = User(
-        username='BoHyun', email='anhbo@yahoo.com', password='password', profile_picture='https://i0.wp.com/annyeongoppa.com/wp-content/uploads/2020/04/MV5BZWY1MTQxYmEtNjgxZS00YmU3LWE3MWYtN2E4MjNkMWUzMDRjXkEyXkFqcGdeQXVyNDY5MjMyNTg@._V1_.jpg?resize=780%2C520&ssl=1'
+        username='BoHyun', email='anhbo@yahoo.com', password='password', profile_picture='https://amplifyproj.s3.amazonaws.com/UserProfilePics/anh.jpeg'
     )
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', profile_picture='https://static.vecteezy.com/system/resources/previews/004/607/791/original/man-face-emotive-icon-smiling-male-character-in-blue-shirt-flat-illustration-isolated-on-white-happy-human-psychological-portrait-positive-emotions-user-avatar-for-app-web-design-vector.jpg')
+        username='bobbie', email='bobbie@aa.io', password='password', profile_picture='https://amplifyproj.s3.amazonaws.com/UserProfilePics/bobbie.jpeg'
+    )
 
     userList = [demo, godfrey, marnie, lebron, anh, bobbie]
     add_users = [db.session.add(user) for user in userList]
