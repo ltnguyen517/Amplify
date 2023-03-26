@@ -204,7 +204,7 @@ export default function PlaylistPage(){
                             <div className="plpicarea" style={{paddingLeft: "31px"}}>
                                 <img className="plpic" src={playlist.playlist_picture} />
                             </div>
-                            <div className="plinfoarea" style={{marginTop: "25px"}}>
+                            <div id="plinfoarea" style={{marginTop: "25px"}}>
                                 <div className="pltext" style={{fontSize: "12px", marginLeft: "4px"}}>
                                     PLAYLIST
                                 </div>
@@ -215,9 +215,9 @@ export default function PlaylistPage(){
 
                                     {playlist.description}
                                 </div>
-                                <div style={{marginTop: "9px"}}>
+                                <div style={{marginTop: "9px", position: "absolute", zIndex: "0"}} >
 
-                                    <Link style={{textDecoration: "none", color: "white", fontSize: "14px"}} to={`/user/${aPlaylist?.User?.id}`}>
+                                    <Link  style={{textDecoration: "none", color: "white", fontSize: "14px", position: "relative", zIndex: "1"}} to={`/user/${aPlaylist?.User?.id}`}>
                                         {aPlaylist?.User?.username}
                                     </Link>
                                     &nbsp;
@@ -239,47 +239,138 @@ export default function PlaylistPage(){
                         <div style={{marginTop: "302px", marginLeft: "28px" }}>
                             {followButton}
                         </div>
-                        <div style={{marginTop: "302px", marginLeft: "28px" }}>
+                        <div style={{marginTop: "284px", marginLeft: "15px" }}>
                             {sessionUser && (
                                 <button className="pldeletebutton" hidden={sessionUser.id !== aPlaylist?.User?.id} onClick={(e) => {removePlaylist(e); setEdit(!edit);}}>DELETE</button>
                             )}
                         </div>
                     </div>
 
-                    <br />
-                    <br />
-
-                    <div className="songsheader" style={{paddingLeft: "30px", marginRight: "-95px", marginTop: "400px"}}>
-                        <div className="number">
-                            <div>
-                                #
-                                &nbsp;
-                                &nbsp;
-                                Title
+                    <div className="songsheader" style={{paddingLeft: "1px", marginRight: "-95px", marginTop: "395px", position: "absolute", zIndex: "0", width: "100%"}}>
+                        <div style={{position: "relative", zIndex: "1"}}>
+                            <div className="number">
+                                <div>
+                                    #
+                                    &nbsp;
+                                    &nbsp;
+                                    Title
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    Album
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
                             </div>
                         </div>
-                        <div >
-                        &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            Album
-                        </div>
-                        <div style={{paddingRight: "20px"}}>
-                            <i class="fa-regular fa-clock"></i>
-                        </div>
                     </div>
+
+
                     {aPlaylist.Songs && (
-                        <div style={{marginTop: "1.5vh", paddingLeft: "30px"}}>
+                        <div style={{marginTop: "51.5vh", paddingLeft: "30px", marginRight: "-370px"}}>
                             {aPlaylist.Songs.map((song) => {
-                            return <div className="plsongholder" style={{ paddingBottom: "10px", listStyle: "none", display: "flex", justifyContent: "space-between" }}>
+                            return <div className="plsongholder" style={{ paddingBottom: "10px", listStyle: "none", display: "flex", justifyContent: "space-between", marginLeft: "-570px" }}>
                                     <div style={{ width: "305px" }}>
                                         {sessionUser && (
                                             <>
@@ -295,7 +386,7 @@ export default function PlaylistPage(){
                                     <div style={{ marginLeft: "-95px" }}><Link style={{ textDecoration: "none", color: "white" }} to={`/album/${song.album.id}`}>{song.album.title}</Link></div>
                                     <div style={{ display: "flex", marginRight: "-75px" }}>
                                         {sessionUser && (
-                                            songsLikedList?.songsLiked?.some(e => e.id === song.id) ? <i onClick={(e) => { unlikeASong(e, song.id); setEdit(!edit)}} style={{paddingRight: "20px", color: "1ed760", cursor: "pointer", marginLeft: "-1px" }} class="fa-solid fa-heart"></i> : <i onClick={(e) => { likeASong(e, song.id); setEdit(!edit)}} style={{paddingRight: "20px", color: "#babbbb", cursor: "pointer"}} class="fa-regular fa-heart"></i>
+                                            songsLikedList?.SongsLiked?.some(e => e.id === song.id) ? <i onClick={(e) => { unlikeASong(e, song.id); setEdit(!edit)}} style={{paddingRight: "20px", color: "#1ed760", cursor: "pointer", marginLeft: "-1px" }} class="fa-solid fa-heart"></i> : <i onClick={(e) => { likeASong(e, song.id); setEdit(!edit)}} style={{paddingRight: "20px", color: "#babbbb", cursor: "pointer"}} class="fa-regular fa-heart"></i>
                                         )}
                                         {!sessionUser && (
                                             <i onClick={(e) => history.push("/login")} style={{ paddingRight: "20px", color: "#babbbb", cursor: "pointer", marginLeft: "-1px" }} class="fa-regular fa-heart"></i>

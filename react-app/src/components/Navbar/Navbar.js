@@ -8,8 +8,9 @@ import AudioPlayerComponent from "../Audioplayer/Audioplayer";
 import PlaylistsOfUser from "../PlaylistsOfUser/PlaylistsOfUser";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 import logo from "./logo.png";
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
+// import AudioPlayer from 'react-h5-audio-player';
+// import 'react-h5-audio-player/lib/styles.css';
+import ReactAudioPlayer from 'react-audio-player';
 import "./Navbar.css";
 
 const NavBar = () => {
@@ -131,15 +132,15 @@ const NavBar = () => {
         bottomnav = (
           audioState.current_song.length > 0 && (
             <div className='bottom-div-container'>
-              <div className='audio-container' style={{ display: "flex", marginLeft: "20px" }}>
+              <div className='audio-container' style={{ display: "flex", marginLeft: "10px" }}>
                 <div className='bottom-nav-image-container' style={{ display: "flex" }}>
-                  <img style={{ width: "80px" }} src={audioState.current_song[0].album.album_photo}></img>
+                  <img style={{ width: "80px" }} src={audioState.current_song[0].album.AlbumPhoto}></img>
                   <div className='bottom-div-album-name-artist-container' style={{ display: "flex", flexDirection: "column", marginLeft: "20px", marginTop: "15px", width: "300px" }}>
                     <Link id='bottomnav-album-link' to={`/album/${audioState.current_song[0].album.id}`}>{audioState.current_song[0].name}</Link>
                     <Link id="bottomnavartist" to={`/artist/${audioState.current_song[0].album.artist.id}`}>{audioState.current_song[0].album.artist.name}</Link>
                   </div>
                 </div>
-                <div style={{ marginLeft: "50px" }}>
+                <div style={{ marginLeft: "-160px" }}>
                   <AudioPlayerComponent />
                 </div>
               </div>
@@ -209,7 +210,7 @@ const NavBar = () => {
               Sign up to get unlimited songs and podcasts with occasional ads. No credit card needed.
             </div>
           </div>
-          <button style={{ marginTop: "15px", borderRadius: "30px", height: "44px", width: "140px", fontWeight: "700", border: "none", cursor: "pointer", marginRight: "5px" }} onClick={(e) => history.push("/signup")}>Sign up free</button>
+          <button style={{ marginTop: "13px", borderRadius: "30px", height: "42px", width: "135px", fontWeight: "700", border: "none", cursor: "pointer", marginRight: "5px" }} onClick={(e) => history.push("/signup")}>Sign up free</button>
         </div>
       )
     } else if (sessionUser && location.pathname !== "/signup" && location.pathname !== "/login" && location.pathname !== "/likes") {
@@ -266,13 +267,13 @@ const NavBar = () => {
             <div className='bottom-div-container'>
               <div className='audio-container' style={{ display: "flex", marginLeft: "20px" }}>
                 <div className='bottom-nav-image-container' style={{ display: "flex" }}>
-                  <img style={{ width: "80px" }} src={audioState.current_song[0].album.album_photo}></img>
+                  <img style={{ width: "80px" }} src={audioState.current_song[0].album.AlbumPhoto}></img>
                   <div className='bottom-div-album-name-artist-container' style={{ display: "flex", flexDirection: "column", marginLeft: "20px", marginTop: "15px", width: "300px" }}>
                     <Link id='bottomnav-album-link' to={`/album/${audioState.current_song[0].album.id}`}>{audioState.current_song[0].name}</Link>
                     <Link id="bottomnavartist" to={`/artist/${audioState.current_song[0].album.artist.id}`}>{audioState.current_song[0].album.artist.name}</Link>
                   </div>
                 </div>
-                <div style={{ marginLeft: "50px" }}>
+                <div style={{ marginLeft: "-165px" }}>
                   <AudioPlayerComponent />
                 </div>
               </div>
@@ -293,7 +294,7 @@ const NavBar = () => {
         <nav id='logginginsigningup-nav'>
           <div id="login-signup-page">
             <Link to="/">
-              <img className='logoimg' src={logo}></img>
+              <img className='logoimg' src={logo} ></img>
             </Link>
           </div>
         </nav>

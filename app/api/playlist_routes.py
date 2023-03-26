@@ -90,20 +90,11 @@ def create_playlist():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        playlist_picture = form.data['playlist_picture']
-        playlist_picture.filename = get_unique_filename(playlist_picture.filename)
-
-        upload = upload_file_to_s3(playlist_picture)
-
-        if 'url' not in upload:
-            return render_template("imgupload.html", form=form, errors=[upload])
-
         new_playlist = Playlist(
             creator_id = form.data['creator_id'],
             title = form.data['title'],
             description = form.data['description'],
-            # playlist_picture = form.data['playlist_picture']
-            playlist_picture=upload['url']
+            playlist_picture = form.data['playlist_picture']
         )
         db.session.add(new_playlist)
         db.session.commit()
