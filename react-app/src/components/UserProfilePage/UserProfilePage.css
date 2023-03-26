@@ -32,8 +32,8 @@
     margin-right: -100px;
 }
 .userprofpicture {
-    border: 1px solid white;
-    border-radius: 1000px;
+    box-shadow: 0 0 13px rgba(0, 0, 0, 1);
+    border-radius: 50%;
     width: 200px;
     height: 200px;
     display: flex;

@@ -100,8 +100,10 @@ const UserProfilePage = () => {
 
     if(!user.profile_picture){
         followerProfileImg = <i class="fa-solid fa-user fa-4x"></i>
+    } else if (user.profile_picture){
+        followerProfileImg = <img src={user?.profile_picture}/>
     } else {
-        followerProfileImg = <img src={sessionUser?.profile_picture}/>
+        followerProfileImg = <img src={sessionUser?.profile_picture} />
     }
 
     const playlistArray = Object.values(playlistState)
@@ -142,8 +144,8 @@ const UserProfilePage = () => {
             return (
                 <div className="userprofmain">
                     <div className="userprofheader" style={{display: "flex", flexDirection: "row"}}>
-                        <div className="userprofpicture">
-                            {followerProfileImg}
+                        <div className="userprofpicture" style={{width: "280px", height: "280px", overflow: "hidden"}}>
+                            <div style={{marginRight: "425px", marginTop: "130px", width: "15%"}}>{followerProfileImg}</div>
                         </div>
                         <div className="userdata" style={{fontSize: "13.5px"}}>
                             Profile
@@ -190,8 +192,8 @@ const UserProfilePage = () => {
             return (
                 <div className="userprofmain">
                     <div className="userprofheader" style={{ display: "flex", flexDirection: "row" }}>
-                        <div className="userprofpicture">
-                            {followerProfileImg}
+                        <div className="userprofpicture" style={{width: "280px", height: "280px", overflow: "hidden"}}>
+                            <div style={{marginTop: "35px"}}>{followerProfileImg}</div>
                         </div>
                         <div className="userdata" style={{fontSize: "13.5px"}}>
                             Profile
