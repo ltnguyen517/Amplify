@@ -296,7 +296,7 @@ const NavBar = () => {
             <div style={{ marginLeft: "230px" }}>
               <AudioPlayerComponent/>
               <ReactAudioPlayer
-                    src={audioState.current_song[0].songUrl}
+                    src={audioState?.current_song[0]?.songUrl}
                   />
 
             </div>

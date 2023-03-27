@@ -40,9 +40,8 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const formData = new FormData();
-        formData.append("image", image);
-
+        // const formData = new FormData();
+        // formData.append("image", image);
 
         if(errors.length) return
         setErrors([])
@@ -55,7 +54,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
         let picUpload = document.querySelector("#file-input")
         setErrors(errArr)
 
-        for (let i = 0; i < picUpload?.files.length; i++) {
+        for (let i = 0; i < picUpload.files.length; i++) {
             let pic = picUpload.files[i]
             if (pic.type !== "image/gif" && pic.type !== "image/jpeg" && pic.type !== "image/png") {
                 rightOne = false
@@ -98,7 +97,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
                 await setShowModal(false)
             }
         } else if (pic !== undefined && !description) {
-            const img = await fetch("/api/playlists/pictures/upload", {
+            const img = await fetch("/api/playlists/images/upload", {
                 method: "POST",
                 body: formData
             })
@@ -107,7 +106,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
             const playlisttoUpdate = {
                 title,
                 description: " ",
-                playlist_picture: picURL.image
+                playlist_picture: picURL.Picture
             }
 
             const updatedPlaylist = await dispatch(actionthunksPlaylist.editPlaylist(playlisttoUpdate, playlistId))
@@ -117,7 +116,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
                 await setShowModal(false)
             }
         } else {
-            const img = await fetch("/api/playlists/pictures/upload", {
+            const img = await fetch("/api/playlists/images/upload", {
                 method: "POST",
                 body: formData
             })
@@ -125,7 +124,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
             const playlisttoUpdate = {
                 title,
                 description,
-                playlist_picture: picURL.image
+                playlist_picture: picURL.Picture
             }
             const updatedPlaylist = await dispatch(actionthunksPlaylist.editPlaylist(playlisttoUpdate, playlistId))
             if (updatedPlaylist) {
@@ -144,7 +143,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
 
     return (
         <div className='editplarea'>
-            <form className='editplform' onSubmit={handleSubmit} encType="multipart/form-data">
+            <form className='editplform' onSubmit={handleSubmit} >
                 <h2 style={{color: "white"}}>Edit details</h2>
                 <div>
                     {errors.map((error) => {
@@ -157,7 +156,7 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
                         <label htmlFor='file-input'>
                             <img style={{ width: "200px", height: "210px" }} src={playlistOfUser[0].playlist_picture} />
                         </label>
-                        <input id="file-input" type='file' name='file' accept="image/*" onChange={updateImage}  />
+                        <input id="file-input" type='file' name='file' encType="multipart/form-data" />
                     </div>
 
                     <div className='titledescarea' style={{color: "white"}}>
