@@ -11,56 +11,66 @@ import os
 
 playlist_routes = Blueprint("playlists", __name__)
 
-@playlist_routes.route("/pictures/upload", methods=["POST"])
-@login_required
-def upload_image():
-    if "image" not in request.files:
-        return {"errors": "image required"}, 400
-
-    image = request.files["image"]
-
-    if not allowed_file(image.filename):
-        return {"errors": "file type not permitted"}, 400
-
-    image.filename = get_unique_filename(image.filename)
-
-    upload = upload_file_to_s3(image)
-
-    if "url" not in upload:
-        # if the dictionary doesn't have a url key
-        # it means that there was an error when we tried to upload
-        # so we send back that error message
-        return upload, 400
-
-    url = upload["url"]
-    # flask_login allows us to get the current user from the request
-    new_image = Playlist(user=current_user, url=url)
-    db.session.add(new_image)
-    db.session.commit()
-    return {"url": url}
-
 # @playlist_routes.route("/pictures/upload", methods=["POST"])
-# def upload_picture():
-#     if request.method == "POST":
-#         img = request.files["file"]
-#         if img:
-#             filename = secure_filename(img.filename)
-#             s3.upload_fileobj(
-#                 img,
-#                 BUCKET_NAME,
-#                 filename,
-#                 ExtraArgs = {
-#                     'ACL':'public-read',
-#                     'ContentType': img.content_type
-#                 }
-#             )
-#             return {"picture": f"https://amplifyproj.s3.amazonaws.com/{filename}"}
-#         else:
-#             return {"error": "Not a valid file"}
+# @login_required
+# def upload_image():
+#     if "image" not in request.files:
+#         return {"errors": "image required"}, 400
 
-# @playlist_routes.route("/upload")
-# def uploading():
-#     return render_template("imgupload.html")
+#     image = request.files["image"]
+
+#     if not allowed_file(image.filename):
+#         return {"errors": "file type not permitted"}, 400
+
+#     image.filename = get_unique_filename(image.filename)
+
+#     upload = upload_file_to_s3(image)
+
+#     if "url" not in upload:
+#         # if the dictionary doesn't have a url key
+#         # it means that there was an error when we tried to upload
+#         # so we send back that error message
+#         return upload, 400
+
+#     url = upload["url"]
+#     # flask_login allows us to get the current user from the request
+#     new_image = Playlist(user=current_user, url=url)
+#     db.session.add(new_image)
+#     db.session.commit()
+#     return {"url": url}
+
+BUCKET_NAME = os.environ.get("S3_BUCKET")
+S3_LOCATION = f"https://{BUCKET_NAME}.s3.amazonaws.com/"
+ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif"}
+
+s3 = boto3.client(
+   "s3",
+   aws_access_key_id=os.environ.get("S3_KEY"),
+   aws_secret_access_key=os.environ.get("S3_SECRET")
+)
+
+@playlist_routes.route("/images/upload", methods=["POST"])
+def upload_picture():
+    if request.method == "POST":
+        img = request.files["file"]
+        if img:
+            filename = secure_filename(img.filename)
+            s3.upload_fileobj(
+                img,
+                BUCKET_NAME,
+                filename,
+                ExtraArgs = {
+                    'ACL':"public-read",
+                    'ContentType': img.content_type
+                }
+            )
+            return {"Picture": f"https://amplifyproj.s3.amazonaws.com/{filename}"}
+        else:
+            return {"error": "Not a valid file"}
+
+@playlist_routes.route("/upload")
+def uploading():
+    return render_template("imgupload.html")
 
 # Get all playlists
 

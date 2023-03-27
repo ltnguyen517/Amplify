@@ -15,7 +15,6 @@ const UserProfilePage = () => {
     const sessionUser = useSelector((state) => state.session.user)
     const playlistState = useSelector((state) => state.playlist)
     const userFollowState = useSelector((state) => state.follows?.people_user_follows)
-
     const [user, setUser] = useState([])
     const [everyUser, setEveryUser] = useState([])
     const [sessionUserFollowers, setSessionUserFollowers] = useState([])

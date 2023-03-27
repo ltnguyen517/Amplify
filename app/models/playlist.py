@@ -35,7 +35,7 @@ class Playlist(db.Model):
     creator_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     title = db.Column(db.String(150), nullable=False)
     description = db.Column(db.String(255), nullable=False)
-    playlist_picture = db.Column(db.String)
+    playlist_picture = db.Column(db.Text)
 
     playlist_follower = db.relationship("User", secondary=playlist_followers, back_populates="playlist_following")
 
