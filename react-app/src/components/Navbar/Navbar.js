@@ -8,8 +8,8 @@ import AudioPlayerComponent from "../Audioplayer/Audioplayer";
 import PlaylistsOfUser from "../PlaylistsOfUser/PlaylistsOfUser";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 import logo from "./logo.png";
-// import AudioPlayer from 'react-h5-audio-player';
-// import 'react-h5-audio-player/lib/styles.css';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 import ReactAudioPlayer from 'react-audio-player';
 import "./Navbar.css";
 
@@ -128,7 +128,7 @@ const NavBar = () => {
           </div>
         </nav>
       )
-      if (audioState?.current_song.length > 0) {
+      if (audioState.current_song.length > 0) {
         bottomnav = (
           audioState.current_song.length > 0 && (
             <div className='bottom-div-container'>
@@ -142,6 +142,9 @@ const NavBar = () => {
                 </div>
                 <div style={{ marginLeft: "-160px" }}>
                   <AudioPlayerComponent />
+                  <ReactAudioPlayer
+                    src={audioState.current_song[0].songUrl}
+                  />
                 </div>
               </div>
             </div>
@@ -152,6 +155,9 @@ const NavBar = () => {
           <div className='bottom-div-container'>
             <div style={{ marginLeft: "230px" }}>
               <AudioPlayerComponent/>
+              <ReactAudioPlayer
+                    src={audioState?.current_song[0]?.songUrl}
+              />
             </div>
           </div>
         )
@@ -275,6 +281,10 @@ const NavBar = () => {
                 </div>
                 <div style={{ marginLeft: "-165px" }}>
                   <AudioPlayerComponent />
+                  <ReactAudioPlayer
+                    src={audioState.current_song[0].songUrl}
+                  />
+
                 </div>
               </div>
             </div>
@@ -285,6 +295,10 @@ const NavBar = () => {
           <div className='bottom-div-container'>
             <div style={{ marginLeft: "230px" }}>
               <AudioPlayerComponent/>
+              <ReactAudioPlayer
+                    src={audioState.current_song[0].songUrl}
+                  />
+
             </div>
           </div>
         )

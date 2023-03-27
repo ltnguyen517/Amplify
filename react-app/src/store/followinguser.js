@@ -29,8 +29,8 @@ export const getAllUserFollowers = (id) => async (dispatch) => {
     }
 }
 
-export const followAUser = (userId, userId2) => async (dispatch) => {
-    const response = await fetch(`/api/users/${userId}/follow/${userId2}`, {
+export const followAUser = (id, id2) => async (dispatch) => {
+    const response = await fetch(`/api/users/${id}/follow/${id2}`, {
         method: "POST",
         headers: {
             'Content-Type': "application/json"
@@ -38,20 +38,20 @@ export const followAUser = (userId, userId2) => async (dispatch) => {
     })
     if(response.ok){
         const data = await response.json()
-        dispatch(actionCreateFollow(userId2))
+        dispatch(actionCreateFollow(id2))
         return data
     } else {
         return response
     }
 }
 
-export const unfollowAUser = (userId, userId2) => async (dispatch) => {
-    const response = await fetch(`/api/users/${userId}/follow/${userId2}`, {
+export const unfollowAUser = (id, id2) => async (dispatch) => {
+    const response = await fetch(`/api/users/${id}/follow/${id2}`, {
         method: "DELETE"
     })
     if(response.ok){
         const data = await response.json()
-        dispatch(actionDeleteFollow(userId2))
+        dispatch(actionDeleteFollow(id2))
         return data
     } else {
         return await response.json()
