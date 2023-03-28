@@ -187,7 +187,7 @@ const AudioPlayerComponent = () => {
         <>
 
             <div>
-                <div style={{ marginLeft: "400px" }}>
+                <div style={{ marginLeft: "400px", marginTop: "5px"}}>
                     {backButton}
                     {playPauseButton}
                     {skipSongButton}

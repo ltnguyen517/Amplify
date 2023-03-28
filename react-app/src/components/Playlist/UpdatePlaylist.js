@@ -140,6 +140,21 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
         setImage(file);
     }
 
+    const fileInput = document.getElementById("file-input");
+    const preview = document.getElementById("preview");
+
+    fileInput?.addEventListener("change", () => {
+        const file = fileInput.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+            preview.innerHTML = `<img src="${reader.result}" >`;
+            };
+        }
+    });
+
 
     return (
         <div className='editplarea'>
@@ -153,10 +168,14 @@ const UpdatePlaylist = ({playlistId, setShowModal}) => {
                 <div className='editplinput'>
 
                     <div style={{ width: "200px", height: "200px" }} className='editpicarea'>
-                        <label htmlFor='file-input'>
-                            <img style={{ width: "200px", height: "210px" }} src={playlistOfUser[0].playlist_picture} />
-                        </label>
-                        <input id="file-input" type='file' name='file' encType="multipart/form-data" />
+                        <div id="preview">
+                            <label htmlFor='file-input'>
+                                <img  style={{ width: "200px", height: "210px" }} src={playlistOfUser[0].playlist_picture} />
+                            </label>
+                        </div>
+                        <div>
+                            <input id="file-input" type='file' name='file' encType="multipart/form-data" accept="image/*"/>
+                        </div>
                     </div>
 
                     <div className='titledescarea' style={{color: "white"}}>

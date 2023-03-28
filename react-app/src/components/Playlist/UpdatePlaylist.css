@@ -17,7 +17,13 @@
 .editpicarea{
     margin-right: 20px;
     box-shadow: 5px 5px 12px 5px black;
+    overflow: hidden;
+    display:flex;
+    justify-content:left;
+    flex-direction: column;
+    object-fit:contain;
 }
+
 .titledescarea{
     display: flex;
     flex-direction: column;
@@ -47,4 +53,14 @@
     height: 40px;
     width: 90px;
     margin-right: -6px;
+}
+#file-input{
+    /* margin-top: -20px; */
+    /* border: 2px solid red; */
+    display:none;
+}
+#preview img {
+    object-fit:contain;
+    max-width: 200px;
+    max-height: 210px;
 }

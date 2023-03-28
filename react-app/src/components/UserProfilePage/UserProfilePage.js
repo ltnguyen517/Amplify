@@ -92,7 +92,7 @@ const UserProfilePage = () => {
             }
         }
     }
-
+    console.log("!@#$%^&*", userFollowingArr)
     let followerProfileImg
 
     if(!sessionUserFollowers) {return null}
