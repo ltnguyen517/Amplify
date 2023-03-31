@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Link, NavLink, useHistory, useLocation, useParams } from "react-router-dom";
+import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Error404Page from "../ErrorPage/ErrorPage";
 import * as likeSongStore from "../../store/likedsongs";
