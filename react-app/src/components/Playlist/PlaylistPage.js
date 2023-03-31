@@ -200,7 +200,7 @@ export default function PlaylistPage(){
                         <UpdatePlaylistModal playlistId={playlistId} playlist={playlist} aPlaylist={aPlaylist} />
                     )}
                     {sessionUser?.id !== aPlaylist?.User?.id && (
-                        <div className="plheader" style={{ backgroundSize: "0.5px 0.5px", width: "497%", height: "280px", paddingTop: "15px", marginLeft: "-35px", backgroundImage: `url(${playlist.playlist_picture})`}}>
+                        <div className="plheader" style={{ backgroundSize: "0.5px 0.5px", width: "500%", height: "280px", paddingTop: "15px", marginLeft: "-35px", backgroundImage: `url(${playlist.playlist_picture})`}}>
                             <div className="plpicarea" style={{paddingLeft: "31px"}}>
                                 <img className="plpic" src={playlist.playlist_picture} />
                             </div>
@@ -392,7 +392,7 @@ export default function PlaylistPage(){
                                             <i onClick={(e) => history.push("/login")} style={{ paddingRight: "20px", color: "#babbbb", cursor: "pointer", marginLeft: "-1px" }} class="fa-regular fa-heart"></i>
                                         )}
                                         <span style={{width:"50px"}}>{song.duration}</span>
-                                        <button style={{background: "none"}} className="dropdown-songs" onClick={(e) => activeMenu === song.id ? setActiveMenu(null) : setActiveMenu(song.id)}>...</button>
+                                        <button style={{background: "none", outline: "none", border: "none", color: "white", cursor: "pointer"}} className="dropdown-songs" onClick={(e) => activeMenu === song.id ? setActiveMenu(null) : setActiveMenu(song.id)}>···</button>
                                         {activeMenu === song.id && (
                                             <div className='active-playlist-song-dropdown'>
                                                 <div>

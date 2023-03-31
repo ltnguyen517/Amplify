@@ -81,6 +81,9 @@ const NavBar = () => {
     if (location.pathname === "/likes") {
       sidenav = (
         <div className='sidenav' style={{ color: "#adb3b3" }}>
+          <div style={{ marginBottom: "5px" }} id='logo'>
+            <img onClick={(e) => history.push("/")} style={{ width: "150px", height: "75px", cursor: "pointer", marginLeft: "11.5px" }} src={logo} />
+          </div>
 
           <Link to="/" style={{ textDecoration: "none" }}>
             <i class="fa-solid fa-house" style={{ color: "#b3b3b3" }}></i>
@@ -121,6 +124,9 @@ const NavBar = () => {
           <div style={{ marginRight: "20px" }}>
             <Link to={{ pathname: "https://github.com/ltnguyen517/Amplify" }} target="_blank">
               <i style={{ color: "#1ed760", marginTop: "25px" }} class="fa-brands fa-github fa-lg"></i>
+            </Link>
+            <Link to={{ pathname: "https://www.linkedin.com/in/lenguyenmbs/" }} target="_blank">
+              <i style={{ color: "#1ed760", marginTop: "25px", marginLeft: "16px" }} class="fa-brands fa-linkedin fa-lg"></i>
             </Link>
           </div>
           <div className="loginsignup" style={{marginRight: "120px"}}>
@@ -187,11 +193,13 @@ const NavBar = () => {
       )
       navbar = (
         <nav id="topnavbar" style={{backgroundColor: "#1e1e1e"}}>
-          <div style={{ marginRight: "15px", marginTop: "15px" }}>
+          <div style={{ marginRight: "15px"}}>
             <Link to={{ pathname: "https://github.com/ltnguyen517/Amplify" }} target="_blank">
               <i style={{ color: "#1ed760" }} class="fa-brands fa-github fa-lg"></i>
             </Link>
-
+            <Link to={{ pathname: "https://www.linkedin.com/in/lenguyenmbs/" }} target="_blank">
+              <i style={{ color: "#1ed760", marginTop: "25px", marginLeft: "16px" }} class="fa-brands fa-linkedin fa-lg"></i>
+            </Link>
           </div>
           <div className='loginsignup' style={{ display: "flex", marginRight: "12px" }}>
             <div style={{ paddingTop: "8px", marginRight: "10px" }}>
@@ -261,7 +269,16 @@ const NavBar = () => {
         </div>
       )
       navbar = (
-        <nav id="topnavbar" style={{backgroundColor: "#1e1e1e"}}>
+        <nav id="topnavbar" style={{backgroundColor: "#1e1e1e", backgroundImage: "none"}}>
+          <div style={{ marginRight: "20px" }}>
+            <Link to={{ pathname: "https://github.com/ltnguyen517/Amplify" }} target="_blank">
+              <i style={{ color: "#1ed760", marginTop: "25px" }} class="fa-brands fa-github fa-lg"></i>
+            </Link>
+            <Link to={{ pathname: "https://www.linkedin.com/in/lenguyenmbs/" }} target="_blank">
+              <i style={{ color: "#1ed760", marginTop: "25px", marginLeft: "16px" }} class="fa-brands fa-linkedin fa-lg"></i>
+            </Link>
+          </div>
+
           <div className='loginsignup' style={{ marginRight: "115px" }}>
             <ProfileDropDown />
           </div>
