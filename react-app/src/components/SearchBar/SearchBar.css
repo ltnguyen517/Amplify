@@ -1,0 +1,59 @@
+#searchbutton{
+    position: sticky;
+    top: 16px;
+    color: black;
+    margin-left: -388px;
+    font-size: 19px;
+}
+.resultsofsearch{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 270px);
+}
+.playlistboxes{
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    background-color: #181818;
+    color: white;
+    width: 250px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.playlistboxes:hover{
+    transition: 1s;
+    background-color: rgb(40, 40, 40);
+}
+.plsearchimg{
+    width: 220px;
+    height: 220px;
+    margin-top: 20px;
+    margin-left: 15px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 12px 5px black;
+}
+.artistboxes{
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    background-color: #181818;
+    color: white;
+    width: 250px;
+    cursor: pointer;
+    margin-bottom: 10px
+}
+
+.artistboxes:hover{
+    transition: 1s;
+    background-color: rgb(40, 40, 40);
+}
+.artistsearchimg{
+    width: 220px;
+    height: 220px;
+    margin-top: 20px;
+    margin-left: 15px;
+    border-radius: 200px;
+    box-shadow: 4px 4px 10px 4px black;
+}
