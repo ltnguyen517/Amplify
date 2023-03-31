@@ -13,6 +13,7 @@ import UserProfilePage from "./components/UserProfilePage/UserProfilePage";
 import AudioPlayerComponent from "./components/Audioplayer/Audioplayer";
 import Error404Page from "./components/ErrorPage/ErrorPage";
 import ArtistPg from "./components/Artists/Artists";
+import SearchBar from "./components/SearchBar/SearchBar";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -44,6 +45,9 @@ function App() {
         </Route>
         <Route path='/likes'>
           <SongsLiked />
+        </Route>
+        <Route path='/search'>
+          <SearchBar />
         </Route>
         <Route path='/artist/:artistId' exact={true}>
           <ArtistPg />

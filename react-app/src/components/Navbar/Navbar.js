@@ -90,6 +90,12 @@ const NavBar = () => {
             &nbsp;
             Home</Link>
 
+          <br />
+          <Link to="/search">
+            <i class="fa-sharp fa-solid fa-magnifying-glass" style={{color: "#b3b3b3"}}></i>
+            &nbsp;
+            Search
+          </Link>
 
           <br />
           <button className='createplaylist-button' onClick={createPlaylist} disabled={isDisabled}>
@@ -181,12 +187,24 @@ const NavBar = () => {
               &nbsp;
               Home</Link>
               <br />
+            <Link to="/search">
+              <i class="fa-sharp fa-solid fa-magnifying-glass" style={{color: "#b3b3b3"}}></i>
+              &nbsp;
+              Search
+            </Link>
+            <br/>
           </div>
           <div>
             <Link to="/login">
               <i class="fa-solid fa-square-plus"></i>
               &nbsp;
               Create Playlist
+            </Link>
+            <br />
+            <Link to="/login">
+              <i class="fa-solid fa-heart"></i>
+              &nbsp;
+              Liked Songs
             </Link>
           </div>
         </div>
@@ -238,7 +256,12 @@ const NavBar = () => {
             <i class="fa-solid fa-house" style={{ color: "#b3b3b3" }}></i>
             &nbsp;
             Home</Link>
-
+          <br />
+          <Link to="/search">
+            <i class="fa-sharp fa-solid fa-magnifying-glass" style={{color: "#b3b3b3"}}></i>
+            &nbsp;
+            Search
+          </Link>
           <br />
           <button className='createplaylist-button' onClick={createPlaylist} disabled={isDisabled}>
             <i class="fa-solid fa-square-plus"></i>
