@@ -25,7 +25,7 @@ class Artist(db.Model):
         }
 
         if songs:
-            artist["Songs"] = [album.to_dict(songs=True) for album in self.albums]
+            artist["Albums"] = [album.to_dict(songs=True) for album in self.albums]
 
         if albums:
             artist["Albums"] = [album.to_dict() for album in self.albums]

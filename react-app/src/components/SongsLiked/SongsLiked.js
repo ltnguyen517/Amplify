@@ -149,7 +149,7 @@ const SongsLiked = () => {
                                         <i onClick={(e) => { unlikeSong(e, song.id); setEdit(!edit) }} style={{ paddingRight: "20px", color: "#1ed760", cursor: "pointer" }} class="fa-solid fa-heart"></i>
                                         <span style={{ width: "50px" }}>{song.duration}</span>
                                         {sessionUser && (
-                                            <button style={{ background: "none", marginBottom: "20px" }} id='dropdownofspecificsong' onClick={(e) => activeMenu === song.id ? setActiveMenu(null) : setActiveMenu(song.id)}>...</button>
+                                            <button style={{ background: "none", marginBottom: "20px", outline: "none", border: "none", color: "white", cursor: "pointer" }} id='dropdownofspecificsong' onClick={(e) => activeMenu === song.id ? setActiveMenu(null) : setActiveMenu(song.id)}>···</button>
                                         )}
                                         {activeMenu === song.id && (
                                             <div className='active-playlist-song-dropdown'>

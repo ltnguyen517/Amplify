@@ -56,6 +56,20 @@ const HomePage = () => {
             {!sessionUser && (
                 <h1>{message}</h1>
             )}
+            <h2>Playlists</h2>
+            <div className="playlistarea" style={{paddingBottom: "30px"}}>
+                {playlists && (
+                    playlists.map((playlist) => {
+                        return <div className="albumpic">
+                            <Link to={`/playlist/${playlist.id}`}>
+                                <img className="photoofplaylist" src={playlist.playlist_picture} />
+                            </Link>
+                            <p style={{ marginLeft: "27px", fontWeight: "700"}}>{playlist.title}</p>
+                            <span style={{marginLeft: "27px", paddingBottom: "20px"}}>By {playlist.User.username}</span>
+                        </div>
+                    })
+                )}
+            </div>
             <h2>Artists</h2>
             <div className="artistarea">
                 {artists.map((artist) => {
@@ -67,7 +81,6 @@ const HomePage = () => {
                     </div>
                 })}
             </div>
-            <br />
             <br />
             <br />
             <h2>Albums</h2>
@@ -82,10 +95,8 @@ const HomePage = () => {
                     </div>
                 })}
             </div>
-            <br />
-            <br />
-            <br />
-            <h2>Playlists</h2>
+            <br/>
+            {/* <h2>Playlists</h2>
             <div className="playlistarea" style={{paddingBottom: "80px"}}>
                 {playlists && (
                     playlists.map((playlist) => {
@@ -98,7 +109,7 @@ const HomePage = () => {
                         </div>
                     })
                 )}
-            </div>
+            </div> */}
         </div>
     )
 }
