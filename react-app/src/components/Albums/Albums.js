@@ -31,8 +31,44 @@ const Albums = () => {
     document.body.style = 'background: #1e1e1e';
 
     useEffect(() => {
-        
-    })
+        (async () => {
+            if (albumId <= 6) {
+                const albumRes = await fetch(`/api/albums/${albumId}`)
+                const albumData = await albumRes.json()
+                setAlbum(albumData)
+
+                if (sessionUser) {
+                    setSongsLikedList(await dispatch(likeSongStore.getAllLikes(sessionUser.id)))
+                }
+            }
+        })();
+    }, [setAlbum, albumId, edit, setEdit, sessionUser, dispatch, setSongsLikedList]);
+
+    useEffect(() => {
+
+        if (!showMenu) return;
+
+        const closeMenu = () => {
+            setShowMenu(false);
+        };
+
+        document.addEventListener('click', closeMenu);
+
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showMenu]);
+
+    if(albumId <= 0 || albumId > 6){
+        return (
+            <Error404Page />
+        )
+    }
+
+    if (location.pathname.includes("album") && nav) {
+        nav.style.backgroundImage = `url(${album.album_photo})`
+        nav.style.backgroundSize = "0.5px 0.5px"
+    }
+
+    
 
 }
 
