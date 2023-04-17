@@ -16,7 +16,7 @@ const SongsLiked = () => {
     const [songsLikedArr, setSongsLikedArr] = useState([])
     const [edit, setEdit] = useState(true)
     const [showMenu, setShowMenu] = useState(false)
-    const [activeMenu, setActiveMenu] = useState()
+    const [activeMenu, setActiveMenu] = useState(false)
     const [canSee, setCanSee] = useState(false)
     const [addToQueue, setAddToQueue] = useState(false)
 
@@ -34,15 +34,17 @@ const SongsLiked = () => {
 
     useEffect(() => {
         if(!showMenu) return;
+        if (!activeMenu) return;
 
         const closeMenu = () => {
             setShowMenu(false);
+            setActiveMenu(false);
         };
 
         document.addEventListener('click', closeMenu);
 
         return () => document.removeEventListener('click', closeMenu);
-    }, [showMenu]);
+    }, [showMenu, activeMenu]);
 
     const playlistArr = Object.values(playlistState)
     let userPlaylists

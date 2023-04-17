@@ -20,7 +20,7 @@ export default function ArtistPg(){
 
     const [artist, setArtist] = useState([])
     const [showMenu, setShowMenu] = useState(false)
-    const [activeMenu, setActiveMenu] = useState()
+    const [activeMenu, setActiveMenu] = useState(false)
     const [canSee, setCanSee] = useState(false)
     const [addedToQueue, setAddedToQueue] = useState(false)
     const [edit, setEdit] = useState(true)
@@ -53,14 +53,16 @@ export default function ArtistPg(){
 
     useEffect(() => {
         if (!showMenu) return;
+        if (!activeMenu) return;
 
         const closeMenu = () => {
             setShowMenu(false);
+            setActiveMenu(false);
         };
         document.addEventListener('click', closeMenu);
         return () => document.removeEventListener("click", closeMenu);
 
-    }, [showMenu]);
+    }, [showMenu, activeMenu]);
 
     if (location.pathname.includes("artist") && nav) {
         nav.style.backgroundImage = `url(${artist.artist_photo})`
