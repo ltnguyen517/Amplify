@@ -18,7 +18,7 @@ export default function PlaylistPage(){
 
     const [aPlaylist, setAPlaylist] = useState([])
     const [showMenu, setShowMenu] = useState(false)
-    const [activeMenu, setActiveMenu] = useState()
+    const [activeMenu, setActiveMenu] = useState(false)
     const [canSee, setCanSee] = useState(false)
     const [addedToQueue, setAddedToQueue] = useState(false)
     const [edit, setEdit] = useState(true)
@@ -53,14 +53,16 @@ export default function PlaylistPage(){
 
     useEffect(() => {
         if (!showMenu) return;
+        if (!activeMenu) return;
 
         const closeMenu = () => {
             setShowMenu(false);
+            setActiveMenu(false);
         };
         document.addEventListener('click', closeMenu);
         return () => document.removeEventListener("click", closeMenu);
 
-    }, [showMenu]);
+    }, [showMenu, activeMenu]);
 
     const playlistArr = Object.values(playlistState)
     const playlist = playlistArr.filter(playlist => Number(playlist.id) === Number(playlistId))[0]

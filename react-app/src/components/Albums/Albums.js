@@ -17,7 +17,7 @@ const Albums = () => {
     const [album, setAlbum] = useState([])
     const { albumId } = useParams()
     const [showMenu, setShowMenu] = useState(false)
-    const [activeMenu, setActiveMenu] = useState()
+    const [activeMenu, setActiveMenu] = useState(false)
     const [canSee, setCanSee] = useState(false)
     const [addedToQueue, setAddedToQueue] = useState(false)
     const [edit, setEdit] = useState(true)
@@ -47,15 +47,17 @@ const Albums = () => {
     useEffect(() => {
 
         if (!showMenu) return;
+        if (!activeMenu) return;
 
         const closeMenu = () => {
             setShowMenu(false);
+            setActiveMenu(false);
         };
 
         document.addEventListener('click', closeMenu);
 
         return () => document.removeEventListener("click", closeMenu);
-    }, [showMenu]);
+    }, [showMenu, activeMenu]);
 
     if(albumId <= 0 || albumId > 6){
         return (
