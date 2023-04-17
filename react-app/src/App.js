@@ -13,6 +13,7 @@ import UserProfilePage from "./components/UserProfilePage/UserProfilePage";
 import AudioPlayerComponent from "./components/Audioplayer/Audioplayer";
 import Error404Page from "./components/ErrorPage/ErrorPage";
 import ArtistPg from "./components/Artists/Artists";
+import Albums from "./components/Albums/Albums";
 import SearchBar from "./components/SearchBar/SearchBar";
 
 function App() {
@@ -54,6 +55,9 @@ function App() {
         </Route>
         <Route path='/playlist/:playlistId' exact={true}>
           <PlaylistPage />
+        </Route>
+        <Route path='/album/:albumId' exact={true}>
+          <Albums />
         </Route>
         <Route path='/user/:userId' exact={true}>
           <UserProfilePage />

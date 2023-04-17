@@ -1,0 +1,10 @@
+#albumpageimg {
+    box-shadow: 5px 5px 12px 5px black;
+    margin-top: -15px;
+}
+
+.song-album-container:hover {
+    background-color: gray;
+}
+
+
