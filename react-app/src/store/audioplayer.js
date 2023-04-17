@@ -2,6 +2,7 @@ const ADD_SONG = "audioplayer/addSong"
 const NEXT_SONG = "audioplayer/nextSong"
 const ADD_PLAYLIST = "audioplayer/addPlaylist"
 const SKIP_SONG = "audioplayer/skipSong"
+const ADD_ALBUM = "audioplayer/addAlbum"
 const ADD_SONGS_LIKED = "audioplayer/addLikes"
 
 const addSongAction = (song) => ({
@@ -21,6 +22,11 @@ const addPlaylistAction = (playlist) => ({
 
 const skipSongAction = () => ({
     type: SKIP_SONG
+})
+
+const addAlbumAction = (album) => ({
+    type: ADD_ALBUM,
+    album
 })
 
 const addSongsLikedAction = (likes) => ({
@@ -63,6 +69,16 @@ export const skipSong = () => async (dispatch) => {
     dispatch(skipSongAction())
 }
 
+export const addAlbum = (id) => async (dispatch) => {
+    const response = await fetch(`/api/albums/${id}/`)
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(addAlbumAction(data))
+        return data
+    }
+    return response
+}
+
 export const addLikes = (userId) => async (dispatch) => {
     const response = await fetch(`/api/users/${userId}/likesof_song`)
     if (response.ok){
@@ -95,6 +111,8 @@ export default function audioPlayerReducer(state = initalState, action) {
             } else {
                 return { current_song: [state.queue[0]], queue: [...state.queue.slice(1)] }
             }
+        case ADD_ALBUM:
+            return { ...state, current_song: [action.album.Songs[0]], queue: [...action.album.Songs.slice(1)] }
         case ADD_SONGS_LIKED:
             return { ...state, current_song: [action.likes[0]], queue: [...action.likes.slice(1)]}
         default:
