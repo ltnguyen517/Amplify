@@ -16,9 +16,9 @@ const AudioPlayerComponent = () => {
     const [update, setUpdate] = useState(false)
     const dispatch = useDispatch()
     const audioState = useSelector((state) => state.audioplayer)
-    console.log(audioState)
+    // console.log(audioState)
     const audioRef = useRef(new Audio(audioState?.current_song[0]?.songUrl));
-    console.log("******", audioRef)
+    // console.log("******", audioRef)
     const intervalRef = useRef();
     const isReady = useRef(false);
     const { duration } = audioRef.current;
